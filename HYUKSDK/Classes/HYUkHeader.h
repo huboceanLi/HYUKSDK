@@ -10,7 +10,7 @@
 
 #import <QMUIKit/QMUIKit.h>
 #import <YYKit/YYKit.h>
-#import "MBProgressHUD+JDragon.h"
+//#import "MBProgressHUD+JDragon.h"
 #import <HYBaseTool/HYBaseTool.h>
 
 #import "UIColor+PublicUse.h"

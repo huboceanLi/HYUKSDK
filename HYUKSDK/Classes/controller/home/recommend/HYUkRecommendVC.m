@@ -1,23 +1,17 @@
 //
-//  HYUkRankViewController.m
-//  AFNetworking
+//  HYUkRecommendVC.m
+//  HYUKSDK
 //
 //  Created by oceanMAC on 2023/4/27.
 //
 
-#import "HYUkRankViewController.h"
+#import "HYUkRecommendVC.h"
 
-@interface HYUkRankViewController ()
+@interface HYUkRecommendVC ()
 
 @end
 
-@implementation HYUkRankViewController
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.hidesBottomBarWhenPushed = NO;
-    self.tabBarController.tabBar.hidden = NO;
-}
+@implementation HYUkRecommendVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
