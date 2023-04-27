@@ -1,9 +1,9 @@
 {
   "name": "HYUKSDK",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "summary": "A short description of HYUKSDK.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/li437277219@gmail.com/HYUKSDK",
+  "homepage": "https://github.com/huboceanLi/HYUKSDK",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,11 +12,42 @@
     "li437277219@gmail.com": "li437277219@gmail.com"
   },
   "source": {
-    "git": "https://github.com/li437277219@gmail.com/HYUKSDK.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/huboceanLi/HYUKSDK.git",
+    "tag": "0.0.1"
   },
   "platforms": {
-    "ios": "10.0"
+    "ios": "11.0"
   },
-  "source_files": "HYUKSDK/Classes/**/*"
+  "requires_arc": true,
+  "swift_versions": "5.0",
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES"
+  },
+  "static_framework": true,
+  "source_files": "HYUKSDK/Classes/**/*",
+  "resources": "HYUKSDK/Resources/*",
+  "dependencies": {
+    "QMUIKit": [
+
+    ],
+    "Masonry": [
+
+    ],
+    "HYBaseTool": [
+      "~> 1.0.2"
+    ],
+    "YYKit": [
+
+    ],
+    "AFNetworking": [
+
+    ],
+    "MBProgressHUD+JDragon": [
+
+    ],
+    "JXCategoryView": [
+
+    ]
+  },
+  "swift_version": "5.0"
 }
