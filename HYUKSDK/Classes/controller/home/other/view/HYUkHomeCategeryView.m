@@ -21,6 +21,8 @@
 - (void)initSubviews {
     [super initSubviews];
     
+    self.backgroundColor = UIColor.clearColor;
+
     CGFloat leftSpace = 15;
     CGFloat space = 8;
 //    NSInteger count = 3;
@@ -93,11 +95,11 @@
     cell.name.text = self.dataArray[indexPath.row];
     
     if (self.recordIndex == indexPath.row) {
-        cell.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.1];
-        cell.name.textColor = [UIColor mainColor];
+        cell.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.1];
+        cell.name.textColor = [UIColor whiteColor];
     }else {
         cell.backgroundColor = UIColor.clearColor;
-        cell.name.textColor = [UIColor textColor33];
+        cell.name.textColor = [UIColor textColor22];
     }
 
     return cell;
@@ -107,6 +109,9 @@
 {
     self.recordIndex = indexPath.row;
     [self.collectionView reloadData];
+    
+    NSIndexPath *cuIndexPath = [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0];  //取最后一行数据
+        [self.collectionView scrollToItemAtIndexPath:cuIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
 }
 
 - (void)loadContent {

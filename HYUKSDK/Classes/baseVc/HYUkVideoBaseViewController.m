@@ -44,13 +44,21 @@
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor bgColorFF];
+    
+    [self.view addSubview:self.bgImageView];
+
+    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.view.mas_top).offset(0);
+        make.left.right.bottom.top.equalTo(self.view);
+//        make.height.mas_equalTo(SCREEN_HEIGHT/2);
+    }];
 }
 
 #pragma mark 懒加载
@@ -84,6 +92,15 @@
         [self.navBar addSubview:_navBackButton];
     }
     return _navBackButton;
+}
+
+- (UIImageView *)bgImageView {
+    if (!_bgImageView) {
+        _bgImageView = [UIImageView new];
+        _bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
+        _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _bgImageView;
 }
 
 -(void)clickedBackButton:(UIButton *)sender {

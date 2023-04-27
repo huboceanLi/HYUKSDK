@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong,nonatomic)UIView *navBar;
 @property(strong,nonatomic) UIButton *navBackButton;
 @property(strong,nonatomic) UILabel *navTitleLabel;
+@property(strong,nonatomic) UIImageView *bgImageView;
+
 
 - (void)clickedBackButton:(UIButton *)sender;
 

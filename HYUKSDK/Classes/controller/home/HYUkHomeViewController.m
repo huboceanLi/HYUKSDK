@@ -39,16 +39,9 @@
         make.width.height.mas_equalTo(40);
     }];
     
-    UIImageView *bgImageView = [UIImageView new];
-    bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
-    [self.view addSubview:bgImageView];
-    [bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top).offset(0);
-        make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(SCREEN_HEIGHT/2);
-    }];
+
     
-    [self.view bringSubviewToFront:self.navBar];
+//    [self.view bringSubviewToFront:self.navBar];
     
     __weak typeof(self) weakSelf = self;
     [self.searchBtn blockEvent:^(UIButton *button) {
@@ -61,16 +54,16 @@
     _headerView = [[JXCategoryTitleView alloc] initWithFrame:CGRectZero];
     _headerView.backgroundColor = UIColor.clearColor;
     _headerView.titles = _titleArray;
-    _headerView.titleColor = UIColor.textColor99;
-    _headerView.titleSelectedColor = UIColor.mainColor;
-    _headerView.titleSelectedFont = UIFontMediumMake(14);
+    _headerView.titleColor = UIColor.textColor22;
+    _headerView.titleSelectedColor = UIColor.whiteColor;
+    _headerView.titleSelectedFont = [UIFont boldSystemFontOfSize:16];
     _headerView.titleFont = UIFontMake(14);
     _headerView.titleColorGradientEnabled = YES;
-    _headerView.titleLabelZoomScale = 1;
+    _headerView.titleLabelZoomScale = 1.1;
     _headerView.titleLabelZoomEnabled = YES;
     _headerView.cellWidth = 60;
     _headerView.cellSpacing = 12;
-    _headerView.qmui_borderPosition = QMUIViewBorderPositionBottom;
+//    _headerView.qmui_borderPosition = QMUIViewBorderPositionBottom;
     _headerView.delegate = self;
     [self.view addSubview:_headerView];
 

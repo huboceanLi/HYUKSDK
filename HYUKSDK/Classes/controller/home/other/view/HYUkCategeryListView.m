@@ -23,6 +23,8 @@
 - (void)initSubviews {
     [super initSubviews];
     
+    self.backgroundColor = UIColor.clearColor;
+    
     self.scoreView = [HYUkHomeCategeryView new];
     [self addSubview:self.scoreView];
     

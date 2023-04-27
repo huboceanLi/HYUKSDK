@@ -24,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.dataArray = [NSMutableArray array];
-    
+    self.view.backgroundColor = UIColor.clearColor;
 //    [[HYVideoPlayTypeManager shareInstance] getPlayTypeLisy];
     
     CGFloat leftSpace = 15;
@@ -113,7 +113,7 @@
     if (kind == UICollectionElementKindSectionHeader) {
         
         UICollectionReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
-        headView.backgroundColor = UIColor.whiteColor;
+        headView.backgroundColor = UIColor.clearColor;
 //        [headView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 
         if (!self.categeryListView) {

@@ -20,7 +20,7 @@
     if (self) {
         
 //        self.backgroundColor = UIColor.clearColor;
-        self.layer.cornerRadius = 15.0;
+        self.layer.cornerRadius = 14.0;
         self.clipsToBounds = YES;
         self.layer.masksToBounds = YES;
         
