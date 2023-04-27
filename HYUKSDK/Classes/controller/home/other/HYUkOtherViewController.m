@@ -99,9 +99,9 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    HYVideoDetailViewController *vc = [HYVideoDetailViewController new];
+    HYUkDetailViewController *vc = [HYUkDetailViewController new];
 //    vc.movieModel = self.dataArray[indexPath.row];
-//    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
