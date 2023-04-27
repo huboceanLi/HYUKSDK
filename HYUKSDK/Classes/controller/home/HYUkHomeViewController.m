@@ -8,12 +8,14 @@
 #import "HYUkHomeViewController.h"
 #import "HYUkOtherViewController.h"
 #import "HYUkRecommendVC.h"
+#import "HYUkSearchViewController.h"
 
 @interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate>
 
 @property(nonatomic, strong) JXCategoryTitleView * headerView;
 @property(nonatomic, strong) JXCategoryListContainerView * containerView;
 @property(nonatomic, strong) NSArray * titleArray;
+@property (nonatomic, strong) UIButton *searchBtn;
 
 @end
 
@@ -28,12 +30,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navBar.backgroundColor = UIColor.mainColor;
+    self.navBar.backgroundColor = UIColor.clearColor;
+    
+    [self.navBar addSubview:self.searchBtn];
+    [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.navBar.mas_right).offset(-6);
+        make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
+        make.width.height.mas_equalTo(40);
+    }];
+    
+    UIImageView *bgImageView = [UIImageView new];
+    bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
+    [self.view addSubview:bgImageView];
+    [bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top).offset(0);
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(SCREEN_HEIGHT/2);
+    }];
+    
+    [self.view bringSubviewToFront:self.navBar];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.searchBtn blockEvent:^(UIButton *button) {
+        HYUkSearchViewController *vc = [HYUkSearchViewController new];
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    }];
     
     _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];
 
     _headerView = [[JXCategoryTitleView alloc] initWithFrame:CGRectZero];
-    _headerView.backgroundColor = UIColor.whiteColor;
+    _headerView.backgroundColor = UIColor.clearColor;
     _headerView.titles = _titleArray;
     _headerView.titleColor = UIColor.textColor99;
     _headerView.titleSelectedColor = UIColor.mainColor;
@@ -49,6 +75,9 @@
     [self.view addSubview:_headerView];
 
     _containerView = [[JXCategoryListContainerView alloc] initWithType:JXCategoryListContainerType_CollectionView delegate:self];
+    _containerView.listCellBackgroundColor = [UIColor clearColor];
+    _containerView.scrollView.backgroundColor = UIColor.clearColor;
+    _containerView.backgroundColor = UIColor.clearColor;
     [self.view addSubview:_containerView];
     _headerView.listContainer = _containerView;
 
@@ -79,6 +108,14 @@
 
 - (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView {
     return _titleArray.count;
+}
+
+- (UIButton *)searchBtn {
+    if (!_searchBtn) {
+        _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_searchBtn setImage:[UIImage uk_bundleImage:@"sousuo"] forState:0];
+    }
+    return _searchBtn;
 }
 
 @end

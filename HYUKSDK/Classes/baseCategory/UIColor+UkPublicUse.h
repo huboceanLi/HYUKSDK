@@ -67,8 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// #999999
 + (UIColor *)textColor99;
 
-/// #E6515D
-+ (UIColor *)textColorE6;
+/// #D3D3D3
++ (UIColor *)textColorD3;
 
 ///#FF5050
 + (UIColor *) textColorFF;

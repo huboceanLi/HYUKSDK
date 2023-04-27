@@ -81,8 +81,8 @@
     return [UIColor qmui_colorWithHexString:@"#999999"];
 }
 
-+ (UIColor *)textColorE6 {
-    return [UIColor qmui_colorWithHexString:@"#E6515D"];
++ (UIColor *)textColorD3 {
+    return [UIColor qmui_colorWithHexString:@"#D3D3D3"];
 }
 
 + (UIColor *)textColorFF {

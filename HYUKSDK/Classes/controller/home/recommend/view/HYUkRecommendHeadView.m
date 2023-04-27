@@ -9,12 +9,10 @@
 
 @implementation HYUkRecommendHeadView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)initSubviews {
+    [super initSubviews];
+    
+    self.backgroundColor = UIColor.clearColor;
 }
-*/
 
 @end
