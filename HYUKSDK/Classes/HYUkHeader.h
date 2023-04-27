@@ -14,9 +14,9 @@
 #import <HYBaseTool/HYBaseTool.h>
 #import <JXCategoryView/JXCategoryView.h>
 
-#import "UIColor+PublicUse.h"
+#import "UIColor+UkPublicUse.h"
 #import "HYUkVideoTabBarViewController.h"
-#import "UIImage+sdk_bundleImage.h"
+#import "UIImage+uk_bundleImage.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

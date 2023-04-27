@@ -1,13 +1,13 @@
 //
-//  HYVideoDetailSelectWorkView.m
+//  HYUkVideoDetailSelectWorkView.m
 //  AFNetworking
 //
 //  Created by oceanMAC on 2023/4/13.
 //
 
-#import "HYVideoDetailSelectWorkView.h"
+#import "HYUkVideoDetailSelectWorkView.h"
 
-@implementation HYVideoDetailSelectWorkView
+@implementation HYUkVideoDetailSelectWorkView
 
 - (void)initSubviews {
     [super initSubviews];

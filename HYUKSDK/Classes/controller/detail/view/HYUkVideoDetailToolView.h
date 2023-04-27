@@ -1,5 +1,5 @@
 //
-//  HYVideoDetailToolView.h
+//  HYUkVideoDetailToolView.h
 //  AFNetworking
 //
 //  Created by oceanMAC on 2023/4/13.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HYVideoDetailToolView : HYBaseView
+@interface HYUkVideoDetailToolView : HYBaseView
 
 @end
 

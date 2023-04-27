@@ -1,15 +1,15 @@
 //
-//  UIImage+sdk_bundleImage.m
+//  UIImage+uk_bundleImage.m
 //  HYVideoSDK
 //
 //  Created by oceanMAC on 2023/3/31.
 //
 
-#import "UIImage+sdk_bundleImage.h"
+#import "UIImage+uk_bundleImage.h"
 
-@implementation UIImage (sdk_bundleImage)
+@implementation UIImage (uk_bundleImage)
 
-+ (UIImage *)sdk_bundleImage:(NSString *)imageName
++ (UIImage *)uk_bundleImage:(NSString *)imageName
 {
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"HYVideoSDK" withExtension:@"bundle"];
         

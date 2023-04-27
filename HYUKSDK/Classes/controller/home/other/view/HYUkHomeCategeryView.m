@@ -1,14 +1,14 @@
 //
-//  HYHomeCategeryView.m
+//  HYUkHomeCategeryView.m
 //  HYVideoSDK
 //
 //  Created by oceanMAC on 2023/4/24.
 //
 
-#import "HYHomeCategeryView.h"
-#import "HYHomeCategeryCell.h"
+#import "HYUkHomeCategeryView.h"
+#import "HYUkHomeCategeryCell.h"
 
-@interface HYHomeCategeryView()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface HYUkHomeCategeryView()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *dataArray;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation HYHomeCategeryView
+@implementation HYUkHomeCategeryView
 
 - (void)initSubviews {
     [super initSubviews];
@@ -43,9 +43,9 @@
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.pagingEnabled = NO;
-    [_collectionView registerClass:[HYHomeCategeryCell class] forCellWithReuseIdentifier:@"cell"];
+    [_collectionView registerClass:[HYUkHomeCategeryCell class] forCellWithReuseIdentifier:@"cell"];
 
-    //    [_collectionView registerNib:[UINib nibWithNibName:@"HYVideoHomeListCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    //    [_collectionView registerNib:[UINib nibWithNibName:@"HYUkVideoHomeListCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     if (@available (iOS 11.0, *)) {
         [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
@@ -85,7 +85,7 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    HYHomeCategeryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    HYUkHomeCategeryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 //    cell.delegate = self;
 
 //    cell.data = self.dataArray[indexPath.row];

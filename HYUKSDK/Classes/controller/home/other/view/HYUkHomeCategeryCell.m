@@ -1,18 +1,18 @@
 //
-//  HYHomeCategeryCell.m
+//  HYUkHomeCategeryCell.m
 //  HYVideoSDK
 //
 //  Created by oceanMAC on 2023/4/24.
 //
 
-#import "HYHomeCategeryCell.h"
+#import "HYUkHomeCategeryCell.h"
 
-@interface HYHomeCategeryCell()
+@interface HYUkHomeCategeryCell()
 
 
 @end
 
-@implementation HYHomeCategeryCell
+@implementation HYUkHomeCategeryCell
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

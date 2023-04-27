@@ -1,5 +1,5 @@
 //
-//  HYVideoHomeListCell.h
+//  HYUkVideoHomeListCell.h
 //  CocoaAsyncSocket
 //
 //  Created by oceanMAC on 2023/4/10.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HYVideoHomeListCell : HYBaseCollectionViewCell
+@interface HYUkVideoHomeListCell : HYBaseCollectionViewCell
 
 @property (nonatomic, strong) UIImageView *headImageView;
 @property (nonatomic, strong) UILabel *name;

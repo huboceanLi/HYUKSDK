@@ -1,5 +1,5 @@
 //
-//  BaseListViewController.h
+//  HYUkBaseListViewController.h
 //  MYSaSClerk
 //
 //  Created by chong on 2019/11/16.
@@ -11,15 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class BaseListViewController;
+@class HYUkBaseListViewController;
 
 @protocol BaseListDelegate <NSObject>
 
-- (void)baseListViewController:(BaseListViewController *)viewController event:(id)event;
+- (void)HYUkBaseListViewController:(HYUkBaseListViewController *)viewController event:(id)event;
 
 @end
 
-@interface BaseListViewController : UIViewController <JXCategoryListContentViewDelegate>
+@interface HYUkBaseListViewController : UIViewController <JXCategoryListContentViewDelegate>
 
 @property (nonatomic, strong) id data;///<数据源.
 @property (nonatomic, weak) id<BaseListDelegate> delegate;

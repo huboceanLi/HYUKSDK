@@ -80,7 +80,7 @@
         _navBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _navBackButton.frame = CGRectMake(0, (IS_iPhoneX?48:24), 40, 40);
         [_navBackButton addTarget:self action:@selector(clickedBackButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_navBackButton setImage:[UIImage sdk_bundleImage:@"p_back"] forState:UIControlStateNormal];
+        [_navBackButton setImage:[UIImage uk_bundleImage:@"p_back"] forState:UIControlStateNormal];
         [self.navBar addSubview:_navBackButton];
     }
     return _navBackButton;

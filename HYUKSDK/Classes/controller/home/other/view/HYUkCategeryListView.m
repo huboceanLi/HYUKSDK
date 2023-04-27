@@ -6,15 +6,15 @@
 //
 
 #import "HYUkCategeryListView.h"
-#import "HYHomeCategeryView.h"
+#import "HYUkHomeCategeryView.h"
 
 @interface HYUkCategeryListView()
 
-@property (nonatomic, strong) HYHomeCategeryView *scoreView;
-@property (nonatomic, strong) HYHomeCategeryView *typeView;
-@property (nonatomic, strong) HYHomeCategeryView *areaView;
-@property (nonatomic, strong) HYHomeCategeryView *langView;
-@property (nonatomic, strong) HYHomeCategeryView *yearView;
+@property (nonatomic, strong) HYUkHomeCategeryView *scoreView;
+@property (nonatomic, strong) HYUkHomeCategeryView *typeView;
+@property (nonatomic, strong) HYUkHomeCategeryView *areaView;
+@property (nonatomic, strong) HYUkHomeCategeryView *langView;
+@property (nonatomic, strong) HYUkHomeCategeryView *yearView;
 
 @end
 
@@ -23,7 +23,7 @@
 - (void)initSubviews {
     [super initSubviews];
     
-    self.scoreView = [HYHomeCategeryView new];
+    self.scoreView = [HYUkHomeCategeryView new];
     [self addSubview:self.scoreView];
     
     [self.scoreView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -31,7 +31,7 @@
         make.height.mas_equalTo(40);
     }];
 
-    self.typeView = [HYHomeCategeryView new];
+    self.typeView = [HYUkHomeCategeryView new];
     [self addSubview:self.typeView];
     
     [self.typeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -40,7 +40,7 @@
         make.top.equalTo(self.scoreView.mas_bottom).offset(0);
     }];
     
-    self.areaView = [HYHomeCategeryView new];
+    self.areaView = [HYUkHomeCategeryView new];
     [self addSubview:self.areaView];
     
     [self.areaView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -49,7 +49,7 @@
         make.top.equalTo(self.typeView.mas_bottom).offset(0);
     }];
     
-    self.langView = [HYHomeCategeryView new];
+    self.langView = [HYUkHomeCategeryView new];
     [self addSubview:self.langView];
     
     [self.langView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -58,7 +58,7 @@
         make.top.equalTo(self.areaView.mas_bottom).offset(0);
     }];
     
-    self.yearView = [HYHomeCategeryView new];
+    self.yearView = [HYUkHomeCategeryView new];
     [self addSubview:self.yearView];
     
     [self.yearView mas_makeConstraints:^(MASConstraintMaker *make) {

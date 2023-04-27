@@ -1,5 +1,5 @@
 //
-//  HYHomeCategeryView.h
+//  HYUkHomeCategeryView.h
 //  HYVideoSDK
 //
 //  Created by oceanMAC on 2023/4/24.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HYHomeCategeryView : HYBaseView
+@interface HYUkHomeCategeryView : HYBaseView
 
 @end
 

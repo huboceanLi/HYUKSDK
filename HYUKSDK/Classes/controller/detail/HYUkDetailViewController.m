@@ -6,12 +6,12 @@
 //
 
 #import "HYUkDetailViewController.h"
-#import "HYVideoPlayView.h"
-#import "HYVideoDetailBriefView.h"
-#import "HYVideoDetailToolView.h"
-#import "HYVideoDetailSelectWorkView.h"
-#import "HYVideoRecommendView.h"
-#import "HYVideoBriefDetailView.h"
+#import "HYUkVideoPlayView.h"
+#import "HYUkVideoDetailBriefView.h"
+#import "HYUkVideoDetailToolView.h"
+#import "HYUkVideoDetailSelectWorkView.h"
+#import "HYUkVideoRecommendView.h"
+#import "HYUkVideoBriefDetailView.h"
 
 static CGFloat briefViewHeoght = 60.0;
 
@@ -19,13 +19,13 @@ static CGFloat briefViewHeoght = 60.0;
 
 @property(nonatomic, assign) CGFloat playViewHeight;
 @property(nonatomic, strong) UIScrollView * scrollView;
-@property(nonatomic, strong) HYVideoPlayView * playView;
-@property(nonatomic, strong) HYVideoDetailBriefView * briefView;
-@property(nonatomic, strong) HYVideoDetailToolView * toolView;
-@property(nonatomic, strong) HYVideoDetailSelectWorkView * selectWorkView;
-@property(nonatomic, strong) HYVideoRecommendView * recommendView;
+@property(nonatomic, strong) HYUkVideoPlayView * playView;
+@property(nonatomic, strong) HYUkVideoDetailBriefView * briefView;
+@property(nonatomic, strong) HYUkVideoDetailToolView * toolView;
+@property(nonatomic, strong) HYUkVideoDetailSelectWorkView * selectWorkView;
+@property(nonatomic, strong) HYUkVideoRecommendView * recommendView;
 
-@property(nonatomic, strong) HYVideoBriefDetailView * briefDetailView;
+@property(nonatomic, strong) HYUkVideoBriefDetailView * briefDetailView;
 
 @end
 
@@ -43,7 +43,7 @@ static CGFloat briefViewHeoght = 60.0;
     
     self.playViewHeight = 220 * SCREEN_WIDTH / 390 + (IS_iPhoneX ? 44 : 24);
 
-    self.playView = [HYVideoPlayView new];
+    self.playView = [HYUkVideoPlayView new];
     [self.view addSubview:self.playView];
 
     [self.playView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,7 +67,7 @@ static CGFloat briefViewHeoght = 60.0;
         make.left.right.bottom.equalTo(self.view);
     }];
     
-    self.briefView = [HYVideoDetailBriefView new];
+    self.briefView = [HYUkVideoDetailBriefView new];
     self.briefView.delegate = self;
     [self.scrollView addSubview:self.briefView];
     
@@ -78,7 +78,7 @@ static CGFloat briefViewHeoght = 60.0;
         make.height.mas_offset(briefViewHeoght);
     }];
     
-    self.toolView = [HYVideoDetailToolView new];
+    self.toolView = [HYUkVideoDetailToolView new];
     [self.scrollView addSubview:self.toolView];
     
     [self.toolView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -88,10 +88,10 @@ static CGFloat briefViewHeoght = 60.0;
         make.height.mas_offset(70);
     }];
 
-    self.selectWorkView = [HYVideoDetailSelectWorkView new];
+    self.selectWorkView = [HYUkVideoDetailSelectWorkView new];
     [self.scrollView addSubview:self.selectWorkView];
     
-    self.recommendView = [HYVideoRecommendView new];
+    self.recommendView = [HYUkVideoRecommendView new];
     self.recommendView.delegate = self;
     [self.scrollView addSubview:self.recommendView];
 
@@ -100,7 +100,7 @@ static CGFloat briefViewHeoght = 60.0;
 
 - (void)customView:(HYBaseView *)view event:(id)event
 {
-    if ([view isKindOfClass:[HYVideoDetailBriefView class]]) {
+    if ([view isKindOfClass:[HYUkVideoDetailBriefView class]]) {
         self.briefDetailView.hidden = NO;
         self.briefDetailView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
         [UIView animateWithDuration:0.2 animations:^{
@@ -109,7 +109,7 @@ static CGFloat briefViewHeoght = 60.0;
         return;
     }
     
-    if ([view isKindOfClass:[HYVideoBriefDetailView class]]) {
+    if ([view isKindOfClass:[HYUkVideoBriefDetailView class]]) {
         [UIView animateWithDuration:0.2 animations:^{
             self.briefDetailView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
         } completion:^(BOOL finished) {
@@ -118,7 +118,7 @@ static CGFloat briefViewHeoght = 60.0;
         return;
     }
     
-    if ([view isKindOfClass:[HYVideoRecommendView class]]) {
+    if ([view isKindOfClass:[HYUkVideoRecommendView class]]) {
 //        HYMovieListItemModel *model = event;
 //
 //        HYWebVideoViewController *vc = [HYWebVideoViewController new];

@@ -1,5 +1,5 @@
 //
-//  HYHomeCategeryCell.h
+//  HYUkHomeCategeryCell.h
 //  HYVideoSDK
 //
 //  Created by oceanMAC on 2023/4/24.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HYHomeCategeryCell : HYBaseCollectionViewCell
+@interface HYUkHomeCategeryCell : HYBaseCollectionViewCell
 
 @property (nonatomic, strong) UILabel *name;
 

@@ -1,5 +1,5 @@
 //
-//  UIColor+PublicUse.h
+//  UIColor+UkPublicUse.h
 //  MYSaSClerk
 //
 //  Created by chong on 2019/11/16.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIColor (PublicUse)
+@interface UIColor (UkPublicUse)
 
 /*
  * 主题色 1EB89C

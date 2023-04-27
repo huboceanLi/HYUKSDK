@@ -1,13 +1,13 @@
 //
-//  HYVideoBriefDetailView.m
+//  HYUkVideoBriefDetailView.m
 //  HYVideoSDK
 //
 //  Created by oceanMAC on 2023/4/13.
 //
 
-#import "HYVideoBriefDetailView.h"
+#import "HYUkVideoBriefDetailView.h"
 
-@interface HYVideoBriefDetailView()
+@interface HYUkVideoBriefDetailView()
 
 @property(nonatomic, strong) UIScrollView * scrollView;
 
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation HYVideoBriefDetailView
+@implementation HYUkVideoBriefDetailView
 
 - (void)initSubviews {
     [super initSubviews];
@@ -26,7 +26,7 @@
     self.backgroundColor = UIColor.whiteColor;
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeBtn setImage:[UIImage sdk_bundleImage:@"guanbi"] forState:0];
+    [closeBtn setImage:[UIImage uk_bundleImage:@"guanbi"] forState:0];
     [self addSubview:closeBtn];
     [closeBtn addTarget:self action:@selector(closeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     

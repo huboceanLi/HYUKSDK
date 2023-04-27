@@ -11,7 +11,7 @@
 #import "HYUkRankViewController.h"
 #import "HYUkCenterViewController.h"
 #import "HYUkHeader.h"
-#import "UIImage+sdk_bundleImage.h"
+#import "UIImage+uk_bundleImage.h"
 
 
 @interface HYUkVideoTabBarViewController ()
@@ -28,18 +28,18 @@
     [[UITabBar appearance] setTranslucent:YES];
     
     HYUkHomeViewController *VC1 = [[HYUkHomeViewController alloc] init];
-    [VC1.tabBarItem setImage:[[UIImage sdk_bundleImage:@"ai2351"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [VC1.tabBarItem setSelectedImage:[[UIImage sdk_bundleImage:@"ai235"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [VC1.tabBarItem setImage:[[UIImage uk_bundleImage:@"ai2351"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [VC1.tabBarItem setSelectedImage:[[UIImage uk_bundleImage:@"ai235"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     VC1.tabBarItem.title = @"视频";
 
     HYUkRankViewController *VC2 = [[HYUkRankViewController alloc] init];
-    [VC2.tabBarItem setImage:[[UIImage sdk_bundleImage:@"wodefill1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [VC2.tabBarItem setSelectedImage:[[UIImage sdk_bundleImage:@"wodefill"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [VC2.tabBarItem setImage:[[UIImage uk_bundleImage:@"wodefill1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [VC2.tabBarItem setSelectedImage:[[UIImage uk_bundleImage:@"wodefill"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     VC2.tabBarItem.title = @"排行";
     
     HYUkCenterViewController *VC3 = [[HYUkCenterViewController alloc] init];
-    [VC3.tabBarItem setImage:[[UIImage sdk_bundleImage:@"wodefill1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [VC3.tabBarItem setSelectedImage:[[UIImage sdk_bundleImage:@"wodefill"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [VC3.tabBarItem setImage:[[UIImage uk_bundleImage:@"wodefill1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [VC3.tabBarItem setSelectedImage:[[UIImage uk_bundleImage:@"wodefill"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     VC3.tabBarItem.title = @"我的";
 
     

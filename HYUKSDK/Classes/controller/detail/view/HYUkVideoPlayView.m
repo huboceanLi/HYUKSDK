@@ -1,11 +1,11 @@
 //
-//  HYVideoPlayView.m
+//  HYUkVideoPlayView.m
 //  HYVideoSDK
 //
 //  Created by oceanMAC on 2023/4/14.
 //
 
-#import "HYVideoPlayView.h"
+#import "HYUkVideoPlayView.h"
 
 #import "SJVideoPlayer.h"
 #import "SJAVMediaPlaybackController.h"
@@ -19,13 +19,13 @@
 
 static NSString *const DEMO_URL_HLS = @"https://cache.we-vip.com:2096/search/index.m3u8?data=NwmwEe5eNbjbU3YjM1YzU3MzQ3ZTE3OTA4NjY3M2Q4OThlZjQO0O0O";
 
-@interface HYVideoPlayView()
+@interface HYUkVideoPlayView()
 
 @property (nonatomic, strong, nullable) SJVideoPlayer *player;
 
 @end
 
-@implementation HYVideoPlayView
+@implementation HYUkVideoPlayView
 
 - (void)initSubviews {
     [super initSubviews];

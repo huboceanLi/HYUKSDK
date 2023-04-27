@@ -1,5 +1,5 @@
 //
-//  UIImage+sdk_bundleImage.h
+//  UIImage+uk_bundleImage.h
 //  HYVideoSDK
 //
 //  Created by oceanMAC on 2023/3/31.
@@ -9,9 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImage (sdk_bundleImage)
+@interface UIImage (uk_bundleImage)
 
-+ (UIImage *)sdk_bundleImage:(NSString *)imageName;
++ (UIImage *)uk_bundleImage:(NSString *)imageName;
 
 @end
 

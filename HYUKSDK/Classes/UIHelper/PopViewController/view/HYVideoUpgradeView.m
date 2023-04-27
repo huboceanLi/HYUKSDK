@@ -25,7 +25,7 @@
     self.backgroundColor = UIColor.clearColor;
 
     
-    UIImage *img = [UIImage sdk_bundleImage:@"bg_gengxin"];
+    UIImage *img = [UIImage uk_bundleImage:@"bg_gengxin"];
     UIImageView *bgImageView = [UIImageView new];
     bgImageView.image = img;
     [self addSubview:bgImageView];

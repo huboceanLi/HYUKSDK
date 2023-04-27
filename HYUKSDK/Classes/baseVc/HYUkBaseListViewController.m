@@ -1,18 +1,18 @@
 //
-//  BaseListViewController.m
+//  HYUkBaseListViewController.m
 //  MYSaSClerk
 //
 //  Created by chong on 2019/11/16.
 //  Copyright © 2019 chong. All rights reserved.
 //
 
-#import "BaseListViewController.h"
+#import "HYUkBaseListViewController.h"
 
-@interface BaseListViewController ()
+@interface HYUkBaseListViewController ()
 
 @end
 
-@implementation BaseListViewController
+@implementation HYUkBaseListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

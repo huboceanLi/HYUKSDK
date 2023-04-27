@@ -1,13 +1,13 @@
 //
-//  HYVideoDetailBriefView.m
+//  HYUkVideoDetailBriefView.m
 //  AFNetworking
 //
 //  Created by oceanMAC on 2023/4/13.
 //
 
-#import "HYVideoDetailBriefView.h"
+#import "HYUkVideoDetailBriefView.h"
 
-@interface HYVideoDetailBriefView()
+@interface HYUkVideoDetailBriefView()
 
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UILabel *des;
@@ -15,7 +15,7 @@
 
 @end
 
-@implementation HYVideoDetailBriefView
+@implementation HYUkVideoDetailBriefView
 
 - (void)initSubviews {
     [super initSubviews];
@@ -38,7 +38,7 @@
     [self.moreBtn setTitle:@"简介" forState:0];
     [self.moreBtn setTitleColor:UIColor.textColor99 forState:0];
     self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self.moreBtn setImage:[UIImage sdk_bundleImage:@"jinrujiantou"] forState:0];
+    [self.moreBtn setImage:[UIImage uk_bundleImage:@"jinrujiantou"] forState:0];
     [self.moreBtn setImagePosition:QMUIButtonImagePositionRight];
     self.moreBtn.spacingBetweenImageAndTitle = 0;
     [self addSubview:self.moreBtn];

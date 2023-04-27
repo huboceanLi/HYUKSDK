@@ -7,7 +7,7 @@
 
 #import "HYUkOtherViewController.h"
 #import "HYUkDetailViewController.h"
-#import "HYVideoHomeListCell.h"
+#import "HYUkVideoHomeListCell.h"
 #import "HYUkCategeryListView.h"
 
 @interface HYUkOtherViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -52,9 +52,9 @@
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.pagingEnabled = NO;
     [_collectionView setContentInset:UIEdgeInsetsMake(0, 0, (IS_iPhoneX ? 34 : 0), 0)];
-    [_collectionView registerClass:[HYVideoHomeListCell class] forCellWithReuseIdentifier:@"cell"];
+    [_collectionView registerClass:[HYUkVideoHomeListCell class] forCellWithReuseIdentifier:@"cell"];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
-    //    [_collectionView registerNib:[UINib nibWithNibName:@"HYVideoHomeListCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    //    [_collectionView registerNib:[UINib nibWithNibName:@"HYUkVideoHomeListCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     if (@available (iOS 11.0, *)) {
         [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
@@ -83,7 +83,7 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    HYVideoHomeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    HYUkVideoHomeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 //    cell.delegate = self;
 //
 //    cell.data =

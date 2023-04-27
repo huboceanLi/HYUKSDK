@@ -1,19 +1,19 @@
 //
-//  HYVideoHomeListCell.m
+//  HYUkVideoHomeListCell.m
 //  CocoaAsyncSocket
 //
 //  Created by oceanMAC on 2023/4/10.
 //
 
-#import "HYVideoHomeListCell.h"
+#import "HYUkVideoHomeListCell.h"
 
-@interface HYVideoHomeListCell()
+@interface HYUkVideoHomeListCell()
 
 
 
 @end
 
-@implementation HYVideoHomeListCell
+@implementation HYUkVideoHomeListCell
 
 
 - (instancetype)initWithFrame:(CGRect)frame

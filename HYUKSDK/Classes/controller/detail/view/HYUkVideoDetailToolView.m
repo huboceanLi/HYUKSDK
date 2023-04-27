@@ -1,13 +1,13 @@
 //
-//  HYVideoDetailToolView.m
+//  HYUkVideoDetailToolView.m
 //  AFNetworking
 //
 //  Created by oceanMAC on 2023/4/13.
 //
 
-#import "HYVideoDetailToolView.h"
+#import "HYUkVideoDetailToolView.h"
 
-@interface HYVideoDetailToolView()
+@interface HYUkVideoDetailToolView()
 
 //@property (nonatomic, strong) QMUIButton *changeBtn;
 @property (nonatomic, strong) QMUIButton *downBtn;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation HYVideoDetailToolView
+@implementation HYUkVideoDetailToolView
 
 - (void)initSubviews {
     [super initSubviews];
@@ -27,7 +27,7 @@
 //    [self.changeBtn setTitle:@"换源" forState:0];
 //    [self.changeBtn setTitleColor:UIColor.textColor22 forState:0];
 //    self.changeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-//    [self.changeBtn setImage:[UIImage sdk_bundleImage:@"qiehuanyonghu"] forState:0];
+//    [self.changeBtn setImage:[UIImage uk_bundleImage:@"qiehuanyonghu"] forState:0];
 //    [self.changeBtn setImagePosition:QMUIButtonImagePositionTop];
 //    self.changeBtn.spacingBetweenImageAndTitle = 10;
 //    self.changeBtn.tag = 1;
@@ -38,7 +38,7 @@
     [self.downBtn setTitle:@"下载" forState:0];
     [self.downBtn setTitleColor:UIColor.textColor22 forState:0];
     self.downBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self.downBtn setImage:[UIImage sdk_bundleImage:@"xiazai"] forState:0];
+    [self.downBtn setImage:[UIImage uk_bundleImage:@"xiazai"] forState:0];
     [self.downBtn setImagePosition:QMUIButtonImagePositionTop];
     self.downBtn.spacingBetweenImageAndTitle = 10;
     self.downBtn.tag = 2;
@@ -49,7 +49,7 @@
     [self.likeBtn setTitle:@"收藏" forState:0];
     [self.likeBtn setTitleColor:UIColor.textColor22 forState:0];
     self.likeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self.likeBtn setImage:[UIImage sdk_bundleImage:@"shoucang"] forState:0];
+    [self.likeBtn setImage:[UIImage uk_bundleImage:@"shoucang"] forState:0];
     [self.likeBtn setImagePosition:QMUIButtonImagePositionTop];
     self.likeBtn.spacingBetweenImageAndTitle = 10;
     self.likeBtn.tag = 3;
@@ -60,7 +60,7 @@
     [self.shareBtn setTitle:@"分享" forState:0];
     [self.shareBtn setTitleColor:UIColor.textColor22 forState:0];
     self.shareBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self.shareBtn setImage:[UIImage sdk_bundleImage:@"fenxiang"] forState:0];
+    [self.shareBtn setImage:[UIImage uk_bundleImage:@"fenxiang"] forState:0];
     [self.shareBtn setImagePosition:QMUIButtonImagePositionTop];
     self.shareBtn.spacingBetweenImageAndTitle = 10;
     self.shareBtn.tag = 4;

@@ -1,19 +1,19 @@
 //
-//  HYVideoRecommendView.m
+//  HYUkVideoRecommendView.m
 //  AFNetworking
 //
 //  Created by oceanMAC on 2023/4/13.
 //
 
-#import "HYVideoRecommendView.h"
+#import "HYUkVideoRecommendView.h"
 
-@interface HYVideoRecommendView()
+@interface HYUkVideoRecommendView()
 
 @property (nonatomic, strong) UILabel *name;
 
 @end
 
-@implementation HYVideoRecommendView
+@implementation HYUkVideoRecommendView
 
 - (void)initSubviews {
     [super initSubviews];

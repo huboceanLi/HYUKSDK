@@ -1,14 +1,14 @@
 //
-//  UIColor+PublicUse.m
+//  UIColor+UkPublicUse.m
 //  MYSaSClerk
 //
 //  Created by chong on 2019/11/16.
 //  Copyright © 2019 chong. All rights reserved.
 //
 
-#import "UIColor+PublicUse.h"
+#import "UIColor+UkPublicUse.h"
 
-@implementation UIColor (PublicUse)
+@implementation UIColor (UkPublicUse)
 
 + (UIColor *)mainColor
 {
