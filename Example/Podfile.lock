@@ -1,0 +1,16 @@
+PODS:
+  - HYUKSDK (0.1.0)
+
+DEPENDENCIES:
+  - HYUKSDK (from `../`)
+
+EXTERNAL SOURCES:
+  HYUKSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  HYUKSDK: 52f5ddc3b18d9f02863e7b71ed13d046daf16b65
+
+PODFILE CHECKSUM: b9d13caeaeaedd05ffa9fc04ccd6d0d170be7c4b
+
+COCOAPODS: 1.11.2

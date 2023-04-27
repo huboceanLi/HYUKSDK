@@ -1,0 +1,6 @@
+framework module HYUKSDK {
+  umbrella header "HYUKSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
