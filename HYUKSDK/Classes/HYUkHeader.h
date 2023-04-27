@@ -12,6 +12,7 @@
 #import <YYKit/YYKit.h>
 //#import "MBProgressHUD+JDragon.h"
 #import <HYBaseTool/HYBaseTool.h>
+#import <JXCategoryView/JXCategoryView.h>
 
 #import "UIColor+PublicUse.h"
 #import "HYUkVideoTabBarViewController.h"
