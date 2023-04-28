@@ -12,7 +12,7 @@
 
 + (UIColor *)mainColor
 {
-    return [UIColor qmui_colorWithHexString:@"#08CADE"];
+    return [UIColor qmui_colorWithHexString:@"#8FB5EF"];
 }
 
 + (UIColor *)bgColor {
