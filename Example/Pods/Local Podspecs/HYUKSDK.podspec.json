@@ -47,6 +47,9 @@
     ],
     "JXCategoryView": [
 
+    ],
+    "HYUKApiSdk": [
+      "~> 0.0.1"
     ]
   },
   "swift_version": "5.0"

@@ -4,6 +4,7 @@ platform :ios, '11.0'
 
 target 'HYUKSDK_Example' do
   pod 'HYUKSDK', :path => '../'
+#  pod 'HYUKApiSdk',:git =>"https://github.com/huboceanLi/HYUKApiSdk.git"
 
   target 'HYUKSDK_Tests' do
     inherit! :search_paths

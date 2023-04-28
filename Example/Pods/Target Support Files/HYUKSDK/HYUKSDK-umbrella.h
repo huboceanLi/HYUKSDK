@@ -35,6 +35,7 @@
 #import "HYUkRankViewController.h"
 #import "HYUkRankViewCell.h"
 #import "HYUkSearchViewController.h"
+#import "HYUkHistoryHeadView.h"
 #import "HYUkHistoryView.h"
 #import "HYUkSearchHeadView.h"
 #import "HYUkSearchListView.h"

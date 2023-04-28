@@ -51,4 +51,10 @@ TODO: Add long description of the pod here.
   s.dependency "AFNetworking"
   s.dependency "MBProgressHUD+JDragon"
   s.dependency "JXCategoryView"
+  s.dependency "HYUKApiSdk", '~> 0.0.1'
+  
+#  pod 'BuzzMsg', '1.6.0.1'
+
+  #  pod 'HYUKApiSdk',:git =>"https://github.com/huboceanLi/HYUKApiSdk.git"
+
 end

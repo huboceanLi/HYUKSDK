@@ -9,12 +9,17 @@
 #import "HYUkSearchHeadView.h"
 #import "HYUkSearchListView.h"
 #import "HYUkHistoryView.h"
+#import "HYUkHeader.h"
+#import <HYUKApiSdk/HYUKApiHeader.h>
 
 @interface HYUkSearchViewController ()<HYBaseViewDelegate>
 
 @property (nonatomic, strong) HYUkSearchHeadView *searchHeadView;
 @property (nonatomic, strong) HYUkSearchListView *searchListView;
 @property (nonatomic, strong) HYUkHistoryView *historyView;
+
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, copy) NSString *keyWords;
 
 @end
 
@@ -97,7 +102,13 @@
             self.historyView.hidden = NO;
             self.searchListView.hidden = YES;
         }else {
-            NSLog(@"开始搜索了");
+            if (![self.keyWords isEqualToString:dic[@"key"]]) {
+                self.keyWords = dic[@"key"];
+                self.page = 0;
+                [self searchApi];
+                NSLog(@"开始搜索了");
+            }
+
 //            NSString *url = [NSString stringWithFormat:@"%@?search_text=%@&cat=1002",API_DouBan_Search_List,dic[@"key"]];
 //            NSString *encodedString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //            [self.tempWebView getVideoUrl:encodedString];
@@ -112,6 +123,12 @@
 
     }
     
+}
+
+- (void)searchApi {
+    HYRequestSearchModel *searchModel = [HYRequestSearchModel new];
+    searchModel.page = self.page;
+    searchModel.keyWords = self.keyWords;
 }
 
 @end

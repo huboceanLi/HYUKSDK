@@ -17,9 +17,12 @@ PODS:
   - HYBaseTool (1.0.2):
     - Masonry
     - QMUIKit
+  - HYUKApiSdk (0.0.1):
+    - AFNetworking
   - HYUKSDK (0.0.1):
     - AFNetworking
     - HYBaseTool (~> 1.0.2)
+    - HYUKApiSdk (~> 0.0.1)
     - JXCategoryView
     - Masonry
     - "MBProgressHUD+JDragon"
@@ -352,6 +355,7 @@ SPEC REPOS:
   trunk:
     - AFNetworking
     - HYBaseTool
+    - HYUKApiSdk
     - JXCategoryView
     - Masonry
     - MBProgressHUD
@@ -366,7 +370,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   HYBaseTool: df77c5b137a4069be0f71fa90cd3c287fbe2caa7
-  HYUKSDK: ef91aa3fff1da48a6c89b21ddd6c842baf015a15
+  HYUKApiSdk: 9b3f9675942826e35a692e660e018c72dfcfa1c6
+  HYUKSDK: fd863c423f8c553928f1c7ff67b2819aa55f9311
   JXCategoryView: 7b1ee69ede4843c581688afe84d0f047723262f2
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
@@ -374,6 +379,6 @@ SPEC CHECKSUMS:
   QMUIKit: 67888be9aa0ee0b12b8a219fcea2eec900afd841
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 3b8a97ccc3c1a52e7fc72e28d30327bf5ff4d129
+PODFILE CHECKSUM: 0796612965a231da39a1da1609e6384929dafa2c
 
 COCOAPODS: 1.11.2
