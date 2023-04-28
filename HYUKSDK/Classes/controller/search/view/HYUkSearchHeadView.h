@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//typedef NS_ENUM(NSUInteger, SearchStatus) {
+//    editing = 0,       //
+//    isBack ,    //
+//    isSearch,
+//};
+
 @interface HYUkSearchHeadView : HYBaseView
 
 @property (nonatomic, strong) QMUITextField *textField;

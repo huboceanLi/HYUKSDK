@@ -11,7 +11,6 @@
 
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIView *searchContentView;
-@property (nonatomic, assign) BOOL isBack;
 
 @end
 
@@ -20,7 +19,6 @@
 - (void)initSubviews {
     [super initSubviews];
     self.backgroundColor = UIColor.clearColor;
-    self.isBack = YES;
     
     self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.searchBtn setTitle:@"取消" forState:0];
@@ -78,10 +76,7 @@
         NSString *toString = [weakSelf.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
         if (toString.length > 0) {
-            weakSelf.isBack = NO;
             [weakSelf.textField resignFirstResponder];
-        }else {
-            weakSelf.isBack = YES;
         }
         [weakSelf startSearch:toString];
     }];
@@ -93,11 +88,10 @@
     NSString *toString = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
     if (toString.length > 0) {
-        self.isBack = NO;
         [textField resignFirstResponder];
-        [self startSearch:toString];
     }
-    
+    [self startSearch:toString];
+
     return YES;
 }
 
@@ -110,18 +104,24 @@
     if (toString.length > 0) {
         [self.searchBtn setTitle:@"搜索" forState:0];
         [self.searchBtn setTitleColor:UIColor.mainColor forState:0];
-        self.isBack = NO;
     }else {
         [self.searchBtn setTitle:@"取消" forState:0];
         [self.searchBtn setTitleColor:UIColor.textColor99 forState:0];
-        self.isBack = YES;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:@{@"isBack":@(2),@"key":@""}];
     }
     return YES;
 }
 
 - (void)startSearch:(NSString *)key {
+    BOOL isBack = NO;
+    if (key.length == 0) {
+        isBack = YES;
+    }
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@{@"isBack":@(self.isBack),@"key":key}];
+        [self.delegate customView:self event:@{@"isBack":@(isBack),@"key":key}];
     }
 }
 @end

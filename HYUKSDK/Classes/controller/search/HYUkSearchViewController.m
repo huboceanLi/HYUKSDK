@@ -91,7 +91,11 @@
     if ([view isKindOfClass:[HYUkSearchHeadView class]]) {
         NSDictionary *dic = event;
         if ([dic[@"isBack"] integerValue] == 1) {
+            [self.view endEditing:YES];
             [self.navigationController popViewControllerAnimated:YES];
+        }else if ([dic[@"isBack"] integerValue] == 2) {
+            self.historyView.hidden = NO;
+            self.searchListView.hidden = YES;
         }else {
             NSLog(@"开始搜索了");
 //            NSString *url = [NSString stringWithFormat:@"%@?search_text=%@&cat=1002",API_DouBan_Search_List,dic[@"key"]];
@@ -100,6 +104,14 @@
         }
         return;
     }
+    
+    if ([view isKindOfClass:[HYUkHistoryView class]]) {
+        [self.view endEditing:YES];
+        self.historyView.hidden = YES;
+        self.searchListView.hidden = NO;
+
+    }
+    
 }
 
 @end
