@@ -48,7 +48,7 @@ TODO: Add long description of the pod here.
   s.dependency "Masonry"
   s.dependency "HYBaseTool", '~> 1.0.2'
   s.dependency "YYKit"
-  s.dependency "AFNetworking"
+#  s.dependency "AFNetworking"
   s.dependency "MBProgressHUD+JDragon"
   s.dependency "JXCategoryView"
   s.dependency "HYUKApiSdk", '~> 0.0.1'
