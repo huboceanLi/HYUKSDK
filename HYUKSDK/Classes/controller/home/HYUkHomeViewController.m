@@ -9,13 +9,14 @@
 #import "HYUkOtherViewController.h"
 #import "HYUkRecommendVC.h"
 #import "HYUkSearchViewController.h"
+#import "HYUkHomeSearchView.h"
 
-@interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate>
+@interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate>
 
 @property(nonatomic, strong) JXCategoryTitleView * headerView;
 @property(nonatomic, strong) JXCategoryListContainerView * containerView;
 @property(nonatomic, strong) NSArray * titleArray;
-@property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) HYUkHomeSearchView *searchView;
 
 @end
 
@@ -31,22 +32,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navBar.backgroundColor = UIColor.clearColor;
+    self.bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
     
-    [self.navBar addSubview:self.searchBtn];
-    [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.navBar.mas_right).offset(-6);
+    [self.navBar addSubview:self.searchView];
+    [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.navBar.mas_left).offset(16);
+        make.right.equalTo(self.navBar.mas_right).offset(-90);
         make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
-        make.width.height.mas_equalTo(40);
-    }];
-    
-
-    
-//    [self.view bringSubviewToFront:self.navBar];
-    
-    __weak typeof(self) weakSelf = self;
-    [self.searchBtn blockEvent:^(UIButton *button) {
-        HYUkSearchViewController *vc = [HYUkSearchViewController new];
-        [weakSelf.navigationController pushViewController:vc animated:YES];
+        make.height.mas_equalTo(40);
     }];
     
     _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];
@@ -103,12 +96,19 @@
     return _titleArray.count;
 }
 
-- (UIButton *)searchBtn {
-    if (!_searchBtn) {
-        _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_searchBtn setImage:[UIImage uk_bundleImage:@"sousuo"] forState:0];
+- (HYUkHomeSearchView *)searchView {
+    if (!_searchView) {
+        _searchView = [HYUkHomeSearchView new];
+        _searchView.delegate = self;
     }
-    return _searchBtn;
+    return _searchView;
+}
+
+- (void)customView:(HYBaseView *)view event:(id)event{
+    if ([view isKindOfClass:[HYUkHomeSearchView class]]) {
+        HYUkSearchViewController *vc = [HYUkSearchViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

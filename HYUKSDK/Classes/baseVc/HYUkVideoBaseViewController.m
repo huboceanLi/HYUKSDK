@@ -52,13 +52,11 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor bgColorFF];
     
-    [self.view addSubview:self.bgImageView];
+//    [self.view addSubview:self.bgImageView];
 
-    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.view.mas_top).offset(0);
-        make.left.right.bottom.top.equalTo(self.view);
-//        make.height.mas_equalTo(SCREEN_HEIGHT/2);
-    }];
+//    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.bottom.top.equalTo(self.view);
+//    }];
 }
 
 #pragma mark 懒加载
@@ -96,9 +94,11 @@
 
 - (UIImageView *)bgImageView {
     if (!_bgImageView) {
-        _bgImageView = [UIImageView new];
+        _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
         _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.view addSubview:self.bgImageView];
+        [self.view sendSubviewToBack:self.bgImageView];
     }
     return _bgImageView;
 }

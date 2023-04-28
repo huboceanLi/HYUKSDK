@@ -27,6 +27,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIColor.bgColor;
     self.navBar.backgroundColor = UIColor.clearColor;
+    self.bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
     self.navTitleLabel.text = @"排行榜";
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];

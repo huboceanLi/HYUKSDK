@@ -80,8 +80,10 @@
         if (toString.length > 0) {
             weakSelf.isBack = NO;
             [weakSelf.textField resignFirstResponder];
-            [weakSelf startSearch:toString];
+        }else {
+            weakSelf.isBack = YES;
         }
+        [weakSelf startSearch:toString];
     }];
 }
 

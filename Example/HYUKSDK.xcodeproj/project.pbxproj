@@ -65,7 +65,7 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AD64BDCEBCD561E13643EBFD /* Pods-HYUKSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HYUKSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-HYUKSDK_Example/Pods-HYUKSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B0355AD5C810F2B07AF3065F /* Pods-HYUKSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HYUKSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-HYUKSDK_Example/Pods-HYUKSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
-		C22C011AF33BF25E9AF8CE47 /* HYUKSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = HYUKSDK.podspec; path = ../HYUKSDK.podspec; sourceTree = "<group>"; };
+		C22C011AF33BF25E9AF8CE47 /* HYUKSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = HYUKSDK.podspec; path = ../HYUKSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D25009EF87DBB3EAA956543D /* Pods_HYUKSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HYUKSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -248,6 +248,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "li437277219@gmail.com";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = V6VQ8W355L;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -529,6 +532,7 @@
 			baseConfigurationReference = AD64BDCEBCD561E13643EBFD /* Pods-HYUKSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V6VQ8W355L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HYUKSDK/HYUKSDK-Prefix.pch";
 				INFOPLIST_FILE = "HYUKSDK/HYUKSDK-Info.plist";
@@ -546,6 +550,7 @@
 			baseConfigurationReference = B0355AD5C810F2B07AF3065F /* Pods-HYUKSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V6VQ8W355L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HYUKSDK/HYUKSDK-Prefix.pch";
 				INFOPLIST_FILE = "HYUKSDK/HYUKSDK-Info.plist";
