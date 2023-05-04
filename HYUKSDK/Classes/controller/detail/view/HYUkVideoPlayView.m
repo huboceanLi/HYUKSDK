@@ -17,7 +17,9 @@
 #import "MCSPrefetcherManager.h"
 #import "MCSDownload.h"
 
-static NSString *const DEMO_URL_HLS = @"https://cache.we-vip.com:2096/search/index.m3u8?data=NwmwEe5eNbjbU3YjM1YzU3MzQ3ZTE3OTA4NjY3M2Q4OThlZjQO0O0O";
+static NSString *const DEMO_URL_HLS = @"https://ukzy.ukubf3.com/20220729/Dv07GYBT/index.m3u8";
+
+//static NSString *const DEMO_URL_HLS = @"https://cache.we-vip.com:2096/search/index.m3u8?data=NwmwEe5eNbjbU3YjM1YzU3MzQ3ZTE3OTA4NjY3M2Q4OThlZjQO0O0O";
 
 @interface HYUkVideoPlayView()
 
@@ -62,9 +64,9 @@ static NSString *const DEMO_URL_HLS = @"https://cache.we-vip.com:2096/search/ind
 - (void)_play:(NSURL *)URL {
 //    URL = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"com.SJMediaCacheServer.cache/87d5ff79f295648c071555a12fb412cc/file_0_0.mp4"]];
     
-//    NSURL *playbackURL = [SJMediaCacheServer.shared playbackURLWithURL:URL];
+    NSURL *playbackURL = [SJMediaCacheServer.shared playbackURLWithURL:URL];
 //    // play
-//    _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:0];
+    _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:0];
 }
 
 @end

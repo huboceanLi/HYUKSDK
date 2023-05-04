@@ -39,6 +39,7 @@
     self.name = [UILabel new];
     self.name.font = [UIFont boldSystemFontOfSize:18];
     self.name.textColor = UIColor.textColor22;
+    self.name.text = @"测试";
     [self addSubview:self.name];
 
     [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,6 +68,7 @@
     self.des = [UILabel new];
     self.des.font = [UIFont systemFontOfSize:13];
     self.des.numberOfLines = 0;
+    self.des.text = @"未来属于青年，希望寄予青年。长期以来，习近平总书记始终关心青年成长成才、谋划青年工作发展进步。言之谆谆、期望殷殷，激励着广大青年不负时代、不负韶华，在青春的赛道上奋力奔跑。";
     self.des.textColor = UIColor.textColor99;
     [self.scrollView addSubview:self.des];
 
@@ -103,6 +105,7 @@
     self.briefLab = [UILabel new];
     self.briefLab.font = [UIFont systemFontOfSize:13];
     self.briefLab.numberOfLines = 0;
+    self.briefLab.text = @"在中国人民大学的图书馆里，有一张特殊的老照片，照片里的青年们一张张神采飞扬的面孔，讲述着一段青春故事。";
     self.briefLab.textColor = UIColor.textColor99;
     [self.scrollView addSubview:self.briefLab];
 

@@ -91,11 +91,28 @@ static CGFloat briefViewHeoght = 60.0;
     self.selectWorkView = [HYUkVideoDetailSelectWorkView new];
     [self.scrollView addSubview:self.selectWorkView];
     
+    [self.selectWorkView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.toolView.mas_bottom).offset(0);
+        make.left.equalTo(self.scrollView);
+        make.width.mas_offset(SCREEN_WIDTH);
+        make.height.mas_offset(briefViewHeoght);
+    }];
+    
     self.recommendView = [HYUkVideoRecommendView new];
     self.recommendView.delegate = self;
     [self.scrollView addSubview:self.recommendView];
 
+    [self.recommendView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.selectWorkView.mas_bottom).offset(0);
+        make.left.equalTo(self.scrollView);
+        make.width.mas_offset(SCREEN_WIDTH);
+        make.height.mas_offset(100);
+        make.bottom.equalTo(self.scrollView).offset(-(IS_iPhoneX ? 34 : 20));
+    }];
+    
     [self.view addSubview:self.briefDetailView];
+
+    self.briefDetailView.hidden = YES;
 }
 
 - (void)customView:(HYBaseView *)view event:(id)event
@@ -126,6 +143,18 @@ static CGFloat briefViewHeoght = 60.0;
 //        vc.list = self.list;
 //        [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (HYUkVideoBriefDetailView *)briefDetailView {
+    if (!_briefDetailView) {
+        _briefDetailView = [HYUkVideoBriefDetailView new];
+        _briefDetailView.delegate = self;
+    }
+    return _briefDetailView;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 @end
