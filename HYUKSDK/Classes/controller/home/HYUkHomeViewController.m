@@ -17,6 +17,7 @@
 @property(nonatomic, strong) JXCategoryListContainerView * containerView;
 @property(nonatomic, strong) NSArray * titleArray;
 @property (nonatomic, strong) HYUkHomeSearchView *searchView;
+@property (nonatomic, strong) QMUIButton *messageBtn;
 
 @end
 
@@ -37,9 +38,21 @@
     [self.navBar addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.navBar.mas_left).offset(16);
-        make.right.equalTo(self.navBar.mas_right).offset(-90);
+        make.right.equalTo(self.navBar.mas_right).offset(-52);
         make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
         make.height.mas_equalTo(40);
+    }];
+    
+    [self.navBar addSubview:self.messageBtn];
+    [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.navBar.mas_right).offset(-6);
+        make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
+        make.width.height.mas_equalTo(40);
+    }];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.messageBtn blockEvent:^(UIButton *button) {
+
     }];
     
     _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];
@@ -109,6 +122,16 @@
         HYUkSearchViewController *vc = [HYUkSearchViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (QMUIButton *)messageBtn {
+    if (!_messageBtn) {
+        _messageBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
+        [_messageBtn setImage:[UIImage uk_bundleImage:@"xiaoxi"] forState:0];
+        _messageBtn.qmui_badgeLabel.text = @"10";
+        _messageBtn.qmui_badgeTextColor = UIColor.redColor;
+    }
+    return _messageBtn;
 }
 
 @end

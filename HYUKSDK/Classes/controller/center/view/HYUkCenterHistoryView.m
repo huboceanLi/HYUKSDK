@@ -47,7 +47,7 @@
     [self.moreBtn addTarget:self action:@selector(moreButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
     [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).offset(-12);
+        make.right.equalTo(self.mas_right).offset(-8);
         make.height.mas_offset(50);
         make.top.equalTo(self.mas_top).offset(0);
     }];

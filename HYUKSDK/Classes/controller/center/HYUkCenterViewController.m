@@ -44,21 +44,21 @@
     }
 
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
+        make.left.right.top.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
-        make.top.equalTo(self.navBar.mas_bottom).offset(0);
+//        make.top.equalTo(self.navBar.mas_bottom).offset(0);
     }];
 
-    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - (IS_iPhoneX ? 167 : 113))];
+    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - (IS_iPhoneX ? 79 : 49))];
     
     self.loginView = [HYUkLoginView new];
     self.loginView.delegate = self;
     [self.scrollView addSubview:self.loginView];
     
     [self.loginView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView.mas_top).offset(0);
-        make.left.equalTo(self.scrollView);
-        make.width.mas_offset(SCREEN_WIDTH);
+        make.top.equalTo(self.scrollView.mas_top).offset(IS_iPhoneX ? 88 : 64);
+        make.left.equalTo(self.scrollView.mas_left).offset(15);
+        make.width.mas_offset(SCREEN_WIDTH - 30);
         make.height.mas_offset(100);
     }];
     
@@ -83,16 +83,9 @@
         make.width.mas_offset(SCREEN_WIDTH - 30);
         make.height.mas_offset(152);
     }];
+    
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
