@@ -30,6 +30,12 @@
     self.bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
     self.navTitleLabel.text = @"排行榜";
     
+
+}
+
+- (void)initSubviews {
+    [super initSubviews];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -38,7 +44,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 15, 0)];
     [ _tableView registerClass:[HYUkRankViewCell class] forCellReuseIdentifier:@"Cell"];
-
+    self.baseTableView = self.tableView;
+    
 //    [self.tableView registerNib:[UINib nibWithNibName:@"ChangeInfoCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
     
@@ -50,12 +57,15 @@
         make.top.equalTo(self.navBar.mas_bottom);
         make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
     }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
-
 #pragma mark - Table view datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 11;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

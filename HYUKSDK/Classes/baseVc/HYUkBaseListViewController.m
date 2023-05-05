@@ -7,6 +7,7 @@
 //
 
 #import "HYUkBaseListViewController.h"
+#import "HYUkHeader.h"
 
 @interface HYUkBaseListViewController ()
 
@@ -21,15 +22,20 @@
     [self initData];
     [self initSubviews];
     [self requestData];
+    
 }
 
 - (void)initData
-{}
+{
+}
 
 - (void)initSubviews
-{}
+{
+}
 
-- (void)requestData {}
+- (void)requestData {
+    [self.collectionView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
+}
 
 - (void)refreshData {}
 

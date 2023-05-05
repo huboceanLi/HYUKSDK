@@ -19,6 +19,9 @@
 #import "HYUkVideoTabBarViewController.h"
 #import "UIImage+uk_bundleImage.h"
 #import "BadgeButton.h"
+#import "UICollectionView+UKEmptyView.h"
+#import "UITableView+UKEmptyView.h"
+#import "HYUkShowLoadingManager.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

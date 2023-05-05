@@ -52,6 +52,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor bgColorFF];
     
+    [self initSubviews];
+    [self initData];
 //    [self.view addSubview:self.bgImageView];
 
 //    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,6 +61,14 @@
 //    }];
 }
 
+- (void)initData
+{
+    [self.baseCollectionView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
+    [self.baseTableView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
+}
+- (void)initSubviews {
+    
+}
 #pragma mark 懒加载
 -(UIView *)navBar {
     
