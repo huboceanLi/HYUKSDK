@@ -12,6 +12,7 @@
 #import "HYUkCollectionViewController.h"
 #import "HYUkDownViewController.h"
 #import "HYUkSettingViewController.h"
+#import "HYUkCenterHistoryListViewController.h"
 
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
@@ -105,6 +106,11 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
         return;
+    }
+    
+    if ([view isKindOfClass:[HYUkCenterHistoryView class]]) {
+        HYUkCenterHistoryListViewController *vc = [HYUkCenterHistoryListViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

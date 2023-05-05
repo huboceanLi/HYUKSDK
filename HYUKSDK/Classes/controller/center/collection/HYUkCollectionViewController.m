@@ -32,7 +32,7 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 15, 0)];
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, (IS_iPhoneX ? 44 : 10), 0)];
     [ _tableView registerClass:[HYUkCollectionCell class] forCellReuseIdentifier:@"Cell"];
 
 //    [self.tableView registerNib:[UINib nibWithNibName:@"ChangeInfoCell" bundle:nil] forCellReuseIdentifier:@"Cell"];

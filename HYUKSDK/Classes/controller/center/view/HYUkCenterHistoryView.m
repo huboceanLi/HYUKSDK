@@ -64,7 +64,9 @@
 }
 
 - (void)moreButtonClick {
-    
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:nil];
+    }
 }
 
 @end
