@@ -9,6 +9,9 @@
 #import "HYUkLoginView.h"
 #import "HYUkCenterHistoryView.h"
 #import "HYCenterToolView.h"
+#import "HYUkCollectionViewController.h"
+#import "HYUkDownViewController.h"
+#import "HYUkSettingViewController.h"
 
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
@@ -86,6 +89,23 @@
     
 }
 
-
+- (void)customView:(HYBaseView *)view event:(id)event {
+    if ([view isKindOfClass:[HYCenterToolView class]]) {
+        NSInteger index = [event intValue];
+        if (index == 1) {
+            HYUkCollectionViewController *vc = [HYUkCollectionViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if (index == 2) {
+            HYUkDownViewController *vc = [HYUkDownViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if (index == 3) {
+            
+        }else if (index == 4) {
+            HYUkSettingViewController *vc = [HYUkSettingViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        return;
+    }
+}
 
 @end

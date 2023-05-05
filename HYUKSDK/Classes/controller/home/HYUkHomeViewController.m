@@ -17,7 +17,7 @@
 @property(nonatomic, strong) JXCategoryListContainerView * containerView;
 @property(nonatomic, strong) NSArray * titleArray;
 @property (nonatomic, strong) HYUkHomeSearchView *searchView;
-@property (nonatomic, strong) QMUIButton *messageBtn;
+@property (nonatomic, strong) BadgeButton *messageBtn;
 
 @end
 
@@ -38,21 +38,22 @@
     [self.navBar addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.navBar.mas_left).offset(16);
-        make.right.equalTo(self.navBar.mas_right).offset(-52);
+        make.right.equalTo(self.navBar.mas_right).offset(-62);
         make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
         make.height.mas_equalTo(40);
     }];
     
     [self.navBar addSubview:self.messageBtn];
     [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.navBar.mas_right).offset(-6);
+        make.right.equalTo(self.navBar.mas_right).offset(-10);
         make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
-        make.width.height.mas_equalTo(40);
+        make.height.mas_equalTo(40);
+        make.width.mas_equalTo(50);
     }];
     
     __weak typeof(self) weakSelf = self;
     [self.messageBtn blockEvent:^(UIButton *button) {
-
+        NSLog(@"*****消息中心*****");
     }];
     
     _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];
@@ -124,12 +125,13 @@
     }
 }
 
-- (QMUIButton *)messageBtn {
+- (BadgeButton *)messageBtn {
     if (!_messageBtn) {
-        _messageBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
+        _messageBtn = [BadgeButton buttonWithType:UIButtonTypeCustom];
         [_messageBtn setImage:[UIImage uk_bundleImage:@"xiaoxi"] forState:0];
-        _messageBtn.qmui_badgeLabel.text = @"10";
-        _messageBtn.qmui_badgeTextColor = UIColor.redColor;
+        [_messageBtn setBadgeInset:UIEdgeInsetsMake(16, 30, 0, 0)];
+        [_messageBtn setBadgeStr:@"100"];
+        _messageBtn.adjustsImageWhenHighlighted = NO;
     }
     return _messageBtn;
 }

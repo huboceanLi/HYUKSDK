@@ -18,6 +18,7 @@
 #import "UIColor+UkPublicUse.h"
 #import "HYUkVideoTabBarViewController.h"
 #import "UIImage+uk_bundleImage.h"
+#import "BadgeButton.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\
