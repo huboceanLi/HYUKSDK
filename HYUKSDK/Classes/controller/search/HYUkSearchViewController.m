@@ -126,18 +126,18 @@
 
 - (void)searchApi {
     __weak typeof(self) weakSelf = self;
-    [[HYVideoSingle sharedInstance] getSearchListWithKeywords:self.keyWords page:self.page success:^(NSString *message, id responseObject) {
-        weakSelf.historyView.hidden = YES;
-        weakSelf.searchListView.hidden = NO;
-        weakSelf.searchListView.data = responseObject;
-        [weakSelf.searchListView loadContent];
-    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
-            
-    }];
-    
-//    HYRequestSearchModel *searchModel = [HYRequestSearchModel new];
-//    searchModel.page = self.page;
-//    searchModel.keyWords = self.keyWords;
+    [[HYUkShowLoadingManager sharedInstance] showLoading];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[HYVideoSingle sharedInstance] getSearchListWithKeywords:self.keyWords page:self.page success:^(NSString *message, id responseObject) {
+            weakSelf.historyView.hidden = YES;
+            weakSelf.searchListView.hidden = NO;
+            weakSelf.searchListView.data = responseObject;
+            [weakSelf.searchListView loadContent];
+            [[HYUkShowLoadingManager sharedInstance] removeLoading];
+        } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            [[HYUkShowLoadingManager sharedInstance] removeLoading];
+        }];
+    });
 }
 
 @end

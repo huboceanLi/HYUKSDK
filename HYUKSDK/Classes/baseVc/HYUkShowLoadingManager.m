@@ -27,19 +27,21 @@ static HYUkShowLoadingManager * manager = nil;
     return manager;
 }
 
-- (void)showLoading:(UIView *)baseView {
-    
+- (void)showLoading
+{
     if (!self.activityIndicatorView) {
         self.activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallSpinFadeLoader tintColor:[UIColor mainColor]];
         CGFloat width = SCREEN_WIDTH / 5.0f;
         
-//        self.activityIndicatorView.frame = CGRectMake((baseView.frame.size.width - width)/2, (baseView.frame.size.height - width)/2, width, height);
-        [baseView addSubview:self.activityIndicatorView];
-        [self.activityIndicatorView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.height.mas_equalTo(width);
-            make.centerY.equalTo(baseView);
-            make.left.equalTo(baseView.mas_left).offset((SCREEN_WIDTH - width)/2.0);
-        }];
+        UIView *v = [UIApplication sharedApplication].keyWindow.rootViewController.view;
+
+        self.activityIndicatorView.frame = CGRectMake((v.frame.size.width - width)/2, (v.frame.size.height - width)/2, width, width);
+        [v addSubview:self.activityIndicatorView];
+//        [self.activityIndicatorView mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.width.height.mas_equalTo(width);
+//            make.centerY.equalTo(v);
+//            make.left.equalTo(baseView.mas_left).offset((SCREEN_WIDTH - width)/2.0);
+//        }];
 //        [self.activityIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
 //            make.width.height.mas_equalTo(60);
 //            make.center.equalTo(baseView);

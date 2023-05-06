@@ -45,6 +45,8 @@
 //        make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 88 : 64));
     }];
     
+    [[HYUkShowLoadingManager sharedInstance] showLoading];
+    
     [[HYVideoSingle sharedInstance] homeRecommendWithListSuccess:^(NSString *message, id responseObject) {
         NSArray *models = responseObject;
         
@@ -64,14 +66,14 @@
         }
         self.dataDic = [dic mutableCopy];
         [self.tableView reloadData];
+        [[HYUkShowLoadingManager sharedInstance] removeLoading];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
-            
+        [[HYUkShowLoadingManager sharedInstance] removeLoading];
     }];
 }
 
 #pragma mark - Table view datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return self.dataDic.allKeys.count;
 }
 

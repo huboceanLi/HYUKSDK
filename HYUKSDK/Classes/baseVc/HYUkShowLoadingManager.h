@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (HYUkShowLoadingManager *)sharedInstance;
 
-- (void)showLoading:(UIView *)baseView;
+- (void)showLoading;
 
 - (void)removeLoading;
 

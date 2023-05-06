@@ -121,6 +121,7 @@ static CGFloat briefViewHeoght = 60.0;
 
 - (void)getData {
     __weak typeof(self) weakSelf = self;
+    [[HYUkShowLoadingManager sharedInstance] showLoading];
     [[HYVideoSingle sharedInstance] getVideoDetaildID:self.videoId success:^(NSString *message, id responseObject) {
         weakSelf.detailModel = responseObject;
         weakSelf.scrollView.hidden = NO;
@@ -147,9 +148,9 @@ static CGFloat briefViewHeoght = 60.0;
 //                make.height.mas_offset(briefViewHeoght);
 //            }];
 //        }
-        
+        [[HYUkShowLoadingManager sharedInstance] removeLoading];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
-            
+        [[HYUkShowLoadingManager sharedInstance] removeLoading];
     }];
 }
 
