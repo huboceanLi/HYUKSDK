@@ -136,18 +136,32 @@
 }
 - (void)loadContent
 {
-//    HYDouBanMovieDetailModel *model = self.data;
-//    self.name.text = model.title;
+    HYUkVideoDetailModel *model = self.data;
+    self.name.text = model.vod_name;
     
-//    NSString *timeStr = model.period;
-//    if (timeStr.length > 4) {
-//        timeStr = [timeStr substringToIndex:4];
-//    }
-//    self.des.attributedText = [self getFirstChapterString:[NSString stringWithFormat:@"%@\n评分: %.1f\n主演: %@\n类型: %@\n年代: %@\n",model.focus,model.score,model.peopleString,model.categorieString,timeStr]];
-//
-//    self.des.attributedText = [self getFirstChapterString:[NSString stringWithFormat:@"评分: %.1f\n导演: %@\n主演: %@\n类型: %@\n年代: %@\n",model.rating.value,model.directorString,model.actorString,model.genreString,model.year]];
-//
-//    self.briefLab.attributedText = [self getFirstChapterString:model.intro];
+    
+    NSString *director = @"";
+    if (model.vod_director.length > 0) {
+        director = [NSString stringWithFormat:@"导演: %@\n",model.vod_director];
+    }
+    
+    NSString *actor = @"";
+    if (model.vod_actor.length > 0) {
+        actor = [NSString stringWithFormat:@"主演: %@\n",model.vod_actor];
+    }
+    NSString *s = [NSString stringWithFormat:@"评分: %@\n%@%@类型: %@\n地区: %@\n年代: %@\n",model.vod_douban_score,director,actor,model.vod_class,model.vod_area,model.vod_year];
+
+    self.des.attributedText = [self getFirstChapterString:s];
+
+    NSString *content = model.vod_content;
+    content = [content stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+    content = [content stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+
+    if (content.length > 0) {
+        self.briefLab.attributedText = [self getFirstChapterString:content];
+    }else {
+        self.briefLab.attributedText = [self getFirstChapterString:@"无"];
+    }
 }
 
 @end

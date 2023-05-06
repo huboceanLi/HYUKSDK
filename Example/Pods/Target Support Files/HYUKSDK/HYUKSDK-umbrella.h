@@ -21,6 +21,7 @@
 #import "HYResponseRecommendModel.h"
 #import "HYResponseSearchModel.h"
 #import "HYResponseVideoListModel.h"
+#import "HYUkVideoDetailModel.h"
 #import "HYUkConfigManager.h"
 #import "UICollectionView+UKEmptyView.h"
 #import "UIColor+UkPublicUse.h"

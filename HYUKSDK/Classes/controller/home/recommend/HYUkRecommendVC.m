@@ -9,8 +9,9 @@
 #import "HYUkHomeRecommendCell.h"
 #import "HYUkRecommendHeadView.h"
 #import "HYResponseRecommendModel.h"
+#import "HYUkDetailViewController.h"
 
-@interface HYUkRecommendVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface HYUkRecommendVC ()<UITableViewDelegate,UITableViewDataSource, BaseCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSDictionary *dataDic;
@@ -150,6 +151,7 @@
         cell = [[HYUkHomeRecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     cell.selectionStyle = 0;
+    cell.delegate = self;
     NSArray *arr;
     if (indexPath.section == 0) {
         arr = self.dataDic[@"1"];
@@ -180,5 +182,12 @@
     
 }
 
+- (void)customCell:(HYBaseTableViewCell *)cell event:(id)event
+{
+    HYResponseRecommendModel *model = event;
+    HYUkDetailViewController *vc = [HYUkDetailViewController new];
+    vc.videoId = model.video_id;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 @end

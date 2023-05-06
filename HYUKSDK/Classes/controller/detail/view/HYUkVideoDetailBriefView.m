@@ -66,9 +66,11 @@
 
 - (void)loadContent
 {
-//    HYDouBanMovieDetailModel *model = self.data;
-//    self.name.text = model.title;
-//    self.des.text = model.genreString;
+    HYUkVideoDetailModel *model = self.data;
+    self.name.text = model.vod_name;
+    NSString *s = [NSString stringWithFormat:@"%@,%@",model.vod_area,model.vod_class];
+    s = [s stringByReplacingOccurrencesOfString:@"," withString:@"/"];
+    self.des.text = s;
 }
 
 

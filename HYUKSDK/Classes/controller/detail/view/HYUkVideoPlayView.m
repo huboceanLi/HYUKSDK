@@ -45,16 +45,24 @@ static NSString *const DEMO_URL_HLS = @"https://ukzy.ukubf3.com/20220729/Dv07GYB
     SJMediaCacheServer.shared.enabledConsoleLog = YES;
     SJMediaCacheServer.shared.logOptions = MCSLogOptionDownloader;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSString *url = DEMO_URL_HLS;
-        NSURL *URL = [NSURL URLWithString:url];
-        [self _play:URL];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        NSString *url = DEMO_URL_HLS;
+//        NSURL *URL = [NSURL URLWithString:url];
+//        [self _play:URL];
+//    });
 }
 
 - (void)loadContent
 {
-//    HYMovieListItemModel *model = self.data;
+    HYUkVideoDetailModel *model = self.data;
+    
+    if (model.vod_play_url.count == 1) {
+        HYUkVideoDetailItemModel *playModel = model.vod_play_url.firstObject;
+        NSURL *URL = [NSURL URLWithString:playModel.url];
+        [self _play:URL];
+        
+        return;
+    }
 //    NSLog(@"播放时间:%f",self.player.currentTime);
 //    NSLog(@"总时间:%f",self.player.duration);
 }

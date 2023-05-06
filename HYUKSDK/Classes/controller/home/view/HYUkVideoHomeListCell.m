@@ -58,7 +58,7 @@
         }];
         
         self.scoreLab = [UILabel new];
-        self.scoreLab.font = [UIFont boldSystemFontOfSize:16];
+        self.scoreLab.font = [UIFont fontWithName:@"AmericanTypewriter" size:16];
         self.scoreLab.textColor = [UIColor whiteColor];
         [self.headImageView addSubview:self.scoreLab];
 //        self.des.layer.backgroundColor = [[UIColor textColor22] colorWithAlphaComponent:0.5].CGColor;

@@ -26,12 +26,12 @@ static HYUkConfigManager *manager = nil;
         lab.text = @"";
     }else {
         if (s >= 8.0) {
-            lab.textColor = [UIColor redColor];
+            lab.textColor = [UIColor textColorFF4];
         }else {
-            lab.textColor = [UIColor yellowColor];
+            lab.textColor = [UIColor textColorFFD];
         }
     }
-
 }
+
 
 @end

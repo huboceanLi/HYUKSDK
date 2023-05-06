@@ -26,6 +26,7 @@
 #import "HYVideoSingle.h"
 #import "BaseModel.h"
 #import "HYUkConfigManager.h"
+#import "HYUkVideoDetailModel.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

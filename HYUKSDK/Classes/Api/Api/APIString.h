@@ -21,6 +21,8 @@ extern NSString * const categary_list;
 
 extern NSString * const home_recommend;
 
+extern NSString * const video_detail;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUkDetailViewController : HYUkVideoBaseViewController
 
+@property (nonatomic, assign) NSInteger videoId;
+
 @end
 
 NS_ASSUME_NONNULL_END

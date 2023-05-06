@@ -8,7 +8,7 @@
 #import "HYUkHomeRecommendCell.h"
 #import "HYUkRecommendListView.h"
 
-@interface HYUkHomeRecommendCell()
+@interface HYUkHomeRecommendCell()<HYBaseViewDelegate>
 
 @property (nonatomic, strong) HYUkRecommendListView *listView;
 
@@ -24,6 +24,7 @@
         self.clipsToBounds = YES;
 
         self.listView = [HYUkRecommendListView new];
+        self.listView.delegate = self;
         [self.contentView addSubview:self.listView];
         
         [self.listView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -31,6 +32,13 @@
         }];
     }
     return self;
+}
+
+- (void)customView:(HYBaseView *)view event:(id)event
+{
+    if ([self.delegate respondsToSelector:@selector(customCell:event:)]) {
+        [self.delegate customCell:self event:event];
+    }
 }
 
 - (void)loadContent {

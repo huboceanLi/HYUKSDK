@@ -12,6 +12,7 @@
 #import "HYUkVideoDetailSelectWorkView.h"
 #import "HYUkVideoRecommendView.h"
 #import "HYUkVideoBriefDetailView.h"
+#import "HYUkHeader.h"
 
 static CGFloat briefViewHeoght = 60.0;
 
@@ -24,8 +25,8 @@ static CGFloat briefViewHeoght = 60.0;
 @property(nonatomic, strong) HYUkVideoDetailToolView * toolView;
 @property(nonatomic, strong) HYUkVideoDetailSelectWorkView * selectWorkView;
 @property(nonatomic, strong) HYUkVideoRecommendView * recommendView;
-
 @property(nonatomic, strong) HYUkVideoBriefDetailView * briefDetailView;
+@property(nonatomic, strong) HYUkVideoDetailModel * detailModel;
 
 @end
 
@@ -113,6 +114,40 @@ static CGFloat briefViewHeoght = 60.0;
     [self.view addSubview:self.briefDetailView];
 
     self.briefDetailView.hidden = YES;
+    
+    self.scrollView.hidden = YES;
+    [self getData];
+}
+
+- (void)getData {
+    __weak typeof(self) weakSelf = self;
+    [[HYVideoSingle sharedInstance] getVideoDetaildID:self.videoId success:^(NSString *message, id responseObject) {
+        weakSelf.detailModel = responseObject;
+        weakSelf.scrollView.hidden = NO;
+        weakSelf.briefView.data = responseObject;
+        [weakSelf.briefView loadContent];
+        
+        weakSelf.briefDetailView.data = responseObject;
+        [weakSelf.briefDetailView loadContent];
+        
+        weakSelf.playView.data = responseObject;
+        [weakSelf.playView loadContent];
+        
+        if (weakSelf.detailModel.vod_total <= 1) {
+            weakSelf.selectWorkView.hidden = YES;
+            [weakSelf.selectWorkView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_offset(0);
+            }];
+        }else {
+            weakSelf.selectWorkView.hidden = NO;
+            [weakSelf.selectWorkView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_offset(briefViewHeoght);
+            }];
+        }
+        
+    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            
+    }];
 }
 
 - (void)customView:(HYBaseView *)view event:(id)event

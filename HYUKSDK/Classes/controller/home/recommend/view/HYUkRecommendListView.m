@@ -87,51 +87,21 @@
     }
     cell.scoreLab.text = model.vod_douban_score;
     [[HYUkConfigManager sharedInstance] changeScoreColor:model.vod_douban_score Label:cell.scoreLab];
-    
+
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:self.dataArray[indexPath.row]];
+    }
+    
 //    HYUkDetailViewController *vc = [HYUkDetailViewController new];
 //    vc.movieModel = self.dataArray[indexPath.row];
 //    [self.navigationController pushViewController:vc animated:YES];
 }
-
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-//{
-//    return CGSizeMake(SCREEN_WIDTH, 50);
-//}
-
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-//    if (kind == UICollectionElementKindSectionHeader) {
-//
-//        UICollectionReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
-//        headView.backgroundColor = UIColor.clearColor;
-////        [headView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-//
-////        if (!self.videoHeadView) {
-////            self.videoHeadView = [[HYHomeVideoHeadView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, self.headHeight - 20.0)];
-////            [headView addSubview:self.videoHeadView];
-////
-////            __weak typeof(self) _self = self;
-////
-////            [self.videoHeadView setHeadHeightBlock:^(CGFloat headHeight) {
-////                _self.headHeight = headHeight + 20;
-////                [_self.collectionView reloadData];
-////            }];
-////
-////            [self.videoHeadView setMovieListBlock:^(NSArray * _Nonnull list) {
-////                [_self.dataArray addObjectsFromArray:list];
-////                [_self.collectionView reloadData];
-////            }];
-////        }
-//
-//
-//        return headView;
-//    }
-//    return nil;
-//}
 
 - (void)loadContent {
     self.dataArray = self.data;

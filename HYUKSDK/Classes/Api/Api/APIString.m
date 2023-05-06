@@ -28,6 +28,6 @@ NSString * const Api = @"/api/movies";
 #pragma mark - cache key
 NSString * const categary_list = @"get_type";
 NSString * const home_recommend = @"recommend";
-
+NSString * const video_detail = @"get_detail";
 
 @end

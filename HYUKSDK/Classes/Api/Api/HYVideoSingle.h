@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)homeRecommendWithListSuccess:(RequestSuccessed)success fail:(RequestFailure)fail;
 
+- (void)getVideoDetaildID:(NSInteger)vid success:(RequestSuccessed)success fail:(RequestFailure)fail;
+
 @end
 
 NS_ASSUME_NONNULL_END
