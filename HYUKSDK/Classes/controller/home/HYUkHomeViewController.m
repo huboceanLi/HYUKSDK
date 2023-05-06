@@ -10,6 +10,7 @@
 #import "HYUkRecommendVC.h"
 #import "HYUkSearchViewController.h"
 #import "HYUkHomeSearchView.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate>
 
@@ -35,6 +36,8 @@
     // Do any additional setup after loading the view.
     self.navBar.backgroundColor = UIColor.clearColor;
     self.bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
+    
+    [[HYVideoDBLogic share] initDB];
     
     [self.navBar addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {

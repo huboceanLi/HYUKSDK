@@ -53,7 +53,9 @@ TODO: Add long description of the pod here.
   s.dependency "MBProgressHUD+JDragon"
   s.dependency "JXCategoryView"
 #  s.dependency "HYUKApiSdk", '~> 0.0.1'
-  
+#  s.dependency "HYVideoDB"
+  s.dependency "WCDB.swift"
+
 #  pod 'BuzzMsg', '1.6.0.1'
 
   #  pod 'HYUKApiSdk',:git =>"https://github.com/huboceanLi/HYUKApiSdk.git"
