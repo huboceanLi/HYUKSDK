@@ -18,6 +18,7 @@
 @property(nonatomic, strong) NSArray * titleArray;
 @property (nonatomic, strong) HYUkHomeSearchView *searchView;
 @property (nonatomic, strong) BadgeButton *messageBtn;
+@property (nonatomic, strong) NSArray *categeryModels;
 
 @end
 
@@ -56,7 +57,7 @@
         NSLog(@"*****消息中心*****");
     }];
     
-    _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];
+//    _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];
 
     _headerView = [[JXCategoryTitleView alloc] initWithFrame:CGRectZero];
     _headerView.backgroundColor = UIColor.clearColor;
@@ -92,6 +93,27 @@
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
     }];
+    
+    [self getData];
+}
+
+- (void)getData {
+    __weak typeof(self) weakSelf = self;
+    [[HYVideoSingle sharedInstance] categeryWithListSuccess:^(NSString *message, id responseObject) {
+        weakSelf.categeryModels = responseObject;
+        
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"推荐"];
+        for (HYResponseCategeryModel *itemModel in weakSelf.categeryModels) {
+            [arr addObject:itemModel.name];
+        }
+        weakSelf.titleArray = [arr mutableCopy];
+        weakSelf.headerView.titles = weakSelf.titleArray;
+        [weakSelf.headerView reloadData];
+        
+    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            
+    }];
 }
 
 #pragma mark-- <JXCategoryListContainerViewDelegate>
@@ -102,6 +124,8 @@
     }
     HYUkOtherViewController * listVC = [[HYUkOtherViewController alloc] init];
     listVC.index = index;
+    listVC.categeryModel = self.categeryModels[index - 1];
+    
     return listVC;
 
 }

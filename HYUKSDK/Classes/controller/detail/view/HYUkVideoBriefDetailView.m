@@ -139,6 +139,10 @@
     HYUkVideoDetailModel *model = self.data;
     self.name.text = model.vod_name;
     
+    NSString *scoreStr = @"";
+    if (model.vod_douban_score.length > 0) {
+        scoreStr = [NSString stringWithFormat:@"评分: %@\n",model.vod_douban_score];
+    }
     
     NSString *director = @"";
     if (model.vod_director.length > 0) {
@@ -149,7 +153,7 @@
     if (model.vod_actor.length > 0) {
         actor = [NSString stringWithFormat:@"主演: %@\n",model.vod_actor];
     }
-    NSString *s = [NSString stringWithFormat:@"评分: %@\n%@%@类型: %@\n地区: %@\n年代: %@\n",model.vod_douban_score,director,actor,model.vod_class,model.vod_area,model.vod_year];
+    NSString *s = [NSString stringWithFormat:@"%@\n%@%@类型: %@\n地区: %@\n年代: %@\n",scoreStr,director,actor,model.vod_class,model.vod_area,model.vod_year];
 
     self.des.attributedText = [self getFirstChapterString:s];
 

@@ -23,6 +23,8 @@ extern NSString * const home_recommend;
 
 extern NSString * const video_detail;
 
+extern NSString * const video_list;
+
 @end
 
 NS_ASSUME_NONNULL_END

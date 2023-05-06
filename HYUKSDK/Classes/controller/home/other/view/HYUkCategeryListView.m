@@ -69,11 +69,9 @@
         make.top.equalTo(self.langView.mas_bottom).offset(0);
     }];
     
-    self.scoreView.data = @[@"最新",@"最热",@"好评"];
-    [self.scoreView loadContent];
+
     
-    self.typeView.data = @[@"全部",@"动作",@"悬疑",@"科幻",@"爱情"];
-    [self.typeView loadContent];
+
     
     self.areaView.data = @[@"全部",@"大陆",@"香港",@"美国",@"英国",@"西班牙"];
     [self.areaView loadContent];
@@ -81,8 +79,50 @@
     self.langView.data = @[@"全部",@"国语",@"粤语",@"英语",@"土耳其语"];
     [self.langView loadContent];
     
-    self.yearView.data = @[@"全部",@"2023",@"2022",@"2021",@"2020",@"2019",@"2018",@"2017",@"更早"];
-    [self.yearView loadContent];
+
+}
+- (void)loadContent {
+    HYResponseCategeryModel *model = self.data;
+    
+    self.scoreView.data = model.order;
+    [self.scoreView loadContent];
+    
+    if (model.type.count > 0) {
+        NSMutableArray *typeArr = [NSMutableArray array];
+        [typeArr insertObject:@"全部" atIndex:0];
+        for (HYResponseCategeryTypeModel *item in model.type) {
+            [typeArr addObject:item.name];
+        }
+        self.typeView.data = typeArr;
+        [self.typeView loadContent];
+        self.typeView.hidden = NO;
+        [self.typeView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(40);
+        }];
+    }else {
+        self.typeView.hidden = YES;
+        [self.typeView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+    }
+    
+    if (model.vod_year.count > 0) {
+        NSMutableArray *yearArr = [model.vod_year mutableCopy];
+        [yearArr insertObject:@"全部" atIndex:0];
+        self.yearView.data = yearArr;
+        [self.yearView loadContent];
+        
+        self.yearView.hidden = NO;
+        [self.yearView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(40);
+        }];
+    }else {
+        self.yearView.hidden = YES;
+        [self.yearView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+    }
+    
 }
 
 @end

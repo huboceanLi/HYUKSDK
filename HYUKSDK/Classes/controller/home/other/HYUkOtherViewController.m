@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) HYUkCategeryListView *categeryListView;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -64,6 +65,18 @@
 //        make.top.equalTo(self.navBar.mas_bottom).offset(0);
 //        make.bottom.equalTo(self.view.mas_bottom).offset(- (IS_iPhoneX ? 80 : 50));
     }];
+    
+    [self getData];
+}
+
+- (void)getData {
+    __weak typeof(self) weakSelf = self;
+    [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID vod_area:@"" vod_lang:@"" vod_year:@"" order:@"最新" success:^(NSString *message, id responseObject) {
+        [weakSelf.dataArray addObjectsFromArray:responseObject];
+        [weakSelf.collectionView reloadData];
+    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            
+    }];
 }
 
 #pragma mark  --- UICollectionViewDataSource
@@ -74,9 +87,7 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 11;
-
-//    return self.dataArray.count;
+    return self.dataArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -92,14 +103,26 @@
 //
 //    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.pic.large] placeholder:nil];
 //    cell.name.text = model.title;
+    HYResponseVideoListModel *model = self.dataArray[indexPath.row];
+
+    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:nil];
+    cell.name.text = model.vod_name;
+    cell.des.hidden = YES;
+    if (model.vod_remarks.length > 0) {
+        cell.des.hidden = NO;
+        cell.des.text = model.vod_remarks;
+    }
+    cell.scoreLab.text = model.vod_douban_score;
+    [[HYUkConfigManager sharedInstance] changeScoreColor:model.vod_douban_score Label:cell.scoreLab];
     
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    HYResponseVideoListModel *model = self.dataArray[indexPath.row];
     HYUkDetailViewController *vc = [HYUkDetailViewController new];
-//    vc.movieModel = self.dataArray[indexPath.row];
+    vc.videoId = model.ID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -118,7 +141,8 @@
         if (!self.categeryListView) {
             self.categeryListView = [[HYUkCategeryListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
             [headView addSubview:self.categeryListView];
-
+            self.categeryListView.data = self.categeryModel;
+            [self.categeryListView loadContent];
 //            __weak typeof(self) _self = self;
 //
 //            [self.videoHeadView setHeadHeightBlock:^(CGFloat headHeight) {
