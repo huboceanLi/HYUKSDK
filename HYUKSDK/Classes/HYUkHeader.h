@@ -14,6 +14,7 @@
 #import <HYBaseTool/HYBaseTool.h>
 #import <JXCategoryView/JXCategoryView.h>
 #import <HYUKSDK/HYUkHeader.h>
+#import <CTNetworking/CTNetworking.h>
 
 #import "UIColor+UkPublicUse.h"
 #import "HYUkVideoTabBarViewController.h"
@@ -22,6 +23,7 @@
 #import "UICollectionView+UKEmptyView.h"
 #import "UITableView+UKEmptyView.h"
 #import "HYUkShowLoadingManager.h"
+#import "HYVideoSingle.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

@@ -14,14 +14,17 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - CTMediator (48)
+  - CTNetworking (15):
+    - AFNetworking
+    - CTMediator
   - HYBaseTool (1.0.2):
     - Masonry
     - QMUIKit
-  - HYUKApiSdk (0.0.1):
-    - AFNetworking
   - HYUKSDK (0.0.1):
+    - AFNetworking
+    - CTNetworking
     - HYBaseTool (~> 1.0.2)
-    - HYUKApiSdk (~> 0.0.1)
     - JXCategoryView
     - Masonry
     - "MBProgressHUD+JDragon"
@@ -353,8 +356,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - CTMediator
+    - CTNetworking
     - HYBaseTool
-    - HYUKApiSdk
     - JXCategoryView
     - Masonry
     - MBProgressHUD
@@ -367,10 +371,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  CTMediator: 3f3578b525b3a46a7a2f92a99922ec40363f4269
+  CTNetworking: 53a7fd1d39bce85c15af471890037b4608b7124b
   HYBaseTool: df77c5b137a4069be0f71fa90cd3c287fbe2caa7
-  HYUKApiSdk: 9b3f9675942826e35a692e660e018c72dfcfa1c6
-  HYUKSDK: 01286b61741a398ebbdf91ba3688167396b62b1f
+  HYUKSDK: 57738138689c3d8a79e9677f3dd6ecb5da3c7d7f
   JXCategoryView: 7b1ee69ede4843c581688afe84d0f047723262f2
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
@@ -380,4 +385,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 0796612965a231da39a1da1609e6384929dafa2c
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

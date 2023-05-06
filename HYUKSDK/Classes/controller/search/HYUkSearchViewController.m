@@ -10,7 +10,6 @@
 #import "HYUkSearchListView.h"
 #import "HYUkHistoryView.h"
 #import "HYUkHeader.h"
-#import <HYUKApiSdk/HYUKApiHeader.h>
 
 @interface HYUkSearchViewController ()<HYBaseViewDelegate>
 
@@ -126,9 +125,9 @@
 }
 
 - (void)searchApi {
-    HYRequestSearchModel *searchModel = [HYRequestSearchModel new];
-    searchModel.page = self.page;
-    searchModel.keyWords = self.keyWords;
+//    HYRequestSearchModel *searchModel = [HYRequestSearchModel new];
+//    searchModel.page = self.page;
+//    searchModel.keyWords = self.keyWords;
 }
 
 @end
