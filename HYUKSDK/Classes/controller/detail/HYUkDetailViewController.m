@@ -96,7 +96,7 @@ static CGFloat briefViewHeoght = 60.0;
         make.top.equalTo(self.toolView.mas_bottom).offset(0);
         make.left.equalTo(self.scrollView);
         make.width.mas_offset(SCREEN_WIDTH);
-        make.height.mas_offset(briefViewHeoght);
+        make.height.mas_offset(100);
     }];
     
     self.recommendView = [HYUkVideoRecommendView new];
@@ -107,7 +107,7 @@ static CGFloat briefViewHeoght = 60.0;
         make.top.equalTo(self.selectWorkView.mas_bottom).offset(0);
         make.left.equalTo(self.scrollView);
         make.width.mas_offset(SCREEN_WIDTH);
-        make.height.mas_offset(100);
+        make.height.mas_offset(120);
         make.bottom.equalTo(self.scrollView).offset(-(IS_iPhoneX ? 34 : 20));
     }];
     
@@ -133,17 +133,20 @@ static CGFloat briefViewHeoght = 60.0;
         weakSelf.playView.data = responseObject;
         [weakSelf.playView loadContent];
         
-        if (weakSelf.detailModel.vod_total <= 1) {
-            weakSelf.selectWorkView.hidden = YES;
-            [weakSelf.selectWorkView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_offset(0);
-            }];
-        }else {
-            weakSelf.selectWorkView.hidden = NO;
-            [weakSelf.selectWorkView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_offset(briefViewHeoght);
-            }];
-        }
+        weakSelf.selectWorkView.data = responseObject;
+        [weakSelf.selectWorkView loadContent];
+        
+//        if (weakSelf.detailModel.vod_total <= 1) {
+//            weakSelf.selectWorkView.hidden = YES;
+//            [weakSelf.selectWorkView mas_updateConstraints:^(MASConstraintMaker *make) {
+//                make.height.mas_offset(0);
+//            }];
+//        }else {
+//            weakSelf.selectWorkView.hidden = NO;
+//            [weakSelf.selectWorkView mas_updateConstraints:^(MASConstraintMaker *make) {
+//                make.height.mas_offset(briefViewHeoght);
+//            }];
+//        }
         
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
             

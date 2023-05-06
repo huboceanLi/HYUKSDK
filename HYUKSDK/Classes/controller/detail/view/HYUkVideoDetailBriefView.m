@@ -25,13 +25,11 @@
     self.name = [UILabel new];
     self.name.font = [UIFont boldSystemFontOfSize:16];
     self.name.textColor = UIColor.textColor22;
-    self.name.text = @"萨芬";
     [self addSubview:self.name];
     
     self.des = [UILabel new];
     self.des.font = [UIFont systemFontOfSize:13];
     self.des.textColor = UIColor.textColor99;
-    self.des.text = @"是/发送到/发到";
     [self addSubview:self.des];
     
     self.moreBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
