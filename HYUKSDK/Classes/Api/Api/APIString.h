@@ -19,6 +19,7 @@ extern NSString * const Api;
 
 extern NSString * const categary_list;
 
+extern NSString * const home_recommend;
 
 @end
 

@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark--categary
 - (void)categeryWithListSuccess:(RequestSuccessed)success fail:(RequestFailure)fail;
 
+- (void)homeRecommendWithListSuccess:(RequestSuccessed)success fail:(RequestFailure)fail;
+
 @end
 
 NS_ASSUME_NONNULL_END

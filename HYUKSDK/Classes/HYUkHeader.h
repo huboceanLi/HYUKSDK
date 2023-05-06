@@ -24,6 +24,8 @@
 #import "UITableView+UKEmptyView.h"
 #import "HYUkShowLoadingManager.h"
 #import "HYVideoSingle.h"
+#import "BaseModel.h"
+#import "HYUkConfigManager.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

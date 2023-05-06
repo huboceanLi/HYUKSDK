@@ -31,7 +31,6 @@
         [self addSubview:self.headImageView];
         
         self.name = [UILabel new];
-        self.name.text = @"是的是大的是丰收";
         self.name.font = [UIFont systemFontOfSize:13];
         self.name.textColor = [UIColor textColor22];
         [self addSubview:self.name];
@@ -44,6 +43,29 @@
         [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.equalTo(self);
             make.bottom.equalTo(self.name.mas_top).offset(-6);
+        }];
+        
+        self.des = [UILabel new];
+        self.des.font = [UIFont boldSystemFontOfSize:10];
+        self.des.textAlignment = NSTextAlignmentCenter;
+        self.des.textColor = [UIColor whiteColor];
+        [self.headImageView addSubview:self.des];
+        self.des.layer.backgroundColor = [[UIColor textColor22] colorWithAlphaComponent:0.5].CGColor;
+        
+        [self.des mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.headImageView);
+            make.height.mas_offset(16);
+        }];
+        
+        self.scoreLab = [UILabel new];
+        self.scoreLab.font = [UIFont boldSystemFontOfSize:16];
+        self.scoreLab.textColor = [UIColor whiteColor];
+        [self.headImageView addSubview:self.scoreLab];
+//        self.des.layer.backgroundColor = [[UIColor textColor22] colorWithAlphaComponent:0.5].CGColor;
+        
+        [self.scoreLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headImageView.mas_left).offset(8);
+            make.top.equalTo(self.headImageView.mas_top).offset(8);
         }];
     }
     return self;

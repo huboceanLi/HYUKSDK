@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIImageView *headImageView;
 @property (nonatomic, strong) UILabel *name;
+@property (nonatomic, strong) UILabel *des;
+@property (nonatomic, strong) UILabel *scoreLab;
 
 @end
 

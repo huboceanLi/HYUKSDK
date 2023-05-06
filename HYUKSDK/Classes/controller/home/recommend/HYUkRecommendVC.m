@@ -1,20 +1,19 @@
 //
 //  HYUkRecommendVC.m
-//  HYUKSDK
+//  AFNetworking
 //
-//  Created by oceanMAC on 2023/4/27.
+//  Created by oceanMAC on 2023/5/6.
 //
 
 #import "HYUkRecommendVC.h"
-#import "HYUkDetailViewController.h"
-#import "HYUkVideoHomeListCell.h"
+#import "HYUkHomeRecommendCell.h"
 #import "HYUkRecommendHeadView.h"
+#import "HYResponseRecommendModel.h"
 
-@interface HYUkRecommendVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface HYUkRecommendVC ()<UITableViewDelegate,UITableViewDataSource>
 
-//@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
-@property (nonatomic, strong) HYUkRecommendHeadView *recommendHeadView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSDictionary *dataDic;
 
 @end
 
@@ -23,134 +22,163 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = UIColor.clearColor;
     
-    self.dataArray = [NSMutableArray array];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 15, 0)];
+    [ _tableView registerClass:[HYUkHomeRecommendCell class] forCellReuseIdentifier:@"Cell"];
+
+//    [self.tableView registerNib:[UINib nibWithNibName:@"ChangeInfoCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
+    [self.view addSubview:self.tableView];
     
-//    [[HYVideoPlayTypeManager shareInstance] getPlayTypeLisy];
+    if (@available (iOS 11.0, *)) {
+        [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    }
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.left.right.equalTo(self.view);
+
+//        make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 88 : 64));
+    }];
+    
+    [[HYVideoSingle sharedInstance] homeRecommendWithListSuccess:^(NSString *message, id responseObject) {
+        NSArray *models = responseObject;
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        for (HYResponseRecommendModel * item in models) {
+            
+            NSString *tid = [NSString stringWithFormat:@"%ld",item.type_id_1];
+            
+            if ([dic.allKeys containsObject:tid]) {
+                NSMutableArray *itemArr = [NSMutableArray array];
+                itemArr = [dic[tid] mutableCopy];
+                [itemArr addObject:item];
+                [dic setObject:itemArr forKey:tid];
+            }else {
+                [dic setObject:@[item] forKey:tid];
+            }
+        }
+        self.dataDic = [dic mutableCopy];
+        [self.tableView reloadData];
+    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            
+    }];
 }
-- (void)initSubviews
-{
-    [super initSubviews];
+
+#pragma mark - Table view datasource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
+    return self.dataDic.allKeys.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     CGFloat leftSpace = 15;
     CGFloat space = 8;
     NSInteger count = 3;
     CGFloat w = ceil((SCREEN_WIDTH - leftSpace * 2 - space * 2) / count) - 1;
     CGFloat h = 160 * w / 120 + 6 + 20;
-    
-//    self.headHeight = 140.0;
-    
-    UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc] init];
-    flow.sectionInset = UIEdgeInsetsMake(leftSpace, leftSpace, leftSpace, leftSpace);
-    flow.itemSize = CGSizeMake(w, h);
-    flow.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flow.minimumLineSpacing = space;
-    flow.minimumInteritemSpacing = space;
-//    flow.headerReferenceSize = CGSizeMake(SCREEN_WIDTH, 100);
-    
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flow];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor =  [UIColor clearColor];
-    //    self.collectionView.scrollEnabled = YES;
-    self.collectionView.showsVerticalScrollIndicator = NO;
-    self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.pagingEnabled = NO;
-    [self.collectionView setContentInset:UIEdgeInsetsMake(0, 0, (IS_iPhoneX ? 34 : 0), 0)];
-    [self.collectionView registerClass:[HYUkVideoHomeListCell class] forCellWithReuseIdentifier:@"cell"];
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
-    //    [self.collectionView registerNib:[UINib nibWithNibName:@"HYUkVideoHomeListCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-    if (@available (iOS 11.0, *)) {
-        [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    return h;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+
+    return 46.f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
+    HYUkRecommendHeadView *lineView = [[HYUkRecommendHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 46.f)];
+//    lineView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
+    if (section == 0) {
+        lineView.name.text = @"电影";
     }
-    [self.view addSubview:self.collectionView];
-    
-    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.left.right.equalTo(self.view);
-//        make.top.equalTo(self.navBar.mas_bottom).offset(0);
-//        make.bottom.equalTo(self.view.mas_bottom).offset(- (IS_iPhoneX ? 80 : 50));
-    }];
-
-    [[HYUkShowLoadingManager sharedInstance] showLoading:self.collectionView];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.collectionView reloadData];
-        [[HYUkShowLoadingManager sharedInstance] removeLoading];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[HYUkShowLoadingManager sharedInstance] showLoading:self.collectionView];
-        });
-    });
-}
-#pragma mark  --- UICollectionViewDataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
+    if (section == 1) {
+        lineView.name.text = @"电视剧";
+    }
+    if (section == 2) {
+        lineView.name.text = @"综艺";
+    }
+    if (section == 3) {
+        lineView.name.text = @"动漫";
+    }
+    if (section == 4) {
+        lineView.name.text = @"记录片";
+    }
+    return lineView;
 }
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSArray *arr;
+    if (section == 0) {
+        arr = self.dataDic[@"1"];
+    }
+    if (section == 1) {
+        arr = self.dataDic[@"2"];
+    }
+    
+    if (section == 2) {
+        arr = self.dataDic[@"3"];
+    }
+    
+    if (section == 3) {
+        arr = self.dataDic[@"4"];
+    }
+    if (section == 4) {
+        arr = self.dataDic[@"24"];
+    }
+    if (arr.count > 0) {
+        return 1;
+    }
     return 0;
-//    return self.dataArray.count;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    HYUkHomeRecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (!cell) {
+        cell = [[HYUkHomeRecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    }
+    cell.selectionStyle = 0;
+    NSArray *arr;
+    if (indexPath.section == 0) {
+        arr = self.dataDic[@"1"];
+    }
+    if (indexPath.section == 1) {
+        arr = self.dataDic[@"2"];
+    }
     
-    HYUkVideoHomeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-//    cell.delegate = self;
-//
-//    cell.data =
-//    [cell loadContent];
-
-//    HYDouBanMovieItemModel *model = self.dataArray[indexPath.row];
-//
-//    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.pic.large] placeholder:nil];
-//    cell.name.text = model.title;
+    if (indexPath.section == 2) {
+        arr = self.dataDic[@"3"];
+    }
+    
+    if (indexPath.section == 3) {
+        arr = self.dataDic[@"4"];
+    }
+    if (indexPath.section == 4) {
+        arr = self.dataDic[@"24"];
+    }
+    cell.data = arr;
+    [cell loadContent];
     
     return cell;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    HYUkDetailViewController *vc = [HYUkDetailViewController new];
-//    vc.movieModel = self.dataArray[indexPath.row];
-    [self.navigationController pushViewController:vc animated:YES];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return CGSizeMake(SCREEN_WIDTH, 100);
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if (kind == UICollectionElementKindSectionHeader) {
-        
-        UICollectionReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
-        headView.backgroundColor = UIColor.clearColor;
-//        [headView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
-
-//        if (!self.videoHeadView) {
-//            self.videoHeadView = [[HYHomeVideoHeadView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, self.headHeight - 20.0)];
-//            [headView addSubview:self.videoHeadView];
-//
-//            __weak typeof(self) _self = self;
-//
-//            [self.videoHeadView setHeadHeightBlock:^(CGFloat headHeight) {
-//                _self.headHeight = headHeight + 20;
-//                [_self.collectionView reloadData];
-//            }];
-//
-//            [self.videoHeadView setMovieListBlock:^(NSArray * _Nonnull list) {
-//                [_self.dataArray addObjectsFromArray:list];
-//                [_self.collectionView reloadData];
-//            }];
-//        }
-
-
-        return headView;
-    }
-    return nil;
-}
 
 @end

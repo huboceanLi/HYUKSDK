@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUkRecommendHeadView : HYBaseView
 
+@property (nonatomic, strong) UILabel *name;
+
 @end
 
 NS_ASSUME_NONNULL_END
