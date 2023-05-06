@@ -125,6 +125,16 @@
 }
 
 - (void)searchApi {
+    __weak typeof(self) weakSelf = self;
+    [[HYVideoSingle sharedInstance] getSearchListWithKeywords:self.keyWords page:self.page success:^(NSString *message, id responseObject) {
+        weakSelf.historyView.hidden = YES;
+        weakSelf.searchListView.hidden = NO;
+        weakSelf.searchListView.data = responseObject;
+        [weakSelf.searchListView loadContent];
+    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            
+    }];
+    
 //    HYRequestSearchModel *searchModel = [HYRequestSearchModel new];
 //    searchModel.page = self.page;
 //    searchModel.keyWords = self.keyWords;

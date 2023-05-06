@@ -60,13 +60,11 @@
     flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     flow.minimumLineSpacing = leftSpace;
     flow.minimumInteritemSpacing = 0;
-//    flow.headerReferenceSize = CGSizeMake(SCREEN_WIDTH, 100);
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flow];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor =  [UIColor clearColor];
-    //    _collectionView.scrollEnabled = YES;
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.pagingEnabled = NO;
@@ -108,7 +106,6 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return 11;
     return self.detailModel.vod_play_url.count;
 }
 
@@ -119,8 +116,6 @@
 //    cell.delegate = self;
 
     HYUkVideoDetailItemModel *model = self.detailModel.vod_play_url[indexPath.row];
-//    cell.data = self.dataArray[indexPath.row];
-//    [cell loadContent];
     cell.contentView.backgroundColor = UIColor.clearColor;
     cell.backgroundColor = UIColor.clearColor;
     cell.layer.cornerRadius = 0.0;

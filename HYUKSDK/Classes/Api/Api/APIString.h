@@ -25,6 +25,8 @@ extern NSString * const video_detail;
 
 extern NSString * const video_list;
 
+extern NSString * const video_search;
+
 @end
 
 NS_ASSUME_NONNULL_END

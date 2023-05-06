@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getVideoListWithPage:(NSInteger)page type_id_1:(NSInteger)type_id_1 vod_area:(NSString *)vod_area vod_lang:(NSString *)vod_lang vod_year:(NSString *)vod_year order:(NSString *)order success:(RequestSuccessed)success fail:(RequestFailure)fail;
 
+- (void)getSearchListWithKeywords:(NSString *)keywords page:(NSInteger)page success:(RequestSuccessed)success fail:(RequestFailure)fail;
+
 @end
 
 NS_ASSUME_NONNULL_END

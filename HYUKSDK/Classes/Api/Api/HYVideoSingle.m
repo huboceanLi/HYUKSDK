@@ -75,4 +75,18 @@ static HYVideoSingle *single = nil;
     }];
 }
 
+- (void)getSearchListWithKeywords:(NSString *)keywords page:(NSInteger)page success:(RequestSuccessed)success fail:(RequestFailure)fail
+{
+    NSDictionary *dic = @{@"page":@(page),@"keywords":keywords};
+    [APIBaseManager getLoadDataWithAPI:video_search params:dic modelName:@"HYResponseSearchModel" success:^(NSString *message, id responseObject) {
+        if (success) {
+            success(message, responseObject);
+        }
+    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+        if (fail) {
+            fail(errorType, errorMessage);
+        }
+    }];
+}
+
 @end

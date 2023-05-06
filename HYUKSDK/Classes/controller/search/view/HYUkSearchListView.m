@@ -11,6 +11,7 @@
 @interface HYUkSearchListView()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
@@ -18,6 +19,8 @@
 
 - (void)initSubviews {
     [super initSubviews];
+    
+    self.dataArray = [NSMutableArray array];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
@@ -42,7 +45,7 @@
 #pragma mark - Table view datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 11;
+    return self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,7 +86,11 @@
         cell = [[HYUkRankViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     cell.selectionStyle = 0;
-
+    HYResponseSearchModel *model = self.dataArray[indexPath.section];
+    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:nil];
+    cell.name.text = model.vod_name;
+    
+    
     return cell;
 }
 
@@ -91,6 +98,11 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+}
+
+- (void)loadContent {
+    [self.dataArray addObjectsFromArray:self.data];
+    [self.tableView reloadData];
 }
 
 @end

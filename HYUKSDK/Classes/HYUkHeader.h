@@ -29,6 +29,7 @@
 #import "HYUkVideoDetailModel.h"
 #import "HYResponseCategeryModel.h"
 #import "HYResponseVideoListModel.h"
+#import "HYResponseSearchModel.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

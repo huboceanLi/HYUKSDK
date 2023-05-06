@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUkRankViewCell : HYBaseTableViewCell
 
+@property (nonatomic, strong) UIImageView *headImageView;
+@property (nonatomic, strong) UILabel *name;
+@property (nonatomic, strong) UILabel *typeLab;
+@property (nonatomic, strong) UILabel *briefLab;
+@property (nonatomic, strong) UIView *tagView;
+
 @end
 
 NS_ASSUME_NONNULL_END
