@@ -34,22 +34,18 @@
     NSInteger count = 3;
     CGFloat w = ceil((SCREEN_WIDTH - leftSpace * 2 - space * 2) / count) - 1;
     CGFloat h = 160 * w / 120 + 6 + 20;
-    
-//    self.headHeight = 140.0;
-    
+        
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc] init];
     flow.sectionInset = UIEdgeInsetsMake(leftSpace, leftSpace, leftSpace, leftSpace);
     flow.itemSize = CGSizeMake(w, h);
     flow.scrollDirection = UICollectionViewScrollDirectionVertical;
     flow.minimumLineSpacing = space;
     flow.minimumInteritemSpacing = space;
-//    flow.headerReferenceSize = CGSizeMake(SCREEN_WIDTH, 100);
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flow];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor =  [UIColor clearColor];
-    //    self.collectionView.scrollEnabled = YES;
     self.collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.pagingEnabled = NO;
@@ -58,7 +54,6 @@
     [self.collectionView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
     self.collectionView.emptyView.verticalOffset = 50;
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
-    //    [self.collectionView registerNib:[UINib nibWithNibName:@"HYUkVideoHomeListCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     if (@available (iOS 11.0, *)) {
         [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
@@ -66,8 +61,6 @@
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.left.right.equalTo(self.view);
-//        make.top.equalTo(self.navBar.mas_bottom).offset(0);
-//        make.bottom.equalTo(self.view.mas_bottom).offset(- (IS_iPhoneX ? 80 : 50));
     }];
     
     [self getData];
@@ -76,7 +69,8 @@
 - (void)getData {
     __weak typeof(self) weakSelf = self;
     [[HYUkShowLoadingManager sharedInstance] showLoading];
-    [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID vod_area:@"" vod_lang:@"" vod_year:@"" order:@"最新" success:^(NSString *message, id responseObject) {
+    
+    [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID type_id:self.categeryListView.tempCategaryModel.type_id vod_area:self.categeryListView.tempCategaryModel.vod_area vod_lang:self.categeryListView.tempCategaryModel.vod_lang vod_year:self.categeryListView.tempCategaryModel.vod_year order:self.categeryListView.tempCategaryModel.order success:^(NSString *message, id responseObject) {
         [weakSelf.dataArray addObjectsFromArray:responseObject];
         [weakSelf.collectionView reloadData];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
@@ -104,17 +98,8 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     HYUkVideoHomeListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-//    cell.delegate = self;
-//
-//    cell.data =
-//    [cell loadContent];
 
-//    HYDouBanMovieItemModel *model = self.dataArray[indexPath.row];
-//
-//    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.pic.large] placeholder:nil];
-//    cell.name.text = model.title;
     HYResponseVideoListModel *model = self.dataArray[indexPath.row];
 
     [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:nil];
@@ -156,17 +141,6 @@
             [headView addSubview:self.categeryListView];
             self.categeryListView.data = self.categeryModel;
             [self.categeryListView loadContent];
-//            __weak typeof(self) _self = self;
-//
-//            [self.videoHeadView setHeadHeightBlock:^(CGFloat headHeight) {
-//                _self.headHeight = headHeight + 20;
-//                [_self.collectionView reloadData];
-//            }];
-//
-//            [self.videoHeadView setMovieListBlock:^(NSArray * _Nonnull list) {
-//                [_self.dataArray addObjectsFromArray:list];
-//                [_self.collectionView reloadData];
-//            }];
         }
 
 
@@ -178,9 +152,19 @@
 - (void)customView:(HYBaseView *)view event:(id)event
 {
     if ([view isKindOfClass:[HYUkCategeryListView class]]) {
-        NSInteger index = [event intValue];
-        self.headHeight = 40.0 * index;
-        [self.collectionView reloadData];
+        
+        NSDictionary *dic = event;
+        if ([dic[@"type"] isEqualToString:@"h"]) {
+            NSInteger index = [dic[@"h"] intValue];
+            self.headHeight = 40.0 * index;
+            [self.collectionView reloadData];
+        }else {
+            self.page = 0;
+            [self.dataArray removeAllObjects];
+            [self.collectionView reloadData];
+            [self getData];
+        }
+
     }
 }
 

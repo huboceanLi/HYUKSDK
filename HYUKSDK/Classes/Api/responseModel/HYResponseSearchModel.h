@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HYResponseSearchModel : CommonBaseModel
 
 @property (nonatomic, assign) NSInteger video_id;
+@property (nonatomic, assign) NSInteger ID;
 @property (nonatomic, assign) NSInteger type_id;
 @property (nonatomic, assign) NSInteger type_id_1;
 @property (nonatomic, assign) NSInteger vod_total;

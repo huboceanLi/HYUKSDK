@@ -13,6 +13,7 @@
 #import "HYUkVideoRecommendView.h"
 #import "HYUkVideoBriefDetailView.h"
 #import "HYUkHeader.h"
+#import "HYUkDetailErrorView.h"
 
 static CGFloat briefViewHeoght = 60.0;
 
@@ -27,6 +28,7 @@ static CGFloat briefViewHeoght = 60.0;
 @property(nonatomic, strong) HYUkVideoRecommendView * recommendView;
 @property(nonatomic, strong) HYUkVideoBriefDetailView * briefDetailView;
 @property(nonatomic, strong) HYUkVideoDetailModel * detailModel;
+@property(nonatomic, strong) HYUkDetailErrorView * errorView;
 
 @end
 
@@ -67,7 +69,7 @@ static CGFloat briefViewHeoght = 60.0;
         make.top.equalTo(self.playView.mas_bottom).offset(0);
         make.left.right.bottom.equalTo(self.view);
     }];
-    
+
     self.briefView = [HYUkVideoDetailBriefView new];
     self.briefView.delegate = self;
     [self.scrollView addSubview:self.briefView];
@@ -116,6 +118,14 @@ static CGFloat briefViewHeoght = 60.0;
     self.briefDetailView.hidden = YES;
     
     self.scrollView.hidden = YES;
+    
+    [self.view addSubview:self.errorView];
+    self.errorView.hidden = YES;
+    [self.errorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.playView.mas_bottom).offset(0);
+    }];
+    
     [self getData];
 }
 
@@ -136,20 +146,15 @@ static CGFloat briefViewHeoght = 60.0;
         
         weakSelf.selectWorkView.data = responseObject;
         [weakSelf.selectWorkView loadContent];
-        
-//        if (weakSelf.detailModel.vod_total <= 1) {
-//            weakSelf.selectWorkView.hidden = YES;
-//            [weakSelf.selectWorkView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.mas_offset(0);
-//            }];
-//        }else {
-//            weakSelf.selectWorkView.hidden = NO;
-//            [weakSelf.selectWorkView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.mas_offset(briefViewHeoght);
-//            }];
-//        }
+
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+        self.errorView.hidden = NO;
+        if (errorType == CTAPIManagerErrorTypeNoNetWork) {
+            [weakSelf.errorView showImageName:@"uk_net_err" TitleString:@"无网络连接，请检查网络"];
+        }else {
+            [weakSelf.errorView showImageName:@"uk_load_err" TitleString:@"加载失败!"];
+        }
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     }];
 }
@@ -190,6 +195,13 @@ static CGFloat briefViewHeoght = 60.0;
         _briefDetailView.delegate = self;
     }
     return _briefDetailView;
+}
+
+- (HYUkDetailErrorView *)errorView {
+    if (!_errorView) {
+        _errorView = [HYUkDetailErrorView new];
+    }
+    return _errorView;
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle {

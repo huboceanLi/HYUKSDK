@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) CGFloat nameWidth;
 @property (nonatomic, strong) UIFont *nameFont;
+@property (nonatomic, assign) NSInteger type_id;
 
 @end
 

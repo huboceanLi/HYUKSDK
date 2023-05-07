@@ -31,9 +31,9 @@ static char UICollectionRealEmptyView;
     [self uk_reloadData];
     
     //  忽略第一次加载
-    if (![self isInitFinish]) {
+    if (![self isUkInitFinish]) {
         [self hideEmptyView];
-        [self setIsInitFinish:YES];
+        [self setIsUkInitFinish:YES];
         return ;
     }
     //  刷新完成之后检测数据量
@@ -61,14 +61,14 @@ static char UICollectionRealEmptyView;
 /**
  设置已经加载完成数据了
  */
-- (void)setIsInitFinish:(BOOL)finish {
-    objc_setAssociatedObject(self, @selector(isInitFinish), @(finish), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setIsUkInitFinish:(BOOL)finish {
+    objc_setAssociatedObject(self, @selector(isUkInitFinish), @(finish), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 /**
  是否已经加载完成数据
  */
-- (BOOL)isInitFinish {
+- (BOOL)isUkInitFinish {
     id obj = objc_getAssociatedObject(self, _cmd);
     return [obj boolValue];
 }

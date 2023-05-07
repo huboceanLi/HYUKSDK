@@ -94,7 +94,12 @@
     [self.collectionView reloadData];
     
     NSIndexPath *cuIndexPath = [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0];  //取最后一行数据
-        [self.collectionView scrollToItemAtIndexPath:cuIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
+    [self.collectionView scrollToItemAtIndexPath:cuIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
+    HYUkTextTempModel *m = self.dataArray[indexPath.row];
+
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:m.name];
+    }
 }
 
 - (void)loadContent {

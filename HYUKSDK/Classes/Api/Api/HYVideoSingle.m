@@ -66,10 +66,14 @@ static HYVideoSingle *single = nil;
     });
 }
 
-- (void)getVideoListWithPage:(NSInteger)page type_id_1:(NSInteger)type_id_1 vod_area:(NSString *)vod_area vod_lang:(NSString *)vod_lang vod_year:(NSString *)vod_year order:(NSString *)order success:(RequestSuccessed)success fail:(RequestFailure)fail
+- (void)getVideoListWithPage:(NSInteger)page type_id_1:(NSInteger)type_id_1 type_id:(NSInteger)type_id vod_area:(NSString *)vod_area vod_lang:(NSString *)vod_lang vod_year:(NSString *)vod_year order:(NSString *)order success:(RequestSuccessed)success fail:(RequestFailure)fail
 {
-    
-    NSDictionary *dic = @{@"page":@(page),@"type_id_1":@(type_id_1),@"vod_area":vod_area,@"vod_lang":vod_lang,@"vod_year":vod_year,@"order":order};
+    NSDictionary *dic = @{};
+    if (type_id == -1) {
+        dic = @{@"page":@(page),@"type_id_1":@(type_id_1),@"vod_area":vod_area,@"vod_lang":vod_lang,@"vod_year":vod_year,@"order":order};
+    }else {
+        dic = @{@"page":@(page),@"type_id_1":@(type_id_1),@"vod_area":vod_area,@"vod_lang":vod_lang,@"vod_year":vod_year,@"order":order,@"type_id":@(type_id)};
+    }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [APIBaseManager getLoadDataWithAPI:video_list params:dic modelName:@"HYResponseVideoListModel" success:^(NSString *message, id responseObject) {
             if (success) {

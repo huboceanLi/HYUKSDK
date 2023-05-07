@@ -170,7 +170,7 @@
     HYResponseSearchModel *model = self.dataArray[indexPath.section];
 
     HYUkDetailViewController *vc = [HYUkDetailViewController new];
-    vc.videoId = model.video_id;
+    vc.videoId = model.ID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
