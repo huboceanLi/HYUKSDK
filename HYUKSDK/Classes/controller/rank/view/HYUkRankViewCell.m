@@ -82,8 +82,8 @@
         [self.coverView addSubview:self.briefLab];
 
         
-        self.tagView = [UIView new];
-        self.tagView.backgroundColor = UIColor.redColor;
+        self.tagView = [HYUkRankClassView new];
+        self.tagView.backgroundColor = UIColor.clearColor;
         [self.coverView addSubview:self.tagView];
         
         [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {

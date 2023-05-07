@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getSearchListWithKeywords:(NSString *)keywords page:(NSInteger)page success:(RequestSuccessed)success fail:(RequestFailure)fail;
 
+- (void)getRnakListWithPage:(NSInteger)page success:(RequestSuccessed)success fail:(RequestFailure)fail;
 @end
 
 NS_ASSUME_NONNULL_END

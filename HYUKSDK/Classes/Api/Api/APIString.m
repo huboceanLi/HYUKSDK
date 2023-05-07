@@ -31,5 +31,6 @@ NSString * const home_recommend = @"recommend";
 NSString * const video_detail = @"get_detail";
 NSString * const video_list = @"get_list";
 NSString * const video_search = @"search_movies";
+NSString * const video_rank = @"get_rank";
 
 @end

@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <HYBaseTool/HYBaseTool.h>
 #import "HYUkHeader.h"
+#import "HYUkRankClassView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UILabel *typeLab;
 @property (nonatomic, strong) UILabel *briefLab;
-@property (nonatomic, strong) UIView *tagView;
+@property (nonatomic, strong) HYUkRankClassView *tagView;
 
 @end
 

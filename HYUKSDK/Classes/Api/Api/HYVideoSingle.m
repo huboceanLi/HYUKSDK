@@ -89,4 +89,18 @@ static HYVideoSingle *single = nil;
     }];
 }
 
+- (void)getRnakListWithPage:(NSInteger)page success:(RequestSuccessed)success fail:(RequestFailure)fail
+{
+    NSDictionary *dic = @{@"page":@(page)};
+    [APIBaseManager getLoadDataWithAPI:video_rank params:dic modelName:@"HYResponseSearchModel" success:^(NSString *message, id responseObject) {
+        if (success) {
+            success(message, responseObject);
+        }
+    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+        if (fail) {
+            fail(errorType, errorMessage);
+        }
+    }];
+}
+
 @end

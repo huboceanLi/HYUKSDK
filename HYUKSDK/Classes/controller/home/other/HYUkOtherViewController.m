@@ -10,11 +10,12 @@
 #import "HYUkVideoHomeListCell.h"
 #import "HYUkCategeryListView.h"
 
-@interface HYUkOtherViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface HYUkOtherViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,HYBaseViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) HYUkCategeryListView *categeryListView;
 @property (nonatomic, assign) NSInteger page;
+@property (nonatomic, assign) CGFloat headHeight;
 
 @end
 
@@ -26,6 +27,7 @@
     self.dataArray = [NSMutableArray array];
     self.view.backgroundColor = UIColor.clearColor;
 //    [[HYVideoPlayTypeManager shareInstance] getPlayTypeLisy];
+    self.headHeight = 200.0;
     
     CGFloat leftSpace = 15;
     CGFloat space = 8;
@@ -130,7 +132,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return CGSizeMake(SCREEN_WIDTH, 200);
+    return CGSizeMake(SCREEN_WIDTH, self.headHeight);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -141,7 +143,8 @@
 //        [headView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 
         if (!self.categeryListView) {
-            self.categeryListView = [[HYUkCategeryListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
+            self.categeryListView = [[HYUkCategeryListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.headHeight)];
+            self.categeryListView.delegate = self;
             [headView addSubview:self.categeryListView];
             self.categeryListView.data = self.categeryModel;
             [self.categeryListView loadContent];
@@ -162,6 +165,15 @@
         return headView;
     }
     return nil;
+}
+
+- (void)customView:(HYBaseView *)view event:(id)event
+{
+    if ([view isKindOfClass:[HYUkCategeryListView class]]) {
+        NSInteger index = [event intValue];
+        self.headHeight = 40.0 * index;
+        [self.collectionView reloadData];
+    }
 }
 
 @end

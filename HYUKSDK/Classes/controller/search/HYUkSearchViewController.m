@@ -10,6 +10,7 @@
 #import "HYUkSearchListView.h"
 #import "HYUkHistoryView.h"
 #import "HYUkHeader.h"
+#import "HYUkDetailViewController.h"
 
 @interface HYUkSearchViewController ()<HYBaseViewDelegate>
 
@@ -122,6 +123,22 @@
 
     }
     
+    if ([view isKindOfClass:[HYUkSearchListView class]]) {
+        [self.view endEditing:YES];
+        HYUkDetailViewController *vc = [HYUkDetailViewController new];
+        vc.videoId = [event intValue];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        NSMutableArray *vcs = [self.navigationController.viewControllers mutableCopy];
+        
+        for (UIViewController *item in vcs) {
+            if ([item isKindOfClass:[HYUkSearchViewController class]]) {
+                [vcs removeObject:item];
+                self.navigationController.viewControllers = vcs;
+                break;
+            }
+        }
+    }
 }
 
 - (void)searchApi {

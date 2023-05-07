@@ -90,6 +90,36 @@
     [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:nil];
     cell.name.text = model.vod_name;
     
+    NSString *str = @"";
+    if (model.type_id_1 == 1) {
+        str = @"电影";
+    }else if (model.type_id_1 == 2) {
+        str = @"电视剧";
+    }else if (model.type_id_1 == 3) {
+        str = @"综艺";
+    }else if (model.type_id_1 == 4) {
+        str = @"动漫";
+    }else if (model.type_id_1 == 24) {
+        str = @"记录片";
+    }else {
+        str = @"其他";
+    }
+    
+    cell.typeLab.text = [NSString stringWithFormat:@"%@/%@/%@",model.vod_year,str,model.vod_area];
+    
+    NSString *content = model.vod_content;
+    content = [content stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+    content = [content stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+    
+    cell.briefLab.text = content;
+
+    if (model.vod_class.length == 0) {
+        cell.tagView.hidden = YES;
+    }else {
+        cell.tagView.data = model.vod_class;
+        [cell.tagView loadContent];
+        cell.tagView.hidden = NO;
+    }
     
     return cell;
 }
@@ -97,7 +127,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
+    HYResponseSearchModel *model = self.dataArray[indexPath.section];
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:@(model.video_id)];
+    }
 }
 
 - (void)loadContent {

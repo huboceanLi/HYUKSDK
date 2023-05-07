@@ -19,6 +19,6 @@ import Foundation
     }
 
     public func clearData() {
-        
+        HYUkSearchKeyDao.default.clearData()
     }
 }

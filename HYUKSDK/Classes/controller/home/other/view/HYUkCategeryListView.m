@@ -15,6 +15,7 @@
 @property (nonatomic, strong) HYUkHomeCategeryView *areaView;
 @property (nonatomic, strong) HYUkHomeCategeryView *langView;
 @property (nonatomic, strong) HYUkHomeCategeryView *yearView;
+@property (nonatomic, assign) NSInteger index;
 
 @end
 
@@ -24,6 +25,7 @@
     [super initSubviews];
     
     self.backgroundColor = UIColor.clearColor;
+    self.index = 0;
     
     self.scoreView = [HYUkHomeCategeryView new];
     [self addSubview:self.scoreView];
@@ -68,25 +70,14 @@
         make.height.mas_equalTo(40);
         make.top.equalTo(self.langView.mas_bottom).offset(0);
     }];
-    
-
-    
-
-    
-    self.areaView.data = @[@"全部",@"大陆",@"香港",@"美国",@"英国",@"西班牙"];
-    [self.areaView loadContent];
-    
-    self.langView.data = @[@"全部",@"国语",@"粤语",@"英语",@"土耳其语"];
-    [self.langView loadContent];
-    
-
 }
+
 - (void)loadContent {
     HYResponseCategeryModel *model = self.data;
     
     self.scoreView.data = model.order;
     [self.scoreView loadContent];
-    
+    self.index++;
     if (model.type.count > 0) {
         NSMutableArray *typeArr = [NSMutableArray array];
         [typeArr insertObject:@"全部" atIndex:0];
@@ -99,6 +90,7 @@
         [self.typeView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(40);
         }];
+        self.index++;
     }else {
         self.typeView.hidden = YES;
         [self.typeView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -116,6 +108,7 @@
         [self.yearView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(40);
         }];
+        self.index++;
     }else {
         self.yearView.hidden = YES;
         [self.yearView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -123,6 +116,45 @@
         }];
     }
     
+    if (model.vod_area.count > 0) {
+        NSMutableArray *areaArr = [model.vod_area mutableCopy];
+        [areaArr insertObject:@"全部" atIndex:0];
+        self.areaView.data = areaArr;
+        [self.areaView loadContent];
+        
+        self.areaView.hidden = NO;
+        [self.areaView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(40);
+        }];
+        self.index++;
+    }else {
+        self.areaView.hidden = YES;
+        [self.areaView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+    }
+    
+    if (model.vod_lang.count > 0) {
+        NSMutableArray *langArr = [model.vod_lang mutableCopy];
+        [langArr insertObject:@"全部" atIndex:0];
+        self.langView.data = langArr;
+        [self.langView loadContent];
+        
+        self.langView.hidden = NO;
+        [self.langView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(40);
+        }];
+        self.index++;
+    }else {
+        self.langView.hidden = YES;
+        [self.langView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:[NSString stringWithFormat:@"%ld",self.index]];
+    }
 }
 
 @end

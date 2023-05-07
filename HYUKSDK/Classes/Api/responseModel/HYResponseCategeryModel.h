@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *order;
 @property (nonatomic, strong) NSArray <HYResponseCategeryTypeModel *>*type;
 @property (nonatomic, strong) NSArray *vod_year;
+@property (nonatomic, strong) NSArray *vod_area;
+@property (nonatomic, strong) NSArray *vod_lang;
 
 @end
 
