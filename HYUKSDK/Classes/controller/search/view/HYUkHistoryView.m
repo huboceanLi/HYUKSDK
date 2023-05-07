@@ -8,6 +8,7 @@
 #import "HYUkHistoryView.h"
 #import "HYUkHomeCategeryCell.h"
 #import "HYUkHistoryHeadView.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkHistoryView()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -27,7 +28,6 @@
 //    NSInteger count = 3;
 //    CGFloat w = ceil((SCREEN_WIDTH - leftSpace * 2 - space * 2) / count) - 1;
 //    CGFloat h = 160 * w / 120 + 6 + 20;
-    self.dataArray = @[@"阿斯顿发",@"多少啊",@"伟大",@"藤森方式发生",@"u他月黑风高的",@"让我通过发送",@"公司人士",@"问",@"染发",@"我儿氛围啊",@"饿饿哒"];
     
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc] init];
     flow.sectionInset = UIEdgeInsetsMake(0, leftSpace, 0, leftSpace);
@@ -58,6 +58,7 @@
         make.left.right.top.bottom.equalTo(self);
 //        make.height.mas_equalTo(28);
     }];
+    [self loadContent];
 }
 
 #pragma mark  --- UICollectionViewDataSource
@@ -88,14 +89,12 @@
 {
     
     HYUkHomeCategeryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-//    cell.delegate = self;
 
-//    cell.data = self.dataArray[indexPath.row];
-//    [cell loadContent];
-    cell.name.text = self.dataArray[indexPath.row];
+    HYUkTextTempModel *m = self.dataArray[indexPath.row];
+    cell.name.text = m.name;
     
     cell.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.1];
-    cell.name.textColor = [UIColor whiteColor];
+    cell.name.textColor = [UIColor textColor22];
 
     return cell;
 }
@@ -117,23 +116,10 @@
         
         UICollectionReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
         headView.backgroundColor = UIColor.clearColor;
-//        [headView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 
         if (!self.historyHeadView) {
             self.historyHeadView = [[HYUkHistoryHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 70)];
             [headView addSubview:self.historyHeadView];
-
-//            __weak typeof(self) _self = self;
-//
-//            [self.videoHeadView setHeadHeightBlock:^(CGFloat headHeight) {
-//                _self.headHeight = headHeight + 20;
-//                [_self.collectionView reloadData];
-//            }];
-//
-//            [self.videoHeadView setMovieListBlock:^(NSArray * _Nonnull list) {
-//                [_self.dataArray addObjectsFromArray:list];
-//                [_self.collectionView reloadData];
-//            }];
         }
 
 
@@ -144,36 +130,18 @@
 
 - (void)loadContent {
     
-//    NSMutableArray *temArray = [NSMutableArray array];
-//
-//    NSArray *a = self.data;
-//
-//    for (int i = 0; i < a.count; i++) {
-//        NSString *item = a[i];
-//        HYDouBanCategeryTempModel *m = [HYDouBanCategeryTempModel new];
-//
-//        if (i == 0) {
-//            if ([item containsString:@"全部"]) {
-//                m.name = @"全部";
-//            }
-//        }
-////        else if ([item containsString:@"年代"]) {
-////            m.name = [NSString stringWithFormat:@"%@年",[item substringToIndex:item.length - 2]];
-////        }
-//        else {
-//            m.name = item;
-//        }
-//        CGFloat w = [m.name widthForFont:[UIFont systemFontOfSize:13]];
-//
-//        m.cellWidth = ceil(w) + 20;
-//
-//        [temArray addObject:m];
-//    }
-//
-//    self.dataArray = [temArray mutableCopy];
-//
-//    [self.collectionView reloadData];
-    self.dataArray = self.data;
+    NSArray *arr = [[HYVideoSearchLogic share] querySearchList];
+    
+    NSMutableArray *temArray = [NSMutableArray array];
+    for (int i = 0; i < arr.count; i++) {
+        NSString *item = arr[i];
+        HYUkTextTempModel *m = [HYUkTextTempModel new];
+        m.name = item;
+        m.nameFont = [UIFont systemFontOfSize:13];
+        [temArray addObject:m];
+    }
+    self.dataArray = [temArray mutableCopy];
+    
     [self.collectionView reloadData];
 }
 

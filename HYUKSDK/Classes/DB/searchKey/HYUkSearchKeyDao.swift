@@ -42,4 +42,17 @@ struct HYUkSearchKeyDao {
             print("HYUkSearchKeyModel error: \(error)")
         }
     }
+    
+    func querySearchList() -> [HYUkSearchKeyModel] {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return []
+        }
+        
+        let result: [HYUkSearchKeyModel]? = try? database.getObjects(fromTable: HY_MOIVE_SEARCHKEY_TABLE_NAME, orderBy: [HYUkSearchKeyModel.Properties.create_Time.asOrder(by: .descending)], limit: 12)
+
+        if let r = result {
+            return r
+        }
+        return []
+    }
 }

@@ -39,7 +39,7 @@
     
     self.textField = [QMUITextField new];
     self.textField.placeholder = @"请输入关键词";
-    self.textField.text = @"狂飙";
+    self.textField.text = @"疯狂";
     self.textField.delegate = self;
     self.textField.placeholderColor = UIColor.lightGrayColor;
     self.textField.font = [UIFont systemFontOfSize:14];
@@ -82,6 +82,14 @@
     }];
 }
 
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    [self.searchBtn setTitle:@"取消" forState:0];
+    [self.searchBtn setTitleColor:UIColor.textColor99 forState:0];
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:@{@"isBack":@(2),@"key":@""}];
+    }
+    return YES;
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
@@ -124,4 +132,5 @@
         [self.delegate customView:self event:@{@"isBack":@(isBack),@"key":key}];
     }
 }
+
 @end

@@ -11,6 +11,7 @@
 #import "HYUkHistoryView.h"
 #import "HYUkHeader.h"
 #import "HYUkDetailViewController.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkSearchViewController ()<HYBaseViewDelegate>
 
@@ -101,6 +102,7 @@
         }else if ([dic[@"isBack"] integerValue] == 2) {
             self.historyView.hidden = NO;
             self.searchListView.hidden = YES;
+            [self.historyView loadContent];
         }else {
             if (![self.keyWords isEqualToString:dic[@"key"]]) {
                 self.keyWords = dic[@"key"];
@@ -108,10 +110,6 @@
                 [self searchApi];
                 NSLog(@"开始搜索了");
             }
-
-//            NSString *url = [NSString stringWithFormat:@"%@?search_text=%@&cat=1002",API_DouBan_Search_List,dic[@"key"]];
-//            NSString *encodedString = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//            [self.tempWebView getVideoUrl:encodedString];
         }
         return;
     }
@@ -148,6 +146,10 @@
         [[HYVideoSingle sharedInstance] getSearchListWithKeywords:self.keyWords page:self.page success:^(NSString *message, id responseObject) {
             weakSelf.historyView.hidden = YES;
             weakSelf.searchListView.hidden = NO;
+            NSArray *arr = responseObject;
+            if (arr.count > 0) {
+                [[HYVideoSearchLogic share] insertMovieListWithName:self.keyWords];
+            }
             weakSelf.searchListView.data = responseObject;
             [weakSelf.searchListView loadContent];
             [[HYUkShowLoadingManager sharedInstance] removeLoading];

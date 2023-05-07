@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)changeScoreColor:(NSString *)scoreStr Label:(UILabel *)lab;
 
+- (NSString *)getNowTimeTimestamp;
 
 @end
 
