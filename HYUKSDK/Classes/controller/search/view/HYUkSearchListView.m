@@ -10,7 +10,6 @@
 
 @interface HYUkSearchListView()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
@@ -30,6 +29,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 15, 0)];
     [ _tableView registerClass:[HYUkRankViewCell class] forCellReuseIdentifier:@"Cell"];
+    [_tableView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
 
 //    [self.tableView registerNib:[UINib nibWithNibName:@"ChangeInfoCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     [self addSubview:self.tableView];

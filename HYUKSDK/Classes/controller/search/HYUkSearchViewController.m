@@ -152,6 +152,12 @@
             [weakSelf.searchListView loadContent];
             [[HYUkShowLoadingManager sharedInstance] removeLoading];
         } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            if (errorType == CTAPIManagerErrorTypeNoNetWork) {
+                [weakSelf.searchListView.tableView updateEmptyViewWithImageName:@"uk_net_err" title:errorMessage];
+            }else {
+                [weakSelf.searchListView.tableView updateEmptyViewWithImageName:@"uk_load_err" title:@"加载失败!"];
+            }
+            [weakSelf.searchListView.tableView reloadData];
             [[HYUkShowLoadingManager sharedInstance] removeLoading];
         }];
     });

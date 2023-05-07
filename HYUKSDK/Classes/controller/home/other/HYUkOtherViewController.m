@@ -77,7 +77,7 @@
     __weak typeof(self) weakSelf = self;
     [[HYUkShowLoadingManager sharedInstance] showLoading];
     [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID vod_area:@"" vod_lang:@"" vod_year:@"" order:@"最新" success:^(NSString *message, id responseObject) {
-//        [weakSelf.dataArray addObjectsFromArray:responseObject];
+        [weakSelf.dataArray addObjectsFromArray:responseObject];
         [weakSelf.collectionView reloadData];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUkSearchListView : HYBaseView
 
+@property (nonatomic, strong) UITableView *tableView;
+
 @end
 
 NS_ASSUME_NONNULL_END
