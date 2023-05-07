@@ -55,6 +55,8 @@
     self.collectionView.pagingEnabled = NO;
     [self.collectionView setContentInset:UIEdgeInsetsMake(0, 0, (IS_iPhoneX ? 34 : 0), 0)];
     [self.collectionView registerClass:[HYUkVideoHomeListCell class] forCellWithReuseIdentifier:@"cell"];
+    [self.collectionView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
+    self.collectionView.emptyView.verticalOffset = 50;
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
     //    [self.collectionView registerNib:[UINib nibWithNibName:@"HYUkVideoHomeListCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     if (@available (iOS 11.0, *)) {
@@ -75,10 +77,16 @@
     __weak typeof(self) weakSelf = self;
     [[HYUkShowLoadingManager sharedInstance] showLoading];
     [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID vod_area:@"" vod_lang:@"" vod_year:@"" order:@"最新" success:^(NSString *message, id responseObject) {
-        [weakSelf.dataArray addObjectsFromArray:responseObject];
+//        [weakSelf.dataArray addObjectsFromArray:responseObject];
         [weakSelf.collectionView reloadData];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+        if (errorType == CTAPIManagerErrorTypeNoNetWork) {
+            [weakSelf.collectionView updateEmptyViewWithImageName:@"uk_net_err" title:errorMessage];
+        }else {
+            [weakSelf.collectionView updateEmptyViewWithImageName:@"uk_load_err" title:@"加载失败!"];
+        }
+        [weakSelf.collectionView reloadData];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     }];
 }

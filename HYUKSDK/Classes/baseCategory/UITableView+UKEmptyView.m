@@ -119,7 +119,7 @@ static char UITableViewRealEmptyView;
     
     [self.emptyView setImage:[UIImage uk_bundleImage:imageName]];
     [self.emptyView setTextLabelText:title];
-    self.emptyView.textLabelInsets = UIEdgeInsetsMake(-30, 0, 0, 0);
+    self.emptyView.textLabelInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
     [self.emptyView setTextLabelFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium]];
     [self.emptyView setTextLabelTextColor: [[UIColor blackColor] colorWithAlphaComponent:0.5]];
 }

@@ -32,6 +32,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 15, 0)];
     [ _tableView registerClass:[HYUkHomeRecommendCell class] forCellReuseIdentifier:@"Cell"];
+    [_tableView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
 
 //    [self.tableView registerNib:[UINib nibWithNibName:@"ChangeInfoCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
@@ -47,6 +48,7 @@
     
     [[HYUkShowLoadingManager sharedInstance] showLoading];
     
+    __weak typeof(self) weakSelf = self;
     [[HYVideoSingle sharedInstance] homeRecommendWithListSuccess:^(NSString *message, id responseObject) {
         NSArray *models = responseObject;
         
@@ -64,10 +66,16 @@
                 [dic setObject:@[item] forKey:tid];
             }
         }
-        self.dataDic = [dic mutableCopy];
-        [self.tableView reloadData];
+        weakSelf.dataDic = [dic mutableCopy];
+        [weakSelf.tableView reloadData];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+        if (errorType == CTAPIManagerErrorTypeNoNetWork) {
+            [weakSelf.tableView updateEmptyViewWithImageName:@"uk_net_err" title:errorMessage];
+        }else {
+            [weakSelf.tableView updateEmptyViewWithImageName:@"uk_load_err" title:@"加载失败!"];
+        }
+        [weakSelf.tableView reloadData];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     }];
 }

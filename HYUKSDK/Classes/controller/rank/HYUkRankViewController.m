@@ -7,10 +7,13 @@
 
 #import "HYUkRankViewController.h"
 #import "HYUkRankViewCell.h"
+#import "HYUkDetailViewController.h"
 
 @interface HYUkRankViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
@@ -30,7 +33,8 @@
     self.bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
     self.navTitleLabel.text = @"排行榜";
     
-
+    self.dataArray = [NSMutableArray array];
+    [self getData];
 }
 
 - (void)initSubviews {
@@ -62,23 +66,32 @@
         [self.tableView reloadData];
     });
 }
+
+- (void)getData {
+    __weak typeof(self) weakSelf = self;
+    [[HYUkShowLoadingManager sharedInstance] showLoading];
+    [[HYVideoSingle sharedInstance] getRnakListWithPage:self.page success:^(NSString *message, id responseObject) {
+        [weakSelf.dataArray addObjectsFromArray:responseObject];
+        [weakSelf.tableView reloadData];
+        [[HYUkShowLoadingManager sharedInstance] removeLoading];
+    } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+        [[HYUkShowLoadingManager sharedInstance] removeLoading];
+    }];
+}
+
 #pragma mark - Table view datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 0;
+    return self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.section == 0 && indexPath.row == 0) {
-//        return 70;
-//    }
     CGFloat w = 80;
     CGFloat h = 160 * w / 120 + 20;
     return h;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSArray *arr = self.list[section];
     return 1;
 }
 
@@ -106,7 +119,40 @@
         cell = [[HYUkRankViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     cell.selectionStyle = 0;
+    HYResponseSearchModel *model = self.dataArray[indexPath.section];
+    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:nil];
+    cell.name.text = model.vod_name;
+    
+    NSString *str = @"";
+    if (model.type_id_1 == 1) {
+        str = @"电影";
+    }else if (model.type_id_1 == 2) {
+        str = @"电视剧";
+    }else if (model.type_id_1 == 3) {
+        str = @"综艺";
+    }else if (model.type_id_1 == 4) {
+        str = @"动漫";
+    }else if (model.type_id_1 == 24) {
+        str = @"记录片";
+    }else {
+        str = @"其他";
+    }
+    
+    cell.typeLab.text = [NSString stringWithFormat:@"%@/%@/%@",model.vod_year,str,model.vod_area];
+    
+    NSString *content = model.vod_content;
+    content = [content stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+    content = [content stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+    
+    cell.briefLab.text = content;
 
+    if (model.vod_class.length == 0) {
+        cell.tagView.hidden = YES;
+    }else {
+        cell.tagView.data = model.vod_class;
+        [cell.tagView loadContent];
+        cell.tagView.hidden = NO;
+    }
     return cell;
 }
 
@@ -114,6 +160,11 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    HYResponseSearchModel *model = self.dataArray[indexPath.section];
+
+    HYUkDetailViewController *vc = [HYUkDetailViewController new];
+    vc.videoId = model.video_id;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

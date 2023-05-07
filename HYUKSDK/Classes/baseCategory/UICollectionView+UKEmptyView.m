@@ -104,7 +104,7 @@ static char UICollectionRealEmptyView;
             make.width.height.equalTo(self);
         }];
     }
-    self.emptyView.textLabelInsets = UIEdgeInsetsMake(-30, 0, 0, 0);
+    self.emptyView.textLabelInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
     [self.emptyView setImage:[UIImage uk_bundleImage:imageName]];
     [self.emptyView setTextLabelText:title];
     [self.emptyView setTextLabelFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium]];

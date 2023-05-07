@@ -22,6 +22,10 @@
     return self;
 }
 
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper{
+    return @{@"message":@"msg"};
+}
+
 @end
 
 @implementation CommonBaseModel

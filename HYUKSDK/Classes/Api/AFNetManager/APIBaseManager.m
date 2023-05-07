@@ -190,31 +190,28 @@ static CTAPIManagerRequestType _requestType = 0;
         
         BaseModel * baseModel = [BaseModel modelWithDictionary:fetchedRawData];
         //自定义错误码-9999代表BaseModel模型转换失败
-//        if (baseModel.status != -9999) {
-//            failCallback(apiManager.errorType, baseModel.message);
-//            return;
-//        }
+        if (baseModel.code == 500) {
+            failCallback(CTAPIManagerErrorTypeNoContent, errorMessage);
+            return;
+        }
         
-        switch (baseModel.code) {
+//        switch (baseModel.code) {
 //            case 500:{
-//                failCallback(apiManager.errorType, baseModel.msg);
+//                failCallback(apiManager.errorType, errorMessage);
 //                return;
 //            }
 //                break;
-            case 20006:{
-                //Token失效
-//                [APPDELEGATE presentToLoginWithErrorMessage:baseModel.message];
-            }
-                break;
-            case 999:{
-                //系统维护
-//                errorMessage = @"系统正在升级中，暂停使用，预计2小时，请稍后再试！";
-//                [APPDELEGATE presentToSystemUpgradeWebViewController];
-            }
-                break;
-            default:
-                break;
-        }
+//            case -9999:{
+//                failCallback(apiManager.errorType, errorMessage);
+//                return;
+//                //Token失效
+////                [APPDELEGATE presentToLoginWithErrorMessage:baseModel.message];
+//            }
+//
+//                break;
+//            default:
+//                break;
+//        }
         
         
         if (baseModel.message) {

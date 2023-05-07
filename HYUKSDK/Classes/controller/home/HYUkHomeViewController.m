@@ -113,9 +113,7 @@
         weakSelf.titleArray = [arr mutableCopy];
         weakSelf.headerView.titles = weakSelf.titleArray;
         [weakSelf.headerView reloadData];
-        
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
-            
     }];
 }
 
