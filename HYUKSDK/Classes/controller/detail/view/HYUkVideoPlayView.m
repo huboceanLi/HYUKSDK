@@ -17,7 +17,7 @@
 #import "MCSPrefetcherManager.h"
 #import "MCSDownload.h"
 
-static NSString *const DEMO_URL_HLS = @"https://ukzy.ukubf3.com/20220729/Dv07GYBT/index.m3u8";
+static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9HciOKan/index.m3u8";
 
 //static NSString *const DEMO_URL_HLS = @"https://cache.we-vip.com:2096/search/index.m3u8?data=NwmwEe5eNbjbU3YjM1YzU3MzQ3ZTE3OTA4NjY3M2Q4OThlZjQO0O0O";
 
@@ -35,21 +35,17 @@ static NSString *const DEMO_URL_HLS = @"https://ukzy.ukubf3.com/20220729/Dv07GYB
     self.backgroundColor = UIColor.blackColor;
     
     _player = SJVideoPlayer.player;
-    _player.pausedInBackground = YES;
+//    _player.pausedInBackground = YES;
+//    self.player.controlLayerDataSource = self;
+//    self.player.controlLayerDelegate = self;
     [self addSubview:_player.view];
     [_player.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
         make.top.equalTo(self.mas_top).offset(IS_iPhoneX ? 44 : 24);
     }];
     
-    SJMediaCacheServer.shared.enabledConsoleLog = YES;
-    SJMediaCacheServer.shared.logOptions = MCSLogOptionDownloader;
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        NSString *url = DEMO_URL_HLS;
-//        NSURL *URL = [NSURL URLWithString:url];
-//        [self _play:URL];
-//    });
+//    SJMediaCacheServer.shared.enabledConsoleLog = YES;
+//    SJMediaCacheServer.shared.logOptions = MCSLogOptionDownloader;
 }
 
 - (void)loadContent
@@ -75,6 +71,11 @@ static NSString *const DEMO_URL_HLS = @"https://ukzy.ukubf3.com/20220729/Dv07GYB
     NSURL *playbackURL = [SJMediaCacheServer.shared playbackURLWithURL:URL];
 //    // play
     _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:0];
-}
 
+
+}
+//- (void)videoPlayer:(__kindof SJBaseVideoPlayer *)videoPlayer currentTimeDidChange:(NSTimeInterval)currentTime
+//{
+//    NSLog(@"");
+//}
 @end
