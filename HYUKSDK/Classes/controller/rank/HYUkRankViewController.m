@@ -127,7 +127,7 @@
     }
     cell.selectionStyle = 0;
     HYResponseSearchModel *model = self.dataArray[indexPath.section];
-    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:nil];
+    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
     cell.name.text = model.vod_name;
     
     NSString *str = @"";
@@ -172,6 +172,9 @@
     HYUkDetailViewController *vc = [HYUkDetailViewController new];
     vc.videoId = model.ID;
     [self.navigationController pushViewController:vc animated:YES];
+    vc.changeLikeStatuBlock = ^(BOOL isLike, NSInteger videoId) {
+        
+    };
 }
 
 @end

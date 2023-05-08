@@ -27,7 +27,7 @@
         self.headImageView = [UIImageView new];
         self.headImageView.layer.cornerRadius = 6.0;
         self.headImageView.layer.masksToBounds = YES;
-        self.headImageView.backgroundColor = UIColor.lightGrayColor;
+        self.headImageView.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
         self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:self.headImageView];
         

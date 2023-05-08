@@ -82,6 +82,7 @@ static CGFloat briefViewHeoght = 60.0;
     }];
     
     self.toolView = [HYUkVideoDetailToolView new];
+    self.toolView.delegate = self;
     [self.scrollView addSubview:self.toolView];
     
     [self.toolView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -147,6 +148,9 @@ static CGFloat briefViewHeoght = 60.0;
         weakSelf.selectWorkView.data = responseObject;
         [weakSelf.selectWorkView loadContent];
 
+        weakSelf.toolView.data = responseObject;
+        [weakSelf.toolView loadContent];
+        
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
         self.errorView.hidden = NO;
@@ -180,6 +184,17 @@ static CGFloat briefViewHeoght = 60.0;
     }
     
     if ([view isKindOfClass:[HYUkVideoRecommendView class]]) {
+//        HYMovieListItemModel *model = event;
+//
+//        HYWebVideoViewController *vc = [HYWebVideoViewController new];
+//        vc.movieModel = model;
+//        vc.list = self.list;
+//        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if ([view isKindOfClass:[HYUkVideoDetailToolView class]]) {
+        NSDictionary *dic = event;
+        NSInteger videoId = [dic[@"videoID"] integerValue];
+        self.changeLikeStatuBlock([dic[@"isLike"] boolValue], videoId);
 //        HYMovieListItemModel *model = event;
 //
 //        HYWebVideoViewController *vc = [HYWebVideoViewController new];

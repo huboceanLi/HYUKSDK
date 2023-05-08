@@ -6,14 +6,16 @@
 //
 
 #import "HYUkCollectionCell.h"
+#import "HYUkRankClassView.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkCollectionCell()
 
 @property (nonatomic, strong) UIImageView *headImageView;
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UILabel *briefLab;
-@property (nonatomic, strong) UIView *tagView;
 @property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) HYUkRankClassView *tagView;
 
 @end
 
@@ -62,8 +64,8 @@
         [self.contentView addSubview:self.briefLab];
 
         
-        self.tagView = [UIView new];
-        self.tagView.backgroundColor = UIColor.redColor;
+        self.tagView = [HYUkRankClassView new];
+        self.tagView.backgroundColor = UIColor.clearColor;
         [self.contentView addSubview:self.tagView];
         
         [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,6 +93,37 @@
         }];
     }
     return self;
+}
+
+- (void)loadContent {
+    HYUkCollectionModel *model = self.data;
+    [self.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    self.name.text = model.vod_name;
+    
+    NSString *str = @"";
+    if (model.type_id_1 == 1) {
+        str = @"电影";
+    }else if (model.type_id_1 == 2) {
+        str = @"电视剧";
+    }else if (model.type_id_1 == 3) {
+        str = @"综艺";
+    }else if (model.type_id_1 == 4) {
+        str = @"动漫";
+    }else if (model.type_id_1 == 24) {
+        str = @"记录片";
+    }else {
+        str = @"其他";
+    }
+    
+    self.briefLab.text = [NSString stringWithFormat:@"%@/%@/%@",model.vod_year,str,model.vod_area];
+
+    if (model.vod_class.length == 0) {
+        self.tagView.hidden = YES;
+    }else {
+        self.tagView.data = model.vod_class;
+        [self.tagView loadContent];
+        self.tagView.hidden = NO;
+    }
 }
 
 - (void)awakeFromNib {

@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger videoId;
 
+@property (copy, nonatomic) void (^changeLikeStatuBlock)(BOOL isLike, NSInteger videoId);
+
 @end
 
 NS_ASSUME_NONNULL_END

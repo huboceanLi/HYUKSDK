@@ -24,7 +24,7 @@
 
         
         self.headImageView = [UIImageView new];
-        self.headImageView.backgroundColor = UIColor.lightGrayColor;
+        self.headImageView.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
         self.headImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:self.headImageView];
         

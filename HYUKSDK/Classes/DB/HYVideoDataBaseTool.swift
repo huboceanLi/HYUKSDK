@@ -28,7 +28,7 @@ class HYVideoDataBaseTool : NSObject {
             return
         }
         self.base = dbBase
-//        HYMovieListDao.default.createTable(database: dbBase)
+        HYUkCollectionDao.default.createTable(database: dbBase)
         HYUkSearchKeyDao.default.createTable(database: dbBase)
 //        HYBookDetailDao.default.createTable(database: dbBase)
 //        HYBookCategoryListDao.default.createTable(database: dbBase)

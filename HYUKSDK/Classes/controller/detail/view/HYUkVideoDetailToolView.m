@@ -6,13 +6,17 @@
 //
 
 #import "HYUkVideoDetailToolView.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkVideoDetailToolView()
 
-//@property (nonatomic, strong) QMUIButton *changeBtn;
+@property (nonatomic, strong) HYUkVideoDetailModel *detailModel;
 @property (nonatomic, strong) QMUIButton *downBtn;
 @property (nonatomic, strong) QMUIButton *likeBtn;
 @property (nonatomic, strong) QMUIButton *shareBtn;
+@property (nonatomic, assign) BOOL isLike;
+@property (nonatomic, strong) HYUkCollectionModel *collectionModel;
+
 
 @end
 
@@ -49,7 +53,7 @@
     [self.likeBtn setTitle:@"收藏" forState:0];
     [self.likeBtn setTitleColor:UIColor.textColor22 forState:0];
     self.likeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self.likeBtn setImage:[UIImage uk_bundleImage:@"shoucang"] forState:0];
+    [self.likeBtn setImage:[UIImage uk_bundleImage:@"uk_like_no"] forState:0];
     [self.likeBtn setImagePosition:QMUIButtonImagePositionTop];
     self.likeBtn.spacingBetweenImageAndTitle = 10;
     self.likeBtn.tag = 3;
@@ -99,12 +103,53 @@
 //    
 //}
 
+- (void)loadContent {
+    self.detailModel = self.data;
+    
+    HYUkCollectionModel *model = [[HYVideoCollectionLogic share] queryAppointCollectionWithVideoId:self.detailModel.ID];
+    if (model == nil) {
+        self.isLike = NO;
+        [self.likeBtn setImage:[UIImage uk_bundleImage:@"uk_like_no"] forState:0];
+        [self.likeBtn setTitleColor:UIColor.textColor22 forState:0];
+    }else {
+        self.isLike = YES;
+        [self.likeBtn setTitleColor:UIColor.mainColor forState:0];
+        [self.likeBtn setImage:[UIImage uk_bundleImage:@"uk_like_add"] forState:0];
+    }
+    
+    self.collectionModel = [HYUkCollectionModel new];
+    self.collectionModel.video_id = self.detailModel.ID;
+    self.collectionModel.type_id_1 = self.detailModel.type_id_1;
+    self.collectionModel.vod_name = self.detailModel.vod_name;
+    self.collectionModel.vod_pic = self.detailModel.vod_pic;
+    self.collectionModel.vod_year = self.detailModel.vod_year;
+    self.collectionModel.vod_area = self.detailModel.vod_area;
+    self.collectionModel.vod_class = self.detailModel.vod_class;
+    self.collectionModel.vod_remarks = self.detailModel.vod_remarks;
+    self.collectionModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+}
+
 - (void)downButtonClick {
     
 }
 
 - (void)likeButtonClick {
+    if (self.isLike) {
+        self.isLike = NO;
+        [self.likeBtn setTitleColor:UIColor.textColor22 forState:0];
+        [[HYVideoCollectionLogic share] removeAppointCollectionWithVideoId:self.detailModel.ID];
+        [self.likeBtn setImage:[UIImage uk_bundleImage:@"uk_like_no"] forState:0];
+    }else {
+        self.isLike = YES;
+        [self.likeBtn setTitleColor:UIColor.mainColor forState:0];
+        [[HYVideoCollectionLogic share] insertCollectionListWithList:@[self.collectionModel]];
+        [self.likeBtn setImage:[UIImage uk_bundleImage:@"uk_like_add"] forState:0];
+    }
     
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:@{@"videoID":@(self.detailModel.ID),@"isLike":@(self.isLike)}];
+    }
+//    [self routerWithEventName:@"RENEWCOLLECTION" userInfo:@{@"videoID":@(self.detailModel.ID),@"isLike":@(self.isLike)}];
 }
 
 - (void)shareButtonClick {
