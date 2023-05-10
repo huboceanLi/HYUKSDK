@@ -19,6 +19,31 @@ static HYUkConfigManager *manager = nil;
     return manager;
 }
 
+- (void)setChangeOrientation:(BOOL)isOrientation
+{
+    if ([self.delegate respondsToSelector:@selector(changeOrientation:)]) {
+        [self.delegate changeOrientation:isOrientation];
+    }
+}
+
+- (NSString *)changeTimeWithDuration:(NSInteger)duration {
+    
+    if (duration > 0) {
+        
+        NSInteger hou = duration % (60 * 60 * 24) / 3600;
+        NSInteger min = duration % (60 * 60 * 24) % 3600 / 60;
+        NSInteger sec = duration % (60 * 60 * 24) % 3600 % 60;
+
+        if (hou > 0) {
+            return [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hou,min,sec];
+        }
+        return [NSString stringWithFormat:@"%02ld:%02ld",min,sec];
+    }
+    
+    
+    return @"00:00";
+}
+
 - (void)changeScoreColor:(NSString *)scoreStr Label:(UILabel *)lab
 {
     double s = [scoreStr doubleValue];

@@ -172,9 +172,6 @@
     HYUkDetailViewController *vc = [HYUkDetailViewController new];
     vc.videoId = model.ID;
     [self.navigationController pushViewController:vc animated:YES];
-    vc.changeLikeStatuBlock = ^(BOOL isLike, NSInteger videoId) {
-        
-    };
 }
 
 @end

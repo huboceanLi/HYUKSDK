@@ -126,19 +126,16 @@
         HYUkDetailViewController *vc = [HYUkDetailViewController new];
         vc.videoId = [event intValue];
         [self.navigationController pushViewController:vc animated:YES];
-        vc.changeLikeStatuBlock = ^(BOOL isLike, NSInteger videoId) {
-            
-        };
-        
-        NSMutableArray *vcs = [self.navigationController.viewControllers mutableCopy];
-        
-        for (UIViewController *item in vcs) {
-            if ([item isKindOfClass:[HYUkSearchViewController class]]) {
-                [vcs removeObject:item];
-                self.navigationController.viewControllers = vcs;
-                break;
-            }
-        }
+
+//        NSMutableArray *vcs = [self.navigationController.viewControllers mutableCopy];
+//        
+//        for (UIViewController *item in vcs) {
+//            if ([item isKindOfClass:[HYUkSearchViewController class]]) {
+//                [vcs removeObject:item];
+//                self.navigationController.viewControllers = vcs;
+//                break;
+//            }
+//        }
     }
 }
 

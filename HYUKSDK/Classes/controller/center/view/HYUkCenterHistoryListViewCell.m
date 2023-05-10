@@ -6,6 +6,7 @@
 //
 
 #import "HYUkCenterHistoryListViewCell.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkCenterHistoryListViewCell()
 
@@ -39,7 +40,6 @@
         [self addSubview:self.timeLab];
 
         self.name = [UILabel new];
-        self.name.text = @"是的是大的是的是大的是是大的是的是大的是丰是丰收";
         self.name.font = [UIFont systemFontOfSize:12];
         self.name.numberOfLines = 2;
         self.name.textColor = [UIColor textColor22];
@@ -63,6 +63,14 @@
         }];
     }
     return self;
+}
+
+- (void)loadContent {
+    HYUkHistoryRecordModel *recordModel = self.data;
+    
+    self.name.text = recordModel.name;
+    [self.headImageView setImageWithURL:[NSURL URLWithString:recordModel.imageUrl] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    self.timeLab.text = [[HYUkConfigManager sharedInstance] changeTimeWithDuration:recordModel.playDuration];
 }
 
 @end

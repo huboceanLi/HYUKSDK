@@ -6,6 +6,7 @@
 //
 
 #import "HYUkVideoPlayView.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 #import "SJVideoPlayer.h"
 #import "SJAVMediaPlaybackController.h"
@@ -24,6 +25,8 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 @interface HYUkVideoPlayView()
 
 @property (nonatomic, strong, nullable) SJVideoPlayer *player;
+@property (nonatomic, strong) HYUkVideoDetailModel *detailModel;
+@property (nonatomic, strong) HYUkHistoryRecordModel *currentRecordModel;
 
 @end
 
@@ -51,16 +54,75 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 - (void)loadContent
 {
     HYUkVideoDetailModel *model = self.data;
+    self.detailModel = model;
     
-    if (model.vod_play_url.count == 1) {
-        HYUkVideoDetailItemModel *playModel = model.vod_play_url.firstObject;
-        NSURL *URL = [NSURL URLWithString:playModel.url];
-        [self _play:URL];
-        
-        return;
+    
+    if (model.vod_play_url.count >= 1) {
+        HYUkHistoryRecordModel *tempModel = [[HYUkHistoryRecordLogic share] queryAppointRecordWithVideoId:self.detailModel.ID];
+        if (tempModel) {
+            
+            BOOL isHave = false;
+            
+            for (HYUkVideoDetailItemModel *item in model.vod_play_url) {
+                if ([item.url isEqualToString:tempModel.playUrl] || [item.name isEqualToString:tempModel.playName]) {
+                    self.currentRecordModel = tempModel;
+                    isHave = true;
+                    
+                    NSURL *URL = [NSURL URLWithString:tempModel.playUrl];
+                    [self _play:URL];
+                    
+                    break;
+                }
+            }
+            
+            if (!isHave) {
+                self.currentRecordModel = [HYUkHistoryRecordModel new];
+                
+                HYUkVideoDetailItemModel *playModel = model.vod_play_url.firstObject;
+                
+                self.currentRecordModel.playUrl = playModel.url;
+                self.currentRecordModel.playName = playModel.name;
+                
+                NSURL *URL = [NSURL URLWithString:playModel.url];
+                [self _play:URL];
+                
+                
+                return;
+            }
+            
+        }else {
+            self.currentRecordModel = [HYUkHistoryRecordModel new];
+
+            HYUkVideoDetailItemModel *playModel = model.vod_play_url.firstObject;
+            
+            self.currentRecordModel.playUrl = playModel.url;
+            self.currentRecordModel.playName = playModel.name;
+            
+            NSURL *URL = [NSURL URLWithString:playModel.url];
+            [self _play:URL];
+            
+            return;
+        }
     }
+
 //    NSLog(@"播放时间:%f",self.player.currentTime);
 //    NSLog(@"总时间:%f",self.player.duration);
+}
+
+- (void)saveHistoryRecord {
+    NSInteger currentTime = self.player.currentTime - 10;
+    if (currentTime > 30 && self.player.assetStatus == SJAssetStatusReadyToPlay) {
+        HYUkHistoryRecordModel *recordModel = [HYUkHistoryRecordModel new];
+        recordModel.tvId = self.detailModel.ID;
+        recordModel.name = self.detailModel.vod_name;
+        recordModel.playUrl = self.currentRecordModel.playUrl;
+        recordModel.imageUrl = self.detailModel.vod_pic;
+        recordModel.duration = self.player.duration;
+        recordModel.playDuration = currentTime;
+        recordModel.playName = self.currentRecordModel.playName;
+        recordModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+        [[HYUkHistoryRecordLogic share] insertHistoryRecordWithRecordModel:recordModel];
+    }
 }
 
 #pragma mark -
@@ -70,7 +132,7 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     
     NSURL *playbackURL = [SJMediaCacheServer.shared playbackURLWithURL:URL];
 //    // play
-    _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:0];
+    _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:self.currentRecordModel.playDuration];
 
 
 }

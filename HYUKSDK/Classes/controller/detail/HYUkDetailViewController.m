@@ -30,6 +30,8 @@ static CGFloat briefViewHeoght = 60.0;
 @property(nonatomic, strong) HYUkVideoDetailModel * detailModel;
 @property(nonatomic, strong) HYUkDetailErrorView * errorView;
 
+
+
 @end
 
 @implementation HYUkDetailViewController
@@ -38,11 +40,40 @@ static CGFloat briefViewHeoght = 60.0;
     NSLog(@"HYVideoDetailViewController 灰飞烟灭！");
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    
+    [[HYUkConfigManager sharedInstance] setChangeOrientation:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.playView saveHistoryRecord];
+    
+    if ([self.delegate respondsToSelector:@selector(changeVideoProgressVideoId:)]) {
+        [self.delegate changeVideoProgressVideoId:self.videoId];
+    }
+    
+    [[HYUkConfigManager sharedInstance] setChangeOrientation:NO];
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        int val = UIInterfaceOrientationPortrait;
+        [invocation setArgument:&val atIndex:2];
+        [invocation invoke];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navBar.backgroundColor = UIColor.clearColor;
     [self.navBackButton setTitle:@"" forState:0];
+    
     
     self.playViewHeight = 220 * SCREEN_WIDTH / 390 + (IS_iPhoneX ? 44 : 24);
 
@@ -194,13 +225,9 @@ static CGFloat briefViewHeoght = 60.0;
     if ([view isKindOfClass:[HYUkVideoDetailToolView class]]) {
         NSDictionary *dic = event;
         NSInteger videoId = [dic[@"videoID"] integerValue];
-        self.changeLikeStatuBlock([dic[@"isLike"] boolValue], videoId);
-//        HYMovieListItemModel *model = event;
-//
-//        HYWebVideoViewController *vc = [HYWebVideoViewController new];
-//        vc.movieModel = model;
-//        vc.list = self.list;
-//        [self.navigationController pushViewController:vc animated:YES];
+        if ([self.delegate respondsToSelector:@selector(changeLikeStatus:videoId:)]) {
+            [self.delegate changeLikeStatus:[dic[@"isLike"] boolValue] videoId:videoId];
+        }
     }
 }
 

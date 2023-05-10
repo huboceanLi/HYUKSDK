@@ -65,8 +65,29 @@
 
 - (void)moreButtonClick {
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:nil];
+        [self.delegate customView:self event:@{@"type":@"more",@"tvId":@""}];
     }
+}
+
+- (void)customView:(HYBaseView *)view event:(id)event
+{
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:@{@"type":@"push",@"tvId":event}];
+    }
+}
+
+- (void)loadContent {
+    
+    NSMutableArray *arr = [self.data mutableCopy];
+    
+    if (arr.count >= 7) {
+        [arr removeObject:arr.lastObject];
+        self.moreBtn.hidden = YES;
+    }else {
+        self.moreBtn.hidden = NO;
+    }
+    self.listView.data = [arr mutableCopy];
+    [self.listView loadContent];
 }
 
 @end

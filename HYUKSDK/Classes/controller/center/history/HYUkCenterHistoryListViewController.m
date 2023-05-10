@@ -7,11 +7,16 @@
 
 #import "HYUkCenterHistoryListViewController.h"
 #import "HYUkCenterHistoryListCell.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
+#import "HYUkDetailViewController.h"
 
-@interface HYUkCenterHistoryListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HYUkCenterHistoryListViewController ()<UITableViewDelegate,UITableViewDataSource,HYUkDetailViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIButton *clearBtn;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, assign) NSInteger create_Time;
+
 
 @end
 
@@ -36,6 +41,9 @@
     self.navTitleLabel.textColor = UIColor.textColor22;
     [self.navBackButton setImage:[UIImage uk_bundleImage:@"31fanhui1"] forState:0];
     
+    self.create_Time = NSIntegerMax;
+    self.dataArray = [NSMutableArray array];
+    
     [self.navBar addSubview:self.clearBtn];
     [self.clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.navBar.mas_right).offset(-10);
@@ -46,7 +54,9 @@
     
     __weak typeof(self) weakSelf = self;
     [self.clearBtn blockEvent:^(UIButton *button) {
-        NSLog(@"*****清空历史记录*****");
+        [[HYUkHistoryRecordLogic share] clearData];
+        [weakSelf.dataArray removeAllObjects];
+        [weakSelf.tableView reloadData];
     }];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -68,6 +78,13 @@
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.navBar.mas_bottom);
     }];
+    [self getData];
+}
+
+- (void)getData {
+    NSArray *arr = [[HYUkHistoryRecordLogic share] queryHistoryRecordListWithCreateTime:self.create_Time count:20];
+    [self.dataArray addObjectsFromArray:arr];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view datasource
@@ -80,7 +97,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    NSArray *arr = self.list[section];
-    return 11;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -89,7 +106,9 @@
         cell = [[HYUkCenterHistoryListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     cell.selectionStyle = 0;
-
+    cell.data = self.dataArray[indexPath.row];
+    [cell loadContent];
+    
     return cell;
 }
 
@@ -97,6 +116,28 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    HYUkHistoryRecordModel *recordModel = self.dataArray[indexPath.row];
+
+    HYUkDetailViewController *vc = [HYUkDetailViewController new];
+    vc.videoId = recordModel.tvId;
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)changeVideoProgressVideoId:(NSInteger)videoId
+{
+    HYUkHistoryRecordModel *tempModel = [[HYUkHistoryRecordLogic share] queryAppointRecordWithVideoId:videoId];
+    
+    if (tempModel) {
+        for (HYUkHistoryRecordModel *item in self.dataArray) {
+            if (item.tvId == tempModel.tvId) {
+                [self.dataArray removeObject:item];
+                [self.dataArray insertObject:tempModel atIndex:0];
+                [self.tableView reloadData];
+                break;
+            }
+        }
+    }
 }
 
 @end

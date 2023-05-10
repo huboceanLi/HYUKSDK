@@ -11,5 +11,6 @@
 @interface HYAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic,assign) NSInteger allowRotate;
 
 @end

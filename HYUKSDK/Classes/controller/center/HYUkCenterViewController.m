@@ -13,6 +13,8 @@
 #import "HYUkDownViewController.h"
 #import "HYUkSettingViewController.h"
 #import "HYUkCenterHistoryListViewController.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
+#import "HYUkDetailViewController.h"
 
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
@@ -29,6 +31,8 @@
     [super viewWillAppear:animated];
     self.hidesBottomBarWhenPushed = NO;
     self.tabBarController.tabBar.hidden = NO;
+    
+    [self getData];
 }
 
 - (void)viewDidLoad {
@@ -87,7 +91,12 @@
         make.width.mas_offset(SCREEN_WIDTH - 30);
         make.height.mas_offset(152);
     }];
-    
+}
+
+- (void)getData {
+    NSArray *arr = [[HYUkHistoryRecordLogic share] queryHistoryRecordListWithCreateTime:NSIntegerMax count:7];
+    self.historyView.data = arr;
+    [self.historyView loadContent];
 }
 
 - (void)customView:(HYBaseView *)view event:(id)event {
@@ -109,8 +118,16 @@
     }
     
     if ([view isKindOfClass:[HYUkCenterHistoryView class]]) {
-        HYUkCenterHistoryListViewController *vc = [HYUkCenterHistoryListViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
+        NSDictionary *dic = event;
+        if ([dic[@"type"] isEqualToString:@"more"]) {
+            HYUkCenterHistoryListViewController *vc = [HYUkCenterHistoryListViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else {
+            HYUkDetailViewController *vc = [HYUkDetailViewController new];
+            vc.videoId = [dic[@"tvId"]  integerValue];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+
     }
 }
 

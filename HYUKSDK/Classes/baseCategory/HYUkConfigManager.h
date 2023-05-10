@@ -10,6 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@protocol HYUkVideoInitDelegate <NSObject>
+
+@optional
+
+- (void)changeOrientation:(BOOL)isOrientation;
+
+@end
+
 @interface HYUkConfigManager : NSObject
 
 + (HYUkConfigManager *)sharedInstance;
@@ -17,6 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)changeScoreColor:(NSString *)scoreStr Label:(UILabel *)lab;
 
 - (NSString *)getNowTimeTimestamp;
+
+- (void)setChangeOrientation:(BOOL)isOrientation;
+
+@property (nonatomic, weak) id <HYUkVideoInitDelegate> delegate;
+
+- (NSString *)changeTimeWithDuration:(NSInteger)duration;
 
 @end
 

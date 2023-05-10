@@ -6,6 +6,7 @@
 //
 
 #import "HYUkCenterHistoryListCell.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkCenterHistoryListCell()
 
@@ -92,6 +93,21 @@
         }];
     }
     return self;
+}
+
+- (void)loadContent {
+    HYUkHistoryRecordModel *recordModel = self.data;
+    self.name.text = recordModel.name;
+    [self.headImageView setImageWithURL:[NSURL URLWithString:recordModel.imageUrl] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    self.playTimeLab.text = [[HYUkConfigManager sharedInstance] changeTimeWithDuration:recordModel.playDuration];
+    
+    if (recordModel.playDuration < recordModel.duration) {
+        self.briefLab.text = [NSString stringWithFormat:@"剩余:%@",[[HYUkConfigManager sharedInstance] changeTimeWithDuration:recordModel.duration - recordModel.playDuration]];
+    }else if (recordModel.playDuration == recordModel.duration) {
+        self.briefLab.text = @"观看结束";
+    }else {
+        self.briefLab.text = @"";
+    }
 }
 
 - (void)awakeFromNib {

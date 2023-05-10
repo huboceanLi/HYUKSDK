@@ -10,7 +10,7 @@
 #import "HYUKSDK/HYUKSDK-Swift.h"
 #import "HYUkDetailViewController.h"
 
-@interface HYUkCollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HYUkCollectionViewController ()<UITableViewDelegate,UITableViewDataSource,HYUkDetailViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger create_Time;
@@ -128,27 +128,28 @@
     HYUkCollectionModel *model = self.dataArray[indexPath.row];
     HYUkDetailViewController *vc = [HYUkDetailViewController new];
     vc.videoId = model.video_id;
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
-    
-    __weak typeof(self) weakSelf = self;
 
-    vc.changeLikeStatuBlock = ^(BOOL isLike, NSInteger videoId) {
-        if (isLike) {
-            HYUkCollectionModel *model = [[HYVideoCollectionLogic share] queryAppointCollectionWithVideoId:videoId];
-            if (model != nil) {
-                [weakSelf.dataArray insertObject:model atIndex:0];
-                [weakSelf.tableView reloadData];
-            }
-        }else {
-            for (HYUkCollectionModel *item in self.dataArray) {
-                if (item.video_id == videoId) {
-                    [weakSelf.dataArray removeObject:item];
-                    [weakSelf.tableView reloadData];
-                    break;
-                }
+}
+
+- (void)changeLikeStatus:(BOOL)isLike videoId:(NSInteger)videoId
+{
+    if (isLike) {
+        HYUkCollectionModel *model = [[HYVideoCollectionLogic share] queryAppointCollectionWithVideoId:videoId];
+        if (model != nil) {
+            [self.dataArray insertObject:model atIndex:0];
+            [self.tableView reloadData];
+        }
+    }else {
+        for (HYUkCollectionModel *item in self.dataArray) {
+            if (item.video_id == videoId) {
+                [self.dataArray removeObject:item];
+                [self.tableView reloadData];
+                break;
             }
         }
-    };
+    }
 }
 
 @end

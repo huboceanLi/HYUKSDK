@@ -121,9 +121,6 @@
     HYUkDetailViewController *vc = [HYUkDetailViewController new];
     vc.videoId = model.ID;
     [self.navigationController pushViewController:vc animated:YES];
-    vc.changeLikeStatuBlock = ^(BOOL isLike, NSInteger videoId) {
-        
-    };
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
