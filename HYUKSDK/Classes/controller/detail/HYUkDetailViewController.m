@@ -78,6 +78,7 @@ static CGFloat briefViewHeoght = 60.0;
     self.playViewHeight = 220 * SCREEN_WIDTH / 390 + (IS_iPhoneX ? 44 : 24);
 
     self.playView = [HYUkVideoPlayView new];
+    self.playView.delegate = self;
     [self.view addSubview:self.playView];
 
     [self.playView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -124,6 +125,7 @@ static CGFloat briefViewHeoght = 60.0;
     }];
 
     self.selectWorkView = [HYUkVideoDetailSelectWorkView new];
+    self.selectWorkView.delegate = self;
     [self.scrollView addSubview:self.selectWorkView];
     
     [self.selectWorkView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -228,6 +230,16 @@ static CGFloat briefViewHeoght = 60.0;
         if ([self.delegate respondsToSelector:@selector(changeLikeStatus:videoId:)]) {
             [self.delegate changeLikeStatus:[dic[@"isLike"] boolValue] videoId:videoId];
         }
+    }
+    
+    if ([view isKindOfClass:[HYUkVideoDetailSelectWorkView class]]) {
+        NSDictionary *dic = event;
+        [self.playView changeSelect:dic[@"name"] Url:dic[@"url"]];
+    }
+    
+    
+    if ([view isKindOfClass:[HYUkVideoPlayView class]]) {
+        [self.selectWorkView changeSelect:event];
     }
 }
 

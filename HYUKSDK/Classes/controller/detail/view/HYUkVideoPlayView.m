@@ -130,12 +130,26 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 - (void)_play:(NSURL *)URL {
 //    URL = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"com.SJMediaCacheServer.cache/87d5ff79f295648c071555a12fb412cc/file_0_0.mp4"]];
     
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:self.currentRecordModel];
+    }
+    
     NSURL *playbackURL = [SJMediaCacheServer.shared playbackURLWithURL:URL];
 //    // play
     _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:self.currentRecordModel.playDuration];
 
 
 }
+
+- (void)changeSelect:(NSString *)name Url:(NSString *)url {
+    self.currentRecordModel.playUrl = name;
+    self.currentRecordModel.playName = url;
+    self.currentRecordModel.playDuration = 0;
+    
+    NSURL *URL = [NSURL URLWithString:url];
+    [self _play:URL];
+}
+
 //- (void)videoPlayer:(__kindof SJBaseVideoPlayer *)videoPlayer currentTimeDidChange:(NSTimeInterval)currentTime
 //{
 //    NSLog(@"");

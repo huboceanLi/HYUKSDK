@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class HYUkHistoryRecordModel;
+
 @interface HYUkVideoDetailSelectWorkView : HYBaseView
+
+- (void)changeSelect:(HYUkHistoryRecordModel *)recordModel;
 
 @end
 

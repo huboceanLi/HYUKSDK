@@ -7,6 +7,7 @@
 
 #import "HYUkVideoDetailSelectWorkView.h"
 #import "HYUkHomeCategeryCell.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkVideoDetailSelectWorkView()<UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -14,6 +15,7 @@
 @property (nonatomic, strong) QMUIButton *moreBtn;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) HYUkVideoDetailModel *detailModel;
+@property (nonatomic, strong) HYUkHistoryRecordModel *recordModel;
 
 @end
 
@@ -123,20 +125,29 @@
     cell.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
     cell.name.text = model.name;
     
-//    if (self.recordIndex == indexPath.row) {
-//        cell.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.1];
-//        cell.name.textColor = [UIColor whiteColor];
-//    }else {
-//        cell.backgroundColor = UIColor.clearColor;
-//        cell.name.textColor = [UIColor textColor22];
-//    }
+    if ([model.name isEqualToString:self.recordModel.name] && [model.url isEqualToString:self.recordModel.playUrl]) {
+        cell.name.textColor = [UIColor mainColor];
+        cell.userInteractionEnabled = NO;
+    }else {
+        cell.name.textColor = [UIColor textColor22];
+        cell.userInteractionEnabled = YES;
+    }
 
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    HYUkVideoDetailItemModel *model = self.detailModel.vod_play_url[indexPath.row];
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:@{@"name":model.name,@"url":model.url}];
+    }
+}
+
+- (void)changeSelect:(HYUkHistoryRecordModel *)recordModel
+{
+    self.recordModel = recordModel;
+    [self.collectionView reloadData];
 }
 
 @end
