@@ -9,7 +9,8 @@
 #import "HYAppDelegate.h"
 #import <HYUKSDK/HYUkHeader.h>
 
-@interface HYAppDelegate()<HYUkVideoInitDelegate>
+@interface HYAppDelegate()
+<HYUkVideoInitDelegate>
 
 @end
 @implementation HYAppDelegate
@@ -23,7 +24,7 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
-    
+
     [HYUkConfigManager sharedInstance].delegate = self;
 
     return YES;

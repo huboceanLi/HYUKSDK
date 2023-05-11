@@ -69,10 +69,12 @@
 - (void)getData {
     __weak typeof(self) weakSelf = self;
     [[HYUkShowLoadingManager sharedInstance] showLoading];
-    
+    [self.collectionView updateEmptyViewWithImageName:@"" title:@""];
+
     [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID type_id:self.categeryListView.tempCategaryModel.type_id vod_area:self.categeryListView.tempCategaryModel.vod_area vod_lang:self.categeryListView.tempCategaryModel.vod_lang vod_year:self.categeryListView.tempCategaryModel.vod_year order:self.categeryListView.tempCategaryModel.order success:^(NSString *message, id responseObject) {
         [weakSelf.dataArray addObjectsFromArray:responseObject];
         [weakSelf.collectionView reloadData];
+        [weakSelf.collectionView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
         if (errorType == CTAPIManagerErrorTypeNoNetWork) {

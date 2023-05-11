@@ -46,7 +46,7 @@ TODO: Add long description of the pod here.
   
   s.dependency "QMUIKit"
   s.dependency "Masonry"
-  s.dependency "HYBaseTool", '~> 1.0.2'
+   s.dependency "HYBaseTool", '1.0.4'
   s.dependency "YYKit"
   s.dependency "AFNetworking"
   s.dependency "CTNetworking"

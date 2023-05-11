@@ -11,17 +11,17 @@
 #import <QMUIKit/QMUIKit.h>
 #import <YYKit/YYKit.h>
 //#import "MBProgressHUD+JDragon.h"
-#import <HYBaseTool/HYBaseTool.h>
 #import <JXCategoryView/JXCategoryView.h>
 #import <HYUKSDK/HYUkHeader.h>
 #import <CTNetworking/CTNetworking.h>
+#import <HYBaseTool/HYBaseTool.h>
 
 #import "UIColor+UkPublicUse.h"
 #import "HYUkVideoTabBarViewController.h"
 #import "UIImage+uk_bundleImage.h"
 #import "BadgeButton.h"
-#import "UICollectionView+UKEmptyView.h"
-#import "UITableView+UKEmptyView.h"
+#import "UICollectionView+EmptyView.h"
+#import "UITableView+EmptyView.h"
 #import "HYUkShowLoadingManager.h"
 #import "HYVideoSingle.h"
 #import "BaseModel.h"

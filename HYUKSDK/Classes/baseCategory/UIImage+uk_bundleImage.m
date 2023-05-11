@@ -12,7 +12,8 @@
 + (UIImage *)uk_bundleImage:(NSString *)imageName
 {
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"HYVideoSDK" withExtension:@"bundle"];
-        
+    
+    
     return [UIImage imageNamed:imageName inBundle:[NSBundle bundleWithURL:url] compatibleWithTraitCollection:nil];
 }
 

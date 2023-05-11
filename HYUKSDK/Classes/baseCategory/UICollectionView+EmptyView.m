@@ -6,13 +6,13 @@
 //  Copyright © 2020 chong. All rights reserved.
 //
 
-#import "UICollectionView+UKEmptyView.h"
+#import "UICollectionView+EmptyView.h"
 #import <objc/runtime.h>
 #import "HYUkHeader.h"
 
 static char UICollectionRealEmptyView;
 
-@implementation UICollectionView (UKEmptyView)
+@implementation UICollectionView (EmptyView)
 
 @dynamic emptyView;
 
@@ -21,19 +21,19 @@ static char UICollectionRealEmptyView;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Method reloadData    = class_getInstanceMethod(self, @selector(reloadData));
-        Method xy_reloadData = class_getInstanceMethod(self, @selector(uk_reloadData));
+        Method xy_reloadData = class_getInstanceMethod(self, @selector(am_reloadData));
         method_exchangeImplementations(reloadData, xy_reloadData);
     });
 }
 
-- (void)uk_reloadData
+- (void)am_reloadData
 {
-    [self uk_reloadData];
+    [self am_reloadData];
     
     //  忽略第一次加载
-    if (![self isUkInitFinish]) {
+    if (![self isInitFinish]) {
         [self hideEmptyView];
-        [self setIsUkInitFinish:YES];
+        [self setIsInitFinish:YES];
         return ;
     }
     //  刷新完成之后检测数据量
@@ -61,14 +61,14 @@ static char UICollectionRealEmptyView;
 /**
  设置已经加载完成数据了
  */
-- (void)setIsUkInitFinish:(BOOL)finish {
-    objc_setAssociatedObject(self, @selector(isUkInitFinish), @(finish), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setIsInitFinish:(BOOL)finish {
+    objc_setAssociatedObject(self, @selector(isInitFinish), @(finish), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 /**
  是否已经加载完成数据
  */
-- (BOOL)isUkInitFinish {
+- (BOOL)isInitFinish {
     id obj = objc_getAssociatedObject(self, _cmd);
     return [obj boolValue];
 }
@@ -105,7 +105,9 @@ static char UICollectionRealEmptyView;
         }];
     }
     self.emptyView.textLabelInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
-    [self.emptyView setImage:[UIImage uk_bundleImage:imageName]];
+    if (imageName.length > 0) {
+        [self.emptyView setImage:[UIImage uk_bundleImage:imageName]];
+    }
     [self.emptyView setTextLabelText:title];
     [self.emptyView setTextLabelFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium]];
     [self.emptyView setTextLabelTextColor: [[UIColor blackColor] colorWithAlphaComponent:0.5]];
@@ -124,7 +126,7 @@ static char UICollectionRealEmptyView;
         }];
     }
     
-    [self.emptyView setImage:[UIImage uk_bundleImage:imageName]];
+    [self.emptyView setImage:UIImageMake(imageName)];
     [self.emptyView setTextLabelText:title];
     [self.emptyView setTextLabelFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium]];
     [self.emptyView setTextLabelTextColor: [[UIColor blackColor] colorWithAlphaComponent:0.6]];
@@ -148,7 +150,7 @@ static char UICollectionRealEmptyView;
         self.emptyView.textLabelInsets = UIEdgeInsetsMake(-30, 0, 10, 0);
     }
     
-    [self.emptyView setImage:[UIImage uk_bundleImage:imageName]];
+    [self.emptyView setImage:UIImageMake(imageName)];
     [self.emptyView setTextLabelText:text];
     [self.emptyView setActionButtonTitle:buttonTitle];
     

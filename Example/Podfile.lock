@@ -18,13 +18,13 @@ PODS:
   - CTNetworking (15):
     - AFNetworking
     - CTMediator
-  - HYBaseTool (1.0.2):
+  - HYBaseTool (1.0.4):
     - Masonry
     - QMUIKit
   - HYUKSDK (0.0.1):
     - AFNetworking
     - CTNetworking
-    - HYBaseTool (~> 1.0.2)
+    - HYBaseTool (= 1.0.4)
     - JXCategoryView
     - Masonry
     - "MBProgressHUD+JDragon"
@@ -384,8 +384,8 @@ SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   CTMediator: 3f3578b525b3a46a7a2f92a99922ec40363f4269
   CTNetworking: 53a7fd1d39bce85c15af471890037b4608b7124b
-  HYBaseTool: df77c5b137a4069be0f71fa90cd3c287fbe2caa7
-  HYUKSDK: 99afc429df2ca7b25310d529880c6f05d532bd4b
+  HYBaseTool: 8f3f1f91a1ac925e8e0760925a225781d4d338f3
+  HYUKSDK: f38b3d9395390dab3b169b9a7c63ccb772484d8e
   JXCategoryView: 7b1ee69ede4843c581688afe84d0f047723262f2
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1

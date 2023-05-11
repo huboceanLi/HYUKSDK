@@ -125,7 +125,7 @@
     cell.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
     cell.name.text = model.name;
 
-    if ([model.name isEqualToString:self.recordModel.playName] && [model.url isEqualToString:self.recordModel.playUrl]) {
+    if ([model.name isEqualToString:self.recordModel.playName] || [model.url isEqualToString:self.recordModel.playUrl]) {
         cell.name.textColor = [UIColor mainColor];
         cell.userInteractionEnabled = NO;
     }else {
@@ -139,6 +139,10 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYUkVideoDetailItemModel *model = self.detailModel.vod_play_url[indexPath.row];
+    self.recordModel.playName = model.name;
+    self.recordModel.playUrl = model.url;
+    [self.collectionView reloadData];
+    
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
         [self.delegate customView:self event:@{@"name":model.name,@"url":model.url}];
     }

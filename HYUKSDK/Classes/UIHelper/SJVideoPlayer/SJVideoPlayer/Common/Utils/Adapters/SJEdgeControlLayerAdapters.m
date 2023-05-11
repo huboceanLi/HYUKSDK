@@ -19,6 +19,7 @@
 
 #import "SJVideoPlayerControlMaskView.h"
 #import "SJEdgeControlLayerAdapters.h"
+#import "HYUkHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -119,6 +120,8 @@ _isIPhoneXSeries(void) {
 }
 
 - (void)_updateLayout_isNormal_iPhone_X {
+    self.topContainerView.hidden = YES;
+    
     if (@available(iOS 11.0, *)) {
         [_topAdapter.view mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topContainerView.mas_safeAreaLayoutGuideTop).offset(self.topMargin);
@@ -157,6 +160,8 @@ _isIPhoneXSeries(void) {
 }
 
 - (void)_updateLayout_isFullscreen_iPhone_X {
+    self.topContainerView.hidden = NO;
+
     if (@available(iOS 11.0, *)) {
         CGFloat safeWidth = ceil(_screen.min * 16 / 9.0);
         CGFloat safeLeftMargin = ceil((_screen.max - safeWidth) * 0.5);
@@ -165,9 +170,11 @@ _isIPhoneXSeries(void) {
             make.top.offset(self.autoAdjustTopSpacing?20:self.topMargin);
             make.left.mas_greaterThanOrEqualTo(0).priorityLow();
             make.bottom.offset(0);
+//            make.left.equalTo(self.mas_left).offset(IS_iPhoneX ? 44 : 20);
             make.right.mas_lessThanOrEqualTo(0).priorityLow();
             make.centerX.offset(0);
-            
+//            make.left.equalTo(self.mas_left).offset(IS_iPhoneX ? 44 : 20);
+
             make.width.offset(safeWidth);
             make.height.offset(self.topHeight);
         }];

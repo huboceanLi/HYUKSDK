@@ -173,8 +173,8 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 }
 
 - (void)changeSelect:(NSString *)name Url:(NSString *)url {
-    self.currentRecordModel.playUrl = name;
-    self.currentRecordModel.playName = url;
+    self.currentRecordModel.playUrl = url;
+    self.currentRecordModel.playName = name;
     self.currentRecordModel.playDuration = 0;
     
     NSURL *URL = [NSURL URLWithString:url];

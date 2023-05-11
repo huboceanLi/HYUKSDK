@@ -119,4 +119,20 @@ static HYVideoSingle *single = nil;
     });
 }
 
+- (void)getGuessLikeListWithCurrentVideoId:(NSInteger)videoId success:(RequestSuccessed)success fail:(RequestFailure)fail
+{
+    NSDictionary *dic = @{@"id":@(videoId)};
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [APIBaseManager getLoadDataWithAPI:video_guess_Like params:dic modelName:@"HYResponseSearchModel" success:^(NSString *message, id responseObject) {
+            if (success) {
+                success(message, responseObject);
+            }
+        } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            if (fail) {
+                fail(errorType, errorMessage);
+            }
+        }];
+    });
+}
+
 @end

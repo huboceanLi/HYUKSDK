@@ -29,6 +29,8 @@ extern NSString * const video_search;
 
 extern NSString * const video_rank;
 
+extern NSString * const video_guess_Like;
+
 @end
 
 NS_ASSUME_NONNULL_END

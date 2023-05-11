@@ -1,18 +1,18 @@
 //
-//  UICollectionView+EmptyView.h.m
-//  OrderMeals
+//  UITableView+EmptyView.m
+//  MYSaSClerk
 //
-//  Created by chong on 2020/4/16.
-//  Copyright © 2020 chong. All rights reserved.
+//  Created by chong on 2019/11/16.
+//  Copyright © 2019 chong. All rights reserved.
 //
 
-#import "UICollectionView+EmptyView.h"
+#import "UITableView+EmptyView.h"
 #import <objc/runtime.h>
+#import "HYUkHeader.h"
 
-static char UICollectionRealEmptyView;
+static char UITableViewRealEmptyView;
 
-@implementation UICollectionView (EmptyView)
-
+@implementation UITableView (EmptyView)
 @dynamic emptyView;
 
 + (void)load
@@ -22,7 +22,19 @@ static char UICollectionRealEmptyView;
         Method reloadData    = class_getInstanceMethod(self, @selector(reloadData));
         Method xy_reloadData = class_getInstanceMethod(self, @selector(am_reloadData));
         method_exchangeImplementations(reloadData, xy_reloadData);
+        
+        Method oldInit = class_getInstanceMethod(self, @selector(initWithFrame:style:));
+        Method myInit = class_getInstanceMethod(self, @selector(my_initWithFrame:style:));
+        method_exchangeImplementations(oldInit, myInit);
     });
+}
+
+- (instancetype)my_initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
+    id object = [self my_initWithFrame:frame style:style];
+    if (object) {
+        self.separatorColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3];
+    }
+    return object;
 }
 
 - (void)am_reloadData
@@ -41,7 +53,7 @@ static char UICollectionRealEmptyView;
         NSInteger numberOfSections = [self numberOfSections];
         BOOL havingData = NO;
         for (NSInteger i = 0; i < numberOfSections; i++) {
-            if ([self numberOfItemsInSection:i] > 0) {
+            if ([self numberOfRowsInSection:i] > 0) {
                 havingData = YES;
                 break;
             }
@@ -74,17 +86,18 @@ static char UICollectionRealEmptyView;
 
 - (QMUIEmptyView *)emptyView
 {
-    return objc_getAssociatedObject(self, &UICollectionRealEmptyView);
+    return objc_getAssociatedObject(self, &UITableViewRealEmptyView);
 }
 
 - (void)setEmptyView:(QMUIEmptyView *)emptyView
 {
     [self willChangeValueForKey:@"emptyView"];
-    objc_setAssociatedObject(self, &UICollectionRealEmptyView,
+    objc_setAssociatedObject(self, &UITableViewRealEmptyView,
                              emptyView,
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self didChangeValueForKey:@"emptyView"];
 }
+
 
 - (void)showEmptView
 {
@@ -103,57 +116,13 @@ static char UICollectionRealEmptyView;
             make.width.height.equalTo(self);
         }];
     }
-    
-    [self.emptyView setImage:UIImageMake(imageName)];
-    [self.emptyView setTextLabelText:title];
-}
-
-- (void)setEmptyViewWithImageName:(NSString *)imageName title:(NSString *)title detail:(NSString *)detail
-{
-    if (!self.emptyView) {
-        self.emptyView = [[QMUIEmptyView alloc] init];
-        [self.emptyView setLoadingViewHidden:YES];
-        
-        [self insertSubview:self.emptyView atIndex:0];
-        
-        [self.emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.height.equalTo(self);
-        }];
+    if (imageName.length > 0) {
+        [self.emptyView setImage:[UIImage uk_bundleImage:imageName]];
     }
-    
-    [self.emptyView setImage:UIImageMake(imageName)];
     [self.emptyView setTextLabelText:title];
+    self.emptyView.textLabelInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
     [self.emptyView setTextLabelFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium]];
-    [self.emptyView setTextLabelTextColor: [[UIColor blackColor] colorWithAlphaComponent:0.6]];
-    
-    [self.emptyView setDetailTextLabelText:detail];
-    [self.emptyView setDetailTextLabelFont:[UIFont systemFontOfSize:15.0]];
-    [self.emptyView setDetailTextLabelTextColor:[UIColor lightGrayColor]];
-}
-
-- (void)updateEmptyViewWithImageName:(NSString *)imageName text:(NSString *)text buttonTitle:(NSString *)buttonTitle {
-    if (!self.emptyView) {
-        self.emptyView = [[QMUIEmptyView alloc] init];
-        [self.emptyView setLoadingViewHidden:YES];
-        
-        [self insertSubview:self.emptyView atIndex:0];
-        
-        [self.emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.height.equalTo(self);
-        }];
-        
-        self.emptyView.textLabelInsets = UIEdgeInsetsMake(-30, 0, 10, 0);
-    }
-    
-    [self.emptyView setImage:UIImageMake(imageName)];
-    [self.emptyView setTextLabelText:text];
-    [self.emptyView setActionButtonTitle:buttonTitle];
-    
-    self.emptyView.actionButton.contentEdgeInsets = UIEdgeInsetsMake(10, 20, 10, 20);
-    UIColor *color = [[UIColor blackColor] colorWithAlphaComponent:0.6];
-    self.emptyView.actionButton.layer.backgroundColor = color.CGColor;
-    self.emptyView.actionButtonFont = UIFontMake(15);
-    self.emptyView.actionButton.layer.cornerRadius = 19;
+    [self.emptyView setTextLabelTextColor: [[UIColor blackColor] colorWithAlphaComponent:0.5]];
 }
 
 

@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HYUkHeader.h"
+#import <HYBaseTool/HYBaseTool.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
