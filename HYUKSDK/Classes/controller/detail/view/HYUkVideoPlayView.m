@@ -27,6 +27,8 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 @property (nonatomic, strong, nullable) SJVideoPlayer *player;
 @property (nonatomic, strong) HYUkVideoDetailModel *detailModel;
 @property (nonatomic, strong) HYUkHistoryRecordModel *currentRecordModel;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSInteger recordIndex;
 
 @end
 
@@ -40,15 +42,43 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     _player = SJVideoPlayer.player;
 //    _player.pausedInBackground = YES;
 //    self.player.controlLayerDataSource = self;
-//    self.player.controlLayerDelegate = self;
     [self addSubview:_player.view];
     [_player.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
         make.top.equalTo(self.mas_top).offset(IS_iPhoneX ? 44 : 24);
     }];
     
+    
+    self.timer = [NSTimer timerWithTimeInterval:(1.0f) target:self selector:@selector(timeRecordCurrent) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
+
+    [self.timer pauseTimer];
+
 //    SJMediaCacheServer.shared.enabledConsoleLog = YES;
 //    SJMediaCacheServer.shared.logOptions = MCSLogOptionDownloader;
+}
+
+- (void)timeRecordCurrent {
+    NSInteger currentTime = self.player.currentTime;
+    if (self.player.duration > 0 && currentTime + 1 >= self.player.duration) {
+        NSLog(@"准备切换下一集");
+        [self.timer pauseTimer];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.detailModel.vod_play_url.count > self.recordIndex + 1) {
+                
+                self.recordIndex++;
+                self.currentRecordModel.playUrl = self.detailModel.vod_play_url[self.recordIndex].url;
+                self.currentRecordModel.playName = self.detailModel.vod_play_url[self.recordIndex].name;
+                
+                if (self.currentRecordModel.playUrl.length > 0) {
+                    NSURL *URL = [NSURL URLWithString:self.currentRecordModel.playUrl];
+                    [self _play:URL];
+                }
+            }
+        });
+
+    }
 }
 
 - (void)loadContent
@@ -63,11 +93,12 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
             
             BOOL isHave = false;
             
-            for (HYUkVideoDetailItemModel *item in model.vod_play_url) {
+            for (int i = 0; i < model.vod_play_url.count; i++) {
+                HYUkVideoDetailItemModel *item = model.vod_play_url[i];
                 if ([item.url isEqualToString:tempModel.playUrl] || [item.name isEqualToString:tempModel.playName]) {
                     self.currentRecordModel = tempModel;
                     isHave = true;
-                    
+                    self.recordIndex = i;
                     NSURL *URL = [NSURL URLWithString:tempModel.playUrl];
                     [self _play:URL];
                     
@@ -79,7 +110,7 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
                 self.currentRecordModel = [HYUkHistoryRecordModel new];
                 
                 HYUkVideoDetailItemModel *playModel = model.vod_play_url.firstObject;
-                
+                self.recordIndex = 0;
                 self.currentRecordModel.playUrl = playModel.url;
                 self.currentRecordModel.playName = playModel.name;
                 
@@ -94,7 +125,7 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
             self.currentRecordModel = [HYUkHistoryRecordModel new];
 
             HYUkVideoDetailItemModel *playModel = model.vod_play_url.firstObject;
-            
+            self.recordIndex = 0;
             self.currentRecordModel.playUrl = playModel.url;
             self.currentRecordModel.playName = playModel.name;
             
@@ -133,11 +164,11 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
         [self.delegate customView:self event:self.currentRecordModel];
     }
+    [self.timer setFireDate:[NSDate date]];
     
     NSURL *playbackURL = [SJMediaCacheServer.shared playbackURLWithURL:URL];
 //    // play
     _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:self.currentRecordModel.playDuration];
-
 
 }
 
@@ -154,4 +185,6 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 //{
 //    NSLog(@"");
 //}
+
+
 @end

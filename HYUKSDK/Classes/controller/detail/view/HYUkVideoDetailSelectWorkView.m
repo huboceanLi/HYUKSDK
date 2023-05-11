@@ -124,8 +124,8 @@
 
     cell.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
     cell.name.text = model.name;
-    
-    if ([model.name isEqualToString:self.recordModel.name] && [model.url isEqualToString:self.recordModel.playUrl]) {
+
+    if ([model.name isEqualToString:self.recordModel.playName] && [model.url isEqualToString:self.recordModel.playUrl]) {
         cell.name.textColor = [UIColor mainColor];
         cell.userInteractionEnabled = NO;
     }else {
@@ -147,6 +147,7 @@
 - (void)changeSelect:(HYUkHistoryRecordModel *)recordModel
 {
     self.recordModel = recordModel;
+    
     [self.collectionView reloadData];
 }
 

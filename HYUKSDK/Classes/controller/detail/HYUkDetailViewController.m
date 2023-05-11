@@ -175,11 +175,11 @@ static CGFloat briefViewHeoght = 60.0;
         weakSelf.briefDetailView.data = responseObject;
         [weakSelf.briefDetailView loadContent];
         
-        weakSelf.playView.data = responseObject;
-        [weakSelf.playView loadContent];
-        
         weakSelf.selectWorkView.data = responseObject;
         [weakSelf.selectWorkView loadContent];
+        
+        weakSelf.playView.data = responseObject;
+        [weakSelf.playView loadContent];
 
         weakSelf.toolView.data = responseObject;
         [weakSelf.toolView loadContent];
