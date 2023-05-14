@@ -32,6 +32,7 @@
 #import "HYResponseSearchModel.h"
 #import "HYUkTextTempModel.h"
 #import "HYUkTempCategaryModel.h"
+#import "MYToast.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

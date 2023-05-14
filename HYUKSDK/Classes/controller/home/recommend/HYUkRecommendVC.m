@@ -200,6 +200,11 @@
 
 - (void)customCell:(HYBaseTableViewCell *)cell event:(id)event
 {
+    BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+    if (isOpenTheProxy) {
+        [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
+        return;
+    }
     HYResponseRecommendModel *model = event;
     HYUkDetailViewController *vc = [HYUkDetailViewController new];
     vc.videoId = model.video_id;

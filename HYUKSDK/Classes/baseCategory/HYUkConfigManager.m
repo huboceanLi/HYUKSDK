@@ -82,4 +82,36 @@ static HYUkConfigManager *manager = nil;
 
 }
 
+//- (BOOL)isOpenTheProxy
+//{
+//
+//#ifdef DEBUG
+//    return NO;
+//#else
+//        NSDictionary *proxySettings = (__bridge NSDictionary *)(CFNetworkCopySystemProxySettings());
+//        NSArray *proxies = (__bridge NSArray *)(CFNetworkCopyProxiesForURL((__bridge CFURLRef _Nonnull)([NSURL URLWithString:@"http://www.baidu.com"]), (__bridge CFDictionaryRef _Nonnull)(proxySettings)));
+//
+//        NSDictionary *settings = proxies[0];
+//
+//        if ([[settings objectForKey:(NSString *)kCFProxyTypeKey] isEqualToString:@"kCFProxyTypeNone"]) {
+//            return NO;
+//        } else {
+//            return YES;
+//        }
+//#endif
+//}
+- (BOOL)isOpenTheProxy
+{
+    NSDictionary *proxySettings = (__bridge NSDictionary *)(CFNetworkCopySystemProxySettings());
+    NSArray *proxies = (__bridge NSArray *)(CFNetworkCopyProxiesForURL((__bridge CFURLRef _Nonnull)([NSURL URLWithString:@"http://www.baidu.com"]), (__bridge CFDictionaryRef _Nonnull)(proxySettings)));
+    
+    NSDictionary *settings = proxies[0];
+    
+    if ([[settings objectForKey:(NSString *)kCFProxyTypeKey] isEqualToString:@"kCFProxyTypeNone"]) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 @end

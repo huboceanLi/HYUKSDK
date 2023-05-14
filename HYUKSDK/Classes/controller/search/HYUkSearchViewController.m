@@ -123,6 +123,11 @@
     
     if ([view isKindOfClass:[HYUkSearchListView class]]) {
         [self.view endEditing:YES];
+        BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+        if (isOpenTheProxy) {
+            [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
+            return;
+        }
         HYUkDetailViewController *vc = [HYUkDetailViewController new];
         vc.videoId = [event intValue];
         [self.navigationController pushViewController:vc animated:YES];

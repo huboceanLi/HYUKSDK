@@ -113,6 +113,7 @@
 #import "DGActivityIndicatorAnimationProtocol.h"
 #import "DGActivityIndicatorView.h"
 #import "BadgeButton.h"
+#import "MYToast.h"
 #import "HYVideoUpgradeViewController.h"
 #import "HYVideoUpgradeView.h"
 #import "GCDAsyncSocket.h"

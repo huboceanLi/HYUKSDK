@@ -120,6 +120,11 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+    if (isOpenTheProxy) {
+        [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
+        return;
+    }
     HYResponseVideoListModel *model = self.dataArray[indexPath.row];
     HYUkDetailViewController *vc = [HYUkDetailViewController new];
     vc.videoId = model.ID;

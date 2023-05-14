@@ -25,6 +25,14 @@
 
 @implementation HYUkHomeViewController
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+    if (isOpenTheProxy) {
+        [MYToast showWithText:@"请关闭设备代理,否则会播放失败!" inView:self.view hideAfterDelay:15.0];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.hidesBottomBarWhenPushed = NO;
@@ -57,7 +65,7 @@
     
     __weak typeof(self) weakSelf = self;
     [self.messageBtn blockEvent:^(UIButton *button) {
-        NSLog(@"*****消息中心*****");
+
     }];
     
 //    _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];

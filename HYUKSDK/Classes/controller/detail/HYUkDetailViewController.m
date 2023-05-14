@@ -77,7 +77,6 @@ static CGFloat briefViewHeoght = 60.0;
     self.navBar.backgroundColor = UIColor.clearColor;
     [self.navBackButton setTitle:@"" forState:0];
     
-    
     self.playViewHeight = 220 * SCREEN_WIDTH / 390 + (IS_iPhoneX ? 44 : 24);
 
     self.playView = [HYUkVideoPlayView new];
@@ -245,6 +244,12 @@ static CGFloat briefViewHeoght = 60.0;
     }
     
     if ([view isKindOfClass:[HYUkVideoRecommendView class]]) {
+        BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+        if (isOpenTheProxy) {
+            [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
+            return;
+        }
+        
         HYResponseRecommendModel *model = event;
         HYUkDetailViewController *vc = [HYUkDetailViewController new];
         vc.videoId = model.ID;

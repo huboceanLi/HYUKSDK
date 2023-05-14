@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)changeTimeWithDuration:(NSInteger)duration;
 
+- (BOOL)isOpenTheProxy;
+
 @end
 
 NS_ASSUME_NONNULL_END
