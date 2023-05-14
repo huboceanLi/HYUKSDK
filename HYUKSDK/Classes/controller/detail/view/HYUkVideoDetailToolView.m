@@ -130,7 +130,33 @@
 }
 
 - (void)downButtonClick {
-    
+    NSString *str = @"";
+    if (self.detailModel.vod_play_url.count == 1) {
+        HYUkVideoDetailItemModel *itemModel = self.detailModel.vod_play_url.firstObject;
+        str = [NSString stringWithFormat:@"%ld-%@",self.detailModel.ID,itemModel.name];
+        if ([[HYUkDownListLogic share] queryAppointDownWithPrimaryId:str]) {
+            [MYToast showWithText:@"已在下载队列中!"];
+            return;
+        }
+        HYUkDownListModel *downModel = [HYUkDownListModel new];
+        downModel.primary_Id = str;
+        downModel.video_id = self.detailModel.ID;
+        downModel.type_id_1 = self.detailModel.type_id_1;
+        downModel.vod_name = self.detailModel.vod_name;
+        downModel.vod_pic = self.detailModel.vod_pic;
+        downModel.vod_year = self.detailModel.vod_year;
+        downModel.vod_area = self.detailModel.vod_area;
+        downModel.playName = itemModel.name;
+        downModel.playUrl = itemModel.url;
+        downModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+        [[HYUkDownListLogic share] insertDownListWithModel:downModel];
+        [MYToast showWithText:@"已添加到下载队列中!"];
+        return;
+    }
+
+    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+        [self.delegate customView:self event:@{@"type":@"down"}];
+    }
 }
 
 - (void)likeButtonClick {
@@ -147,7 +173,7 @@
     }
     
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@{@"videoID":@(self.detailModel.ID),@"isLike":@(self.isLike)}];
+        [self.delegate customView:self event:@{@"videoID":@(self.detailModel.ID),@"isLike":@(self.isLike),@"type":@"like"}];
     }
 //    [self routerWithEventName:@"RENEWCOLLECTION" userInfo:@{@"videoID":@(self.detailModel.ID),@"isLike":@(self.isLike)}];
 }
@@ -155,4 +181,5 @@
 - (void)shareButtonClick {
     
 }
+
 @end

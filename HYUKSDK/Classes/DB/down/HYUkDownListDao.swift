@@ -46,45 +46,60 @@ struct HYUkDownListDao {
         }
     }
     
-    func removeAppointDown(videoId: Int) {
-        guard let database = HYVideoDataBaseTool.default.base else {
-            return
-        }
-        let condion: Condition = HYUkDownListModel.Properties.video_id == videoId
+//    func removeAppointDown(videoId: Int) {
+//        guard let database = HYVideoDataBaseTool.default.base else {
+//            return
+//        }
+//        let condion: Condition = HYUkDownListModel.Properties.video_id == videoId
+//
+//        do {
+//            try database.delete(fromTable: HY_MOIVE_DOWN_TABLE_NAME, where: condion)
+//        } catch  {
+//            print("removeAppointCollection error: \(error)")
+//        }
+//    }
+    
+    func queryAppointDown(primaryId: String) -> [HYUkDownListModel] {
 
-        do {
-            try database.delete(fromTable: HY_MOIVE_DOWN_TABLE_NAME, where: condion)
-        } catch  {
-            print("removeAppointCollection error: \(error)")
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return []
         }
+
+        let condion: Condition = HYUkDownListModel.Properties.primary_Id == primaryId
+        let result: [HYUkDownListModel]? = try? database.getObjects(fromTable: HY_MOIVE_DOWN_TABLE_NAME, where: condion)
+        if let r = result {
+            return r
+        }
+        return []
     }
     
-//    func queryAppointCollection(videoId: Int) -> [HYUkCollectionModel] {
-//
-//        guard let database = HYVideoDataBaseTool.default.base else {
-//            return []
-//        }
-//
-//        let condion: Condition = HYUkCollectionModel.Properties.video_id == videoId
-//        let result: [HYUkCollectionModel]? = try? database.getObjects(fromTable: HY_MOIVE_COLLECTION_TABLE_NAME, where: condion)
-//        if let r = result {
-//            return r
-//        }
-//        return []
-//    }
+    func queryDownCompleteList(createTime: Int) -> [HYUkDownListModel] {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return []
+        }
+
+        let condion: Condition = HYUkDownListModel.Properties.create_Time < createTime && HYUkDownListModel.Properties.status == 0
+
+        let result: [HYUkDownListModel]? = try? database.getObjects(fromTable: HY_MOIVE_DOWN_TABLE_NAME, where: condion, orderBy: [HYUkDownListModel.Properties.create_Time.asOrder(by: .descending)])
+
+        if let r = result {
+            return r
+        }
+        return []
+    }
     
-//    func queryCollectionList(createTime: Int) -> [HYUkCollectionModel] {
-//        guard let database = HYVideoDataBaseTool.default.base else {
-//            return []
-//        }
-//
-//        let condion: Condition = HYUkCollectionModel.Properties.create_Time < createTime
-//
-//        let result: [HYUkCollectionModel]? = try? database.getObjects(fromTable: HY_MOIVE_COLLECTION_TABLE_NAME, where: condion, orderBy: [HYUkCollectionModel.Properties.create_Time.asOrder(by: .descending)], limit: 20)
-//
-//        if let r = result {
-//            return r
-//        }
-//        return []
-//    }
+    func queryDownProgressList(createTime: Int) -> [HYUkDownListModel] {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return []
+        }
+
+        let condion: Condition = HYUkDownListModel.Properties.create_Time < createTime && HYUkDownListModel.Properties.status != 0
+
+        let result: [HYUkDownListModel]? = try? database.getObjects(fromTable: HY_MOIVE_DOWN_TABLE_NAME, where: condion, orderBy: [HYUkDownListModel.Properties.create_Time.asOrder(by: .descending)])
+
+        if let r = result {
+            return r
+        }
+        return []
+    }
 }

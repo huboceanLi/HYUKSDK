@@ -25,14 +25,6 @@
 
 @implementation HYUkHomeViewController
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
-    if (isOpenTheProxy) {
-        [MYToast showWithText:@"请关闭设备代理,否则会播放失败!" inView:self.view hideAfterDelay:15.0];
-    }
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.hidesBottomBarWhenPushed = NO;
@@ -104,6 +96,11 @@
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
     }];
+    
+    BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+    if (isOpenTheProxy) {
+        [MYToast showWithText:@"请关闭设备代理,否则会播放失败!" inView:self.view hideAfterDelay:15.0];
+    }
     
     [self getData];
 }

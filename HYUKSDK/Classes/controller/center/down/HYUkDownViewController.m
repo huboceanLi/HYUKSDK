@@ -6,12 +6,13 @@
 //
 
 #import "HYUkDownViewController.h"
-#import "HYUkDownCompleteCell.h"
-#import "HYUkDownProgressCell.h"
+#import "HYUkDownContentVC.h"
 
-@interface HYUkDownViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HYUkDownViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate>
 
-@property (nonatomic, strong) UITableView *tableView;
+@property(nonatomic, strong) JXCategoryTitleView * headerView;
+@property(nonatomic, strong) JXCategoryListContainerView * containerView;
+@property(nonatomic, strong) NSArray * titleArray;
 
 @end
 
@@ -27,65 +28,61 @@
     self.navTitleLabel.textColor = UIColor.textColor22;
     [self.navBackButton setImage:[UIImage uk_bundleImage:@"31fanhui1"] forState:0];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, (IS_iPhoneX ? 44 : 10), 0)];
-    [ _tableView registerClass:[HYUkDownCompleteCell class] forCellReuseIdentifier:@"CompleteCell"];
-    [ _tableView registerClass:[HYUkDownProgressCell class] forCellReuseIdentifier:@"ProgressCell"];
+    _titleArray = @[@"下载中",@"已下载"];
 
-//    [self.tableView registerNib:[UINib nibWithNibName:@"ChangeInfoCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
-    [self.view addSubview:self.tableView];
+    _headerView = [[JXCategoryTitleView alloc] initWithFrame:CGRectZero];
+    _headerView.backgroundColor = UIColor.clearColor;
+    _headerView.titles = _titleArray;
+    _headerView.titleColor = UIColor.textColor22;
+    _headerView.titleSelectedColor = UIColor.mainColor;
+    _headerView.titleSelectedFont = [UIFont boldSystemFontOfSize:16];
+    _headerView.titleFont = UIFontMake(14);
+    _headerView.titleColorGradientEnabled = YES;
+    _headerView.titleLabelZoomScale = 1.1;
+    _headerView.titleLabelZoomEnabled = YES;
+    _headerView.cellWidth = ceil(SCREEN_WIDTH / 2);
+    _headerView.cellSpacing = 0;
+//    _headerView.qmui_borderPosition = QMUIViewBorderPositionBottom;
+    _headerView.delegate = self;
+    [self.view addSubview:_headerView];
+
+    JXCategoryIndicatorLineView * lineView = [[JXCategoryIndicatorLineView alloc] init];
+    lineView.indicatorWidth = 30;
+    lineView.verticalMargin = 4;
+    lineView.indicatorColor = [UIColor mainColor];
+    self.headerView.indicators = @[lineView];
     
-    if (@available (iOS 11.0, *)) {
-        [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
-    }
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
+    _containerView = [[JXCategoryListContainerView alloc] initWithType:JXCategoryListContainerType_CollectionView delegate:self];
+    _containerView.listCellBackgroundColor = [UIColor clearColor];
+    _containerView.scrollView.backgroundColor = UIColor.clearColor;
+    _containerView.backgroundColor = UIColor.clearColor;
+    [self.view addSubview:_containerView];
+    _headerView.listContainer = _containerView;
+
+    [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.navBar.mas_bottom);
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.headerView.mas_bottom);
+        make.left.bottom.right.equalTo(self.view);
     }];
 }
 
-#pragma mark - Table view datasource
+#pragma mark-- <JXCategoryListContainerViewDelegate>
+- (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView initListForIndex:(NSInteger)index {
 
+    HYUkDownContentVC * listVC = [[HYUkDownContentVC alloc] init];
+    listVC.index = index;
+    
+    return listVC;
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    return 90;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSArray *arr = self.list[section];
-    return 11;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.row % 2 == 0) {
-        HYUkDownCompleteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompleteCell"];
-        if (!cell) {
-            cell = [[HYUkDownCompleteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompleteCell"];
-        }
-        cell.selectionStyle = 0;
-
-        return cell;
-    }
-    HYUkDownProgressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProgressCell"];
-    if (!cell) {
-        cell = [[HYUkDownProgressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ProgressCell"];
-    }
-    cell.selectionStyle = 0;
-
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
+- (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView {
+    return _titleArray.count;
 }
 
 @end

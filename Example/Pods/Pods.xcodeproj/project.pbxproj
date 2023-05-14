@@ -1004,6 +1004,10 @@
 		99D32C5AC60FE5DD0AB4B8189B351E18 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2A87277AAFC89527F62704B5202DDB /* ImageIO.framework */; };
 		99FE858D7C92412325290D95C6AA0E28 /* QMUIImagePickerPreviewViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A2247A3585FCAFBF9E9DE1B3E208A910 /* QMUIImagePickerPreviewViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A1233A16A2E711F1E6D07597DF9C1CB /* HYUkCenterHistoryListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C4B7739336812B3586B05C9EF3D7C56 /* HYUkCenterHistoryListView.m */; };
+		9A2699202A10B97400966279 /* HYUkAllGatherListView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A26991E2A10B97400966279 /* HYUkAllGatherListView.h */; };
+		9A2699212A10B97400966279 /* HYUkAllGatherListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A26991F2A10B97400966279 /* HYUkAllGatherListView.m */; };
+		9A2699242A10C61D00966279 /* HYUkDownContentVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A2699222A10C61D00966279 /* HYUkDownContentVC.h */; };
+		9A2699252A10C61D00966279 /* HYUkDownContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2699232A10C61D00966279 /* HYUkDownContentVC.m */; };
 		9A32EC63F7B46FCE894CDC8A792CB82C /* HLSAssetContentProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = FE8FD9A147141024FBBAC339CB634E37 /* HLSAssetContentProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A6AF044D1D2681184272156860C8C77 /* SJRotationObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C5DD505FE6E145F7C04E28DE85EF374 /* SJRotationObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A6B24C6BE3499283ECCABBF952F952E /* UIViewController+RuntimeReplace.h in Headers */ = {isa = PBXBuildFile; fileRef = 646B6853F93AA817F08F44112B0707B2 /* UIViewController+RuntimeReplace.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3080,6 +3084,10 @@
 		99B842E21F62E6C9C176B9B40CCD3574 /* vdbe.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = vdbe.h; path = src/vdbe.h; sourceTree = "<group>"; };
 		99D66430709EFF65DA84B854B0ACB3AA /* vxworks.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = vxworks.h; path = src/vxworks.h; sourceTree = "<group>"; };
 		99DF9538B44B022DE885F5CFAA076C8C /* MBProgressHUD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MBProgressHUD.release.xcconfig; sourceTree = "<group>"; };
+		9A26991E2A10B97400966279 /* HYUkAllGatherListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYUkAllGatherListView.h; sourceTree = "<group>"; };
+		9A26991F2A10B97400966279 /* HYUkAllGatherListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYUkAllGatherListView.m; sourceTree = "<group>"; };
+		9A2699222A10C61D00966279 /* HYUkDownContentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYUkDownContentVC.h; sourceTree = "<group>"; };
+		9A2699232A10C61D00966279 /* HYUkDownContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYUkDownContentVC.m; sourceTree = "<group>"; };
 		9A7B5CBFDA1E22E97D30E758C35E633D /* SJEdgeControlLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SJEdgeControlLayer.h; sourceTree = "<group>"; };
 		9AAEF07D3F7980E70DD1F80755405889 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
 		9AE563FBE033DC5C01A720EEF3140945 /* SJDraggingObservation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SJDraggingObservation.m; sourceTree = "<group>"; };
@@ -5309,6 +5317,8 @@
 				2F7D9C190B79FB07D603D0217F25D2BA /* HYUkVideoPlayView.m */,
 				D2783385C90315B6B7B107C515097578 /* HYUkVideoRecommendView.h */,
 				AD8819FF790417E9974662C525B112C2 /* HYUkVideoRecommendView.m */,
+				9A26991E2A10B97400966279 /* HYUkAllGatherListView.h */,
+				9A26991F2A10B97400966279 /* HYUkAllGatherListView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -6181,6 +6191,8 @@
 				E707846C0F1A072E9A92795A94D4715D /* HYUkDownViewController.h */,
 				B4E27C0AD6E7898F2A3FF580ECAC2374 /* HYUkDownViewController.m */,
 				0BB696186362A1DE53B67E01F5090A09 /* view */,
+				9A2699222A10C61D00966279 /* HYUkDownContentVC.h */,
+				9A2699232A10C61D00966279 /* HYUkDownContentVC.m */,
 			);
 			path = down;
 			sourceTree = "<group>";
@@ -7804,6 +7816,7 @@
 				BD4FD3CC3CE3F5340E9891F668A4F99D /* DGActivityIndicatorBallGridPulseAnimation.h in Headers */,
 				8CF536FC9E62B3FA803E4AE8D8663BF7 /* DGActivityIndicatorBallPulseAnimation.h in Headers */,
 				5D3C5265188A6CDE76E9E80C5D57AF5F /* DGActivityIndicatorBallPulseSyncAnimation.h in Headers */,
+				9A2699242A10C61D00966279 /* HYUkDownContentVC.h in Headers */,
 				DB6332578F37884D1040CF51B9B915D0 /* DGActivityIndicatorBallRotateAnimation.h in Headers */,
 				6234E926EA4A4ABBF4B934146963042B /* DGActivityIndicatorBallScaleAnimation.h in Headers */,
 				C0F21E438758A5769D08035A872F3ED5 /* DGActivityIndicatorBallScaleMultipleAnimation.h in Headers */,
@@ -7888,6 +7901,7 @@
 				DB47EF2C0E50C5A8CA7C09BB984BD216 /* HYUkHomeSearchView.h in Headers */,
 				BC923A806D95AE25D97E85E4599249F8 /* HYUkHomeViewController.h in Headers */,
 				61BD108D3E254804E1DD702EEC2FF8C4 /* HYUkLoginView.h in Headers */,
+				9A2699202A10B97400966279 /* HYUkAllGatherListView.h in Headers */,
 				6FA24E85C83873AF9163C9030E3F11C3 /* HYUkOtherViewController.h in Headers */,
 				9705680D54A7F74B66C01804FD2A76E6 /* HYUkRankClassView.h in Headers */,
 				45188B5FA5071A626B26A2C3EC65C6B1 /* HYUkRankViewCell.h in Headers */,
@@ -9094,6 +9108,7 @@
 				4C6B877279596DA8DFA466FE23D1EE27 /* HYUkCategeryListView.m in Sources */,
 				4EEBAD2045D89CE24074CEC46DD36F84 /* HYUkCenterHistoryListCell.m in Sources */,
 				9A1233A16A2E711F1E6D07597DF9C1CB /* HYUkCenterHistoryListView.m in Sources */,
+				9A2699212A10B97400966279 /* HYUkAllGatherListView.m in Sources */,
 				68294C66B657065BC419AE9DCE20DD9B /* HYUkCenterHistoryListViewCell.m in Sources */,
 				6173AC0B7B44F72C2448FC5455532E09 /* HYUkCenterHistoryListViewController.m in Sources */,
 				A1F4EC11B5B2CA997BA05FC6ACCBBAFE /* HYUkCenterHistoryView.m in Sources */,
@@ -9214,6 +9229,7 @@
 				91A415697DB9F48C8905BFC2250ED41D /* sj_video_player_pause.png in Sources */,
 				67D5E65D467F57822C4EDE4AB01883C2 /* sj_video_player_play.png in Sources */,
 				333881DF8F1D9644A066956ED7D18435 /* sj_video_player_replay.png in Sources */,
+				9A2699252A10C61D00966279 /* HYUkDownContentVC.m in Sources */,
 				9E394E75D40D693DF1D3316B109FCEE9 /* sj_video_player_shrinkscreen.png in Sources */,
 				92D19F7016B9D1B346D89CECE43F7C3A /* sj_video_player_unlock.png in Sources */,
 				C2B71E730597B54D9E7CB663C8B82A4B /* SJAttributesRecorder.m in Sources */,

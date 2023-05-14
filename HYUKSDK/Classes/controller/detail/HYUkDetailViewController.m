@@ -15,6 +15,7 @@
 #import "HYUkHeader.h"
 #import "HYUkDetailErrorView.h"
 #import "HYResponseRecommendModel.h"
+#import "HYUkAllGatherListView.h"
 
 static CGFloat briefViewHeoght = 60.0;
 
@@ -30,8 +31,7 @@ static CGFloat briefViewHeoght = 60.0;
 @property(nonatomic, strong) HYUkVideoBriefDetailView * briefDetailView;
 @property(nonatomic, strong) HYUkVideoDetailModel * detailModel;
 @property(nonatomic, strong) HYUkDetailErrorView * errorView;
-
-
+@property(nonatomic, strong) HYUkAllGatherListView * gatherListView;
 
 @end
 
@@ -153,6 +153,10 @@ static CGFloat briefViewHeoght = 60.0;
 
     self.briefDetailView.hidden = YES;
     
+    [self.view addSubview:self.gatherListView];
+
+    self.gatherListView.hidden = YES;
+    
     self.scrollView.hidden = YES;
     
     [self.view addSubview:self.errorView];
@@ -197,6 +201,9 @@ static CGFloat briefViewHeoght = 60.0;
         [weakSelf.toolView loadContent];
         
         [weakSelf getGuessLikeList];
+        
+        weakSelf.gatherListView.data = responseObject;
+        [weakSelf.gatherListView loadContent];
         
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
         self.errorView.hidden = NO;
@@ -268,20 +275,56 @@ static CGFloat briefViewHeoght = 60.0;
     
     if ([view isKindOfClass:[HYUkVideoDetailToolView class]]) {
         NSDictionary *dic = event;
-        NSInteger videoId = [dic[@"videoID"] integerValue];
-        if ([self.delegate respondsToSelector:@selector(changeLikeStatus:videoId:)]) {
-            [self.delegate changeLikeStatus:[dic[@"isLike"] boolValue] videoId:videoId];
+        if ([dic[@"type"] isEqualToString:@"like"]) {
+            NSInteger videoId = [dic[@"videoID"] integerValue];
+            if ([self.delegate respondsToSelector:@selector(changeLikeStatus:videoId:)]) {
+                [self.delegate changeLikeStatus:[dic[@"isLike"] boolValue] videoId:videoId];
+            }
+            return;
         }
+        self.gatherListView.hidden = NO;
+        self.gatherListView.isDown = YES;
+        self.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+        [UIView animateWithDuration:0.2 animations:^{
+            self.gatherListView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+        }];
+        return;
     }
     
     if ([view isKindOfClass:[HYUkVideoDetailSelectWorkView class]]) {
+        
         NSDictionary *dic = event;
+        if ([dic[@"type"] isEqualToString:@"more"]) {
+            self.gatherListView.hidden = NO;
+            self.gatherListView.isDown = NO;
+            self.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+            [UIView animateWithDuration:0.2 animations:^{
+                self.gatherListView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+            }];
+            return;
+        }
         [self.playView changeSelect:dic[@"name"] Url:dic[@"url"]];
+        return;
     }
     
+    if ([view isKindOfClass:[HYUkAllGatherListView class]]) {
+        NSDictionary *dic = event;
+        if ([dic[@"type"] isEqualToString:@"close"]) {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+            } completion:^(BOOL finished) {
+                self.gatherListView.hidden = YES;
+            }];
+            return;
+        }
+        [self.playView changeSelect:dic[@"name"] Url:dic[@"url"]];
+        return;
+    }
     
     if ([view isKindOfClass:[HYUkVideoPlayView class]]) {
         [self.selectWorkView changeSelect:event];
+        [self.gatherListView changeSelect:event];
+        return;
     }
 }
 
@@ -298,6 +341,14 @@ static CGFloat briefViewHeoght = 60.0;
         _errorView = [HYUkDetailErrorView new];
     }
     return _errorView;
+}
+
+- (HYUkAllGatherListView *)gatherListView {
+    if (!_gatherListView) {
+        _gatherListView = [HYUkAllGatherListView new];
+        _gatherListView.delegate = self;
+    }
+    return _gatherListView;
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle {

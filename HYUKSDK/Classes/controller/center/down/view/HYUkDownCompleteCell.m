@@ -6,6 +6,7 @@
 //
 
 #import "HYUkDownCompleteCell.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkDownCompleteCell()
 
@@ -42,7 +43,6 @@
         }];
         
         self.name = [UILabel new];
-        self.name.text = @"是的是大的是丰收";
         self.name.font = [UIFont boldSystemFontOfSize:16];
         self.name.textColor = [UIColor textColor22];
         [self.contentView addSubview:self.name];
@@ -53,9 +53,7 @@
             make.top.equalTo(self.contentView.mas_top).offset(14);
         }];
 
-        
         self.briefLab = [UILabel new];
-        self.briefLab.text = @"就拉上倒海翻江啦福利二号放假啦扫黄打非i逻辑啊各位UI浪费改色个翡翠绿哇哥发的擦根深蒂固客户刚吃完卡看个饭卡的水果茶i阿里斯顿官方i啊广发卡事故调查卡公司的课程";
         self.briefLab.font = [UIFont systemFontOfSize:12];
         self.briefLab.numberOfLines = 1;
         self.briefLab.textColor = [UIColor lightGrayColor];
@@ -70,7 +68,6 @@
         }];
         
         self.completeLab = [UILabel new];
-        self.completeLab.text = @"下载已完成";
         self.completeLab.font = [UIFont systemFontOfSize:12];
         self.completeLab.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:self.completeLab];
@@ -93,6 +90,30 @@
         }];
     }
     return self;
+}
+
+- (void)loadContent {
+    HYUkDownListModel *model = self.data;
+
+    self.name.text = [NSString stringWithFormat:@"%@ %@",model.vod_name,model.playName];
+    self.completeLab.text = @"下载已完成";
+    [self.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+
+    NSString *str = @"";
+    if (model.type_id_1 == 1) {
+        str = @"电影";
+    }else if (model.type_id_1 == 2) {
+        str = @"电视剧";
+    }else if (model.type_id_1 == 3) {
+        str = @"综艺";
+    }else if (model.type_id_1 == 4) {
+        str = @"动漫";
+    }else if (model.type_id_1 == 24) {
+        str = @"记录片";
+    }else {
+        str = @"其他";
+    }
+    self.briefLab.text = [NSString stringWithFormat:@"%@/%@/%@",model.vod_year,str,model.vod_area];
 }
 
 - (void)awakeFromNib {

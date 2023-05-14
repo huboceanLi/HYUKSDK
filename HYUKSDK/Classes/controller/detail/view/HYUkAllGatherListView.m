@@ -1,25 +1,24 @@
 //
-//  HYUkVideoDetailSelectWorkView.m
-//  AFNetworking
+//  HYUkAllGatherListView.m
+//  HYUKSDK
 //
-//  Created by oceanMAC on 2023/4/13.
+//  Created by Ocean 李 on 2023/5/14.
 //
 
-#import "HYUkVideoDetailSelectWorkView.h"
+#import "HYUkAllGatherListView.h"
 #import "HYUkHomeCategeryCell.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
 
-@interface HYUkVideoDetailSelectWorkView()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface HYUkAllGatherListView()<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UILabel *name;
-@property (nonatomic, strong) QMUIButton *moreBtn;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) HYUkVideoDetailModel *detailModel;
 @property (nonatomic, strong) HYUkHistoryRecordModel *recordModel;
+@property (nonatomic, strong) HYUkVideoDetailModel *detailModel;
 
 @end
 
-@implementation HYUkVideoDetailSelectWorkView
+@implementation HYUkAllGatherListView
 
 - (void)initSubviews {
     [super initSubviews];
@@ -37,21 +36,16 @@
         make.height.mas_offset(50);
         make.top.equalTo(self.mas_top).offset(0);
     }];
+
+    UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeBtn setImage:[UIImage uk_bundleImage:@"guanbi"] forState:0];
+    [self addSubview:closeBtn];
+    [closeBtn addTarget:self action:@selector(closeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
-    self.moreBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
-    [self.moreBtn setTitle:@"更多" forState:0];
-    [self.moreBtn setTitleColor:UIColor.textColor99 forState:0];
-    self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self.moreBtn setImage:[UIImage uk_bundleImage:@"jinrujiantou"] forState:0];
-    [self.moreBtn setImagePosition:QMUIButtonImagePositionRight];
-    self.moreBtn.spacingBetweenImageAndTitle = 0;
-    [self addSubview:self.moreBtn];
-    [self.moreBtn addTarget:self action:@selector(moreButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).offset(-8);
-        make.top.equalTo(self.mas_top).offset(12);
-        make.height.mas_offset(20);
+    [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).offset(0);
+        make.top.equalTo(self.mas_top).offset(0);
+        make.width.height.mas_equalTo(@(50));
     }];
     
     CGFloat leftSpace = 15;
@@ -59,7 +53,7 @@
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc] init];
     flow.sectionInset = UIEdgeInsetsMake(0, leftSpace, 0, leftSpace);
     flow.itemSize = CGSizeMake(70, 36);
-    flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    flow.scrollDirection = UICollectionViewScrollDirectionVertical;
     flow.minimumLineSpacing = leftSpace;
     flow.minimumInteritemSpacing = 0;
     
@@ -79,9 +73,8 @@
     [self addSubview:_collectionView];
     
     [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
-        make.height.mas_equalTo(36);
-        make.top.equalTo(self.name.mas_bottom).offset(10);
+        make.left.right.bottom.equalTo(self);
+        make.top.equalTo(self.name.mas_bottom).offset(0);
     }];
 }
 
@@ -89,17 +82,13 @@
 {
     HYUkVideoDetailModel *model = self.data;
     self.detailModel = model;
-    if (model.vod_play_url.count <= 1) {
-        self.moreBtn.hidden = YES;
-    }else {
-        self.moreBtn.hidden = NO;
-    }
+
     [self.collectionView reloadData];
 }
 
-- (void)moreButtonClick {
+- (void)closeButtonClick {
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@{@"type":@"more"}];
+        [self.delegate customView:self event:@{@"type":@"close"}];
     }
 }
 
@@ -141,16 +130,20 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYUkVideoDetailItemModel *model = self.detailModel.vod_play_url[indexPath.row];
-    self.recordModel.playName = model.name;
-    self.recordModel.playUrl = model.url;
-    [self.collectionView reloadData];
     
-    NSIndexPath *cuIndexPath = [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0];  //取最后一行数据
-    [self.collectionView scrollToItemAtIndexPath:cuIndexPath atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
     
-    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@{@"name":model.name,@"url":model.url,@"type":@"change"}];
+    if (!self.isDown) {
+        self.recordModel.playName = model.name;
+        self.recordModel.playUrl = model.url;
+        [self.collectionView reloadData];
+        
+        if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+            [self.delegate customView:self event:@{@"name":model.name,@"url":model.url,@"type":@"change"}];
+        }
+        return;
     }
+    
+
 }
 
 - (void)changeSelect:(HYUkHistoryRecordModel *)recordModel

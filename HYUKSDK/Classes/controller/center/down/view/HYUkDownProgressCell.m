@@ -6,6 +6,7 @@
 //
 
 #import "HYUkDownProgressCell.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 @interface HYUkDownProgressCell()
 
@@ -130,6 +131,12 @@
     return self;
 }
 
+- (void)loadContent {
+    HYUkDownListModel *model = self.data;
+
+    self.name.text = [NSString stringWithFormat:@"%@ %@",model.vod_name,model.playName];
+    [self.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
