@@ -16,6 +16,7 @@
 @property (nonatomic, strong) HYUkCategeryListView *categeryListView;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, assign) CGFloat headHeight;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
@@ -69,7 +70,7 @@
 - (void)getData {
     __weak typeof(self) weakSelf = self;
     [[HYUkShowLoadingManager sharedInstance] showLoading];
-    [self.collectionView updateEmptyViewWithImageName:@"" title:@""];
+//    [self.collectionView updateEmptyViewWithImageName:@"" title:@""];
 
     [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID type_id:self.categeryListView.tempCategaryModel.type_id vod_area:self.categeryListView.tempCategaryModel.vod_area vod_lang:self.categeryListView.tempCategaryModel.vod_lang vod_year:self.categeryListView.tempCategaryModel.vod_year order:self.categeryListView.tempCategaryModel.order success:^(NSString *message, id responseObject) {
         [weakSelf.dataArray addObjectsFromArray:responseObject];

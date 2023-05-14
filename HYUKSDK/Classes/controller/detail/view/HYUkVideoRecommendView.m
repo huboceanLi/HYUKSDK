@@ -38,9 +38,8 @@
 
     CGFloat leftSpace = 15;
     CGFloat space = 8;
-    NSInteger count = 3;
-    CGFloat w = 90 * 120 / 160;
-    CGFloat h = 90 + 6 + 20;
+    CGFloat w = 110 * 120 / 160;
+    CGFloat h = 110 + 6 + 20;
     
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc] init];
     flow.sectionInset = UIEdgeInsetsMake(0, leftSpace, 0, leftSpace);

@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)changeSelect:(NSString *)name Url:(NSString *)url;
 
+- (void)removeView;
+
 @end
 
 NS_ASSUME_NONNULL_END

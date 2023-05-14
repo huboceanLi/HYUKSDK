@@ -82,9 +82,9 @@
     
     if (arr.count >= 7) {
         [arr removeObject:arr.lastObject];
-        self.moreBtn.hidden = YES;
-    }else {
         self.moreBtn.hidden = NO;
+    }else {
+        self.moreBtn.hidden = YES;
     }
     self.listView.data = [arr mutableCopy];
     [self.listView loadContent];

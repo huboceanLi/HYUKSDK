@@ -46,6 +46,12 @@
 //        make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 88 : 64));
     }];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getData];
+    });
+}
+
+- (void)getData {
     [[HYUkShowLoadingManager sharedInstance] showLoading];
     
     __weak typeof(self) weakSelf = self;

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id data;///<数据源.
 @property (nonatomic, weak) id<BaseListDelegate> delegate;
 
-@property (nonatomic, strong) UICollectionView *collectionView;
+//@property (nonatomic, strong) UICollectionView *collectionView;
 
 - (void)initData;
 - (void)initSubviews;

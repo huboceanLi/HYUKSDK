@@ -40,7 +40,7 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     self.backgroundColor = UIColor.blackColor;
     
     _player = SJVideoPlayer.player;
-//    _player.pausedInBackground = YES;
+    _player.pausedInBackground = YES;
 //    self.player.controlLayerDataSource = self;
     [self addSubview:_player.view];
     [_player.view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -57,6 +57,16 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 //    SJMediaCacheServer.shared.enabledConsoleLog = YES;
 //    SJMediaCacheServer.shared.logOptions = MCSLogOptionDownloader;
 }
+
+- (void)removeView
+{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+- (void)dealloc {
+    NSLog(@"HYUkVideoPlayView 灰飞烟灭！");
+}
+
 
 - (void)timeRecordCurrent {
     NSInteger currentTime = self.player.currentTime;

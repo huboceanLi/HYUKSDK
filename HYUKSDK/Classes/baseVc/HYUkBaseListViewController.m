@@ -34,7 +34,7 @@
 }
 
 - (void)requestData {
-    [self.collectionView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
+    
 }
 
 - (void)refreshData {}

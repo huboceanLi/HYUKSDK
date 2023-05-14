@@ -14,6 +14,7 @@
 #import "HYUkVideoBriefDetailView.h"
 #import "HYUkHeader.h"
 #import "HYUkDetailErrorView.h"
+#import "HYResponseRecommendModel.h"
 
 static CGFloat briefViewHeoght = 60.0;
 
@@ -37,6 +38,8 @@ static CGFloat briefViewHeoght = 60.0;
 @implementation HYUkDetailViewController
 
 - (void)dealloc {
+    [self.playView removeView];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"HYVideoDetailViewController 灰飞烟灭！");
 }
 
@@ -143,7 +146,7 @@ static CGFloat briefViewHeoght = 60.0;
         make.top.equalTo(self.selectWorkView.mas_bottom).offset(0);
         make.left.equalTo(self.scrollView);
         make.width.mas_offset(SCREEN_WIDTH);
-        make.height.mas_offset(116);
+        make.height.mas_offset(186);
         make.bottom.equalTo(self.scrollView).offset(-(IS_iPhoneX ? 34 : 20));
     }];
     
@@ -160,7 +163,17 @@ static CGFloat briefViewHeoght = 60.0;
         make.top.equalTo(self.playView.mas_bottom).offset(0);
     }];
     
+    //监听程序进入前台和后台
+     [[NSNotificationCenter defaultCenter] addObserver:self
+                                              selector:@selector(enterBackGround:)
+                                                  name:UIApplicationDidEnterBackgroundNotification
+                                                object:nil];
     [self getData];
+}
+
+- (void)enterBackGround:(NSNotificationCenter *)notification
+{
+    [self.playView saveHistoryRecord];
 }
 
 - (void)getData {
@@ -232,13 +245,22 @@ static CGFloat briefViewHeoght = 60.0;
     }
     
     if ([view isKindOfClass:[HYUkVideoRecommendView class]]) {
-//        HYMovieListItemModel *model = event;
-//
-//        HYWebVideoViewController *vc = [HYWebVideoViewController new];
-//        vc.movieModel = model;
-//        vc.list = self.list;
-//        [self.navigationController pushViewController:vc animated:YES];
+        HYResponseRecommendModel *model = event;
+        HYUkDetailViewController *vc = [HYUkDetailViewController new];
+        vc.videoId = model.ID;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        NSMutableArray *vcs = [self.navigationController.viewControllers mutableCopy];
+        
+        for (UIViewController *item in vcs) {
+            if ([item isKindOfClass:[HYUkDetailViewController class]]) {
+                [vcs removeObject:item];
+                self.navigationController.viewControllers = vcs;
+                break;
+            }
+        }
     }
+    
     if ([view isKindOfClass:[HYUkVideoDetailToolView class]]) {
         NSDictionary *dic = event;
         NSInteger videoId = [dic[@"videoID"] integerValue];

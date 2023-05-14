@@ -18,8 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong,nonatomic) UILabel *navTitleLabel;
 @property(strong,nonatomic) UIImageView *bgImageView;
 
-@property (nonatomic, strong) UICollectionView *baseCollectionView;
-@property (nonatomic, strong) UITableView *baseTableView;
 
 - (void)initData;
 - (void)initSubviews;

@@ -48,7 +48,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 15, 0)];
     [ _tableView registerClass:[HYUkRankViewCell class] forCellReuseIdentifier:@"Cell"];
-    self.baseTableView = self.tableView;
     [_tableView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
 
 //    [self.tableView registerNib:[UINib nibWithNibName:@"ChangeInfoCell" bundle:nil] forCellReuseIdentifier:@"Cell"];

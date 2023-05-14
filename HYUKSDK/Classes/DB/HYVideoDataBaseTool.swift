@@ -31,7 +31,7 @@ class HYVideoDataBaseTool : NSObject {
         HYUkCollectionDao.default.createTable(database: dbBase)
         HYUkSearchKeyDao.default.createTable(database: dbBase)
         HYUkHistoryRecordDao.default.createTable(database: dbBase)
-//        HYBookCategoryListDao.default.createTable(database: dbBase)
+        HYUkDownListDao.default.createTable(database: dbBase)
 //        HYLoginDao.default.createTable(database: dbBase)
 //        HYBookRecordDao.default.createTable(database: dbBase)
     }

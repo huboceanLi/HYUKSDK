@@ -63,8 +63,6 @@
 
 - (void)initData
 {
-    [self.baseCollectionView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
-    [self.baseTableView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
 }
 - (void)initSubviews {
     
