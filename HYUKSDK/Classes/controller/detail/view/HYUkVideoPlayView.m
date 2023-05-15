@@ -54,15 +54,36 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 
     [self.timer pauseTimer];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netChangeWanNotic) name:net_change_wan object:nil];
+
 //    SJMediaCacheServer.shared.enabledConsoleLog = YES;
 //    SJMediaCacheServer.shared.logOptions = MCSLogOptionDownloader;
 }
 
+- (void)netChangeWanNotic {
+    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkDownManager sharedInstance].isWan) {
+        [self.player pause];
+        MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下播放视频会消耗流量,确定要播放吗?"];
+        dialogVC.customView.height = 110;
+        __weak typeof(self) weakSelf = self;
+        [dialogVC addSubmitButtonWithText:@"播放" block:^(__kindof QMUIDialogViewController * _Nonnull aDialogViewController) {
+            [aDialogViewController hide];
+            [UserDefault setBool:true forKey:video_allow_flow_play];
+            [[NSNotificationCenter defaultCenter] postNotificationName:video_allow_flow_play object:nil];
+            [weakSelf.player play];
+        }];
+        [dialogVC addCancelButtonWithText:@"取消" block:nil];
+        [dialogVC show];
+    }
+}
+
 - (void)removeView
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.timer invalidate];
     self.timer = nil;
 }
+
 - (void)dealloc {
     NSLog(@"HYUkVideoPlayView 灰飞烟灭！");
 }
@@ -170,7 +191,7 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 
 - (void)_play:(NSURL *)URL {
 
-    if (![UserDefault boolValueForKey:video_allow_flow_play]) {
+    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkDownManager sharedInstance].isWan) {
         MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下播放视频会消耗流量,确定要播放吗?"];
         dialogVC.customView.height = 110;
         __weak typeof(self) weakSelf = self;
