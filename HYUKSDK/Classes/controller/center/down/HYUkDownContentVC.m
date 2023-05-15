@@ -13,7 +13,7 @@
 
 #import "SJMediaCacheServer.h"
 
-@interface HYUkDownContentVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface HYUkDownContentVC ()<UITableViewDelegate,UITableViewDataSource,BaseCellDelegate,HYUkDownManagerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -59,6 +59,8 @@
 
 - (void)getData {
     if (self.index == 0) {
+        [HYUkDownManager sharedInstance].delegate = self;
+
         self.dataArray = [[[HYUkDownListLogic share] queryDownListWithCreateTime:NSIntegerMax isComplete:YES] mutableCopy];
     }else {
         self.dataArray = [[[HYUkDownListLogic share] queryDownListWithCreateTime:NSIntegerMax isComplete:NO] mutableCopy];
@@ -84,6 +86,7 @@
             cell = [[HYUkDownProgressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ProgressCell"];
         }
         cell.selectionStyle = 0;
+        cell.delegate = self;
         cell.data = self.dataArray[indexPath.row];
         [cell loadContent];
         
@@ -108,26 +111,69 @@
     if (self.index == 0) {
         HYUkDownListModel *model = self.dataArray[indexPath.row];
 
-        __weak typeof(self) weakSelf = self;
+        [[HYUkDownManager sharedInstance] startDown:model];
         
-//        [[MCSPrefetcherManager shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] progress:^(float progress) {
+//        if ([[HYUkDownManager sharedInstance].downIngArray containsObject:model.primary_Id]) {
+//            //暂停
+//            [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
+//            return;
+//        }
+//
+//        if ([[HYUkDownManager sharedInstance].downWaitArray containsObject:model.primary_Id]) {
+//            //暂停
+//            [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
+//            return;
+//        }
+        
+//        if ([[HYUkDownManager sharedInstance].downPauseArray containsObject:model.primary_Id]) {
+//            //排队或者开始下载
+//            return;
+//        }
+        //三个数组都没有就开启下载
+//        [[HYUkDownManager sharedInstance].downIngArray addObject:model.primary_Id];
+//        __weak typeof(self) weakSelf = self;
+//        [[SJMediaCacheServer shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] progress:^(float progress) {
 //            NSLog(@"下载进度:%.2f",progress);
 //        } completed:^(NSError * _Nullable error) {
-//            NSLog(@"%@",error);
+//            if (!error) {
+////                [[HYUkDownManager sharedInstance].downIngArray removeObject:model.primary_Id];
+//                [weakSelf.dataArray removeObject:model];
+//                [weakSelf.tableView reloadData];
+//                NSLog(@"下载完成");
+//            }else {
+//                NSLog(@"下载出错了:%@",error);
+//            }
 //        }];
-        
-        [[SJMediaCacheServer shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] progress:^(float progress) {
-            NSLog(@"下载进度:%.2f",progress);
-        } completed:^(NSError * _Nullable error) {
-            if (!error) {
-                NSLog(@"下载完成");
-            }else {
-                NSLog(@"下载出错了:%@",error);
-            }
-        }];
 //        [[MCSPrefetcherManager shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] preloadSize:2000 * 1024 * 1024 progress:^(float progress) {
 //        } completed:^(NSError * _Nullable error) {
 //        }];
+    }
+}
+
+- (void)customCell:(HYBaseTableViewCell *)cell event:(id)event
+{
+    if ([cell isKindOfClass:[HYUkDownProgressCell class]]) {
+        NSString *primary_Id = event;
+        for (HYUkDownListModel *model in self.dataArray) {
+            if ([model.primary_Id isEqualToString:primary_Id]) {
+                [self.dataArray removeObject:model];
+                [self.tableView reloadData];
+                break;
+            }
+        }
+    }
+}
+
+- (void)downProgress:(NSString *)primary_Id progress:(NSInteger)progress status:(HYUkDownStatus)status
+{
+    for (int i = 0; i < self.dataArray.count; i++) {
+        HYUkDownListModel *model = self.dataArray[i];
+        if ([model.primary_Id isEqualToString:primary_Id]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            HYUkDownProgressCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            [cell downProgress:primary_Id progress:progress status:status];
+            break;
+        }
     }
 }
 

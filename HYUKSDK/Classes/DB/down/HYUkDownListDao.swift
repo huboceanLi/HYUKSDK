@@ -102,4 +102,37 @@ struct HYUkDownListDao {
         }
         return []
     }
+
+    func updateDownProgress(primaryId: String, progress: Int) {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return
+        }
+
+        
+        let msgEntity = HYUkDownListModel()
+        msgEntity.progress = progress
+        
+        do {
+            try database.update(table: HY_MOIVE_DOWN_TABLE_NAME, on: HYUkDownListModel.Properties.progress, with: msgEntity, where: HYUkDownListModel.Properties.primary_Id == primaryId)
+        } catch  {
+            print("updateDownProgress error: \(error)")
+        }
+        
+    }
+    
+    func updateDownStatus(primaryId: String) {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return
+        }
+
+        
+        let msgEntity = HYUkDownListModel()
+        msgEntity.status = 1
+        
+        do {
+            try database.update(table: HY_MOIVE_DOWN_TABLE_NAME, on: HYUkDownListModel.Properties.status, with: msgEntity, where: HYUkDownListModel.Properties.primary_Id == primaryId)
+        } catch  {
+            print("updateDownStatus error: \(error)")
+        }
+    }
 }

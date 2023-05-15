@@ -33,4 +33,13 @@ import Foundation
         }
         return false
     }
+    
+    public func updateDownProgress(primaryId: String, progress: Int) {
+        HYUkDownListDao.default.updateDownProgress(primaryId: primaryId, progress: progress)
+    }
+    
+    public func updateDownStatus(primaryId: String) {
+        HYUkDownListDao.default.updateDownStatus(primaryId: primaryId)
+    }
+
 }

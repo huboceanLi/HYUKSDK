@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUkDownProgressCell : HYBaseTableViewCell
 
+- (void)downProgress:(NSString *)primary_Id progress:(NSInteger)progress status:(HYUkDownStatus)status;
+
 @end
 
 NS_ASSUME_NONNULL_END

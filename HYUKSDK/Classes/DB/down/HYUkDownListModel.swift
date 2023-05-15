@@ -17,7 +17,7 @@ import YYKit
     public var type_id_1: Int = 0
     public var vod_name: String = ""
     public var vod_pic: String = ""
-    public var status: Int = 0  // 0下载中，1排队中，2下载完成
+    public var status: Int = 0  // 0等待下载，1下载完成
     public var vod_year: String = ""
     public var vod_area: String = ""
     public var create_Time: Int = 0
