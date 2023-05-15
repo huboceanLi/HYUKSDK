@@ -34,4 +34,8 @@ NSString * const video_search = @"search_movies";
 NSString * const video_rank = @"get_rank";
 NSString * const video_guess_Like = @"guess_you_like";
 
+#pragma mark-- config
+NSString * const video_allow_flow_play = @"video_allow_flow_play";
+NSString * const video_allow_flow_down = @"video_allow_flow_down";
+
 @end

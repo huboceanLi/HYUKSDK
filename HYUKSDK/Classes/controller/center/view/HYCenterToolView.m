@@ -84,10 +84,10 @@
 //    [self.messageBtn addTarget:self action:@selector(messageButtonClick) forControlEvents:UIControlEventTouchUpInside];
     
     self.settingBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
-    [self.settingBtn setTitle:@"设置" forState:0];
+    [self.settingBtn setTitle:@"消息" forState:0];
     [self.settingBtn setTitleColor:UIColor.textColor22 forState:0];
     self.settingBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.settingBtn setImage:[UIImage uk_bundleImage:@"shezhixitongshezhigongnengshezhishuxing"] forState:0];
+    [self.settingBtn setImage:[UIImage uk_bundleImage:@"uk_setting_message"] forState:0];
     [self.settingBtn setImagePosition:QMUIButtonImagePositionTop];
     self.settingBtn.spacingBetweenImageAndTitle = 10;
     self.settingBtn.tag = 4;

@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSArray *imageArray;
 
 @end
 
@@ -28,8 +29,9 @@
     [self.navBackButton setImage:[UIImage uk_bundleImage:@"31fanhui1"] forState:0];
     
     
-    self.dataArray = @[@[@"免责申明",@"隐私政策",@"版本检测",@"清除缓存",@"联系我们"],@[@"我的账号",@"修改密码",@"退出账号",@"注销账号"]];
-
+    self.dataArray = @[@[@"允许流量播放",@"允许流量下载",@"免责申明",@"隐私政策",@"清除缓存",@"联系我们"],@[@"我的账号",@"修改密码",@"退出账号"]];
+    self.imageArray = @[@[@"uk_setting_play",@"uk_setting_download",@"uk_setting_declare",@"uk_setting_yinsi",@"uk_setting_clear",@"uk_setting_contact"],@[@"uk_setting_account",@"uk_setting_key",@"uk_setting_exit"]];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -101,8 +103,23 @@
         cell = [[HYUkSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     cell.selectionStyle = 0;
+    cell.playSwitch.hidden = YES;
+    cell.arrowImageView.hidden = YES;
+    cell.briefLab.hidden = YES;
+
+    if (indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 1)) {
+        cell.playSwitch.hidden = NO;
+    }else {
+        cell.arrowImageView.hidden = NO;
+        cell.briefLab.hidden = NO;
+    }
+
+    
     NSArray *arr = self.dataArray[indexPath.section];
+    NSArray *imgArr = self.imageArray[indexPath.section];
+
     cell.name.text = arr[indexPath.row];
+    cell.headImageView.image = [UIImage uk_bundleImage:imgArr[indexPath.row]];
     
     return cell;
 }

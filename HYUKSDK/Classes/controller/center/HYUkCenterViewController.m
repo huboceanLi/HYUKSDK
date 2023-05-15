@@ -15,13 +15,15 @@
 #import "HYUkCenterHistoryListViewController.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
 #import "HYUkDetailViewController.h"
+#import "HYUkSettingView.h"
 
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
 @property(nonatomic, strong) UIScrollView * scrollView;
-@property(nonatomic, strong) HYUkLoginView * loginView;
+//@property(nonatomic, strong) HYUkLoginView * loginView;
 @property(nonatomic, strong) HYUkCenterHistoryView * historyView;
 @property(nonatomic, strong) HYCenterToolView * toolView;
+@property(nonatomic, strong) HYUkSettingView * settingView;
 
 @end
 
@@ -43,7 +45,6 @@
 
     self.scrollView = [UIScrollView new];
     self.scrollView.showsVerticalScrollIndicator = NO;
-//    self.scrollView.delegate = self;
     self.scrollView.showsHorizontalScrollIndicator = NO;
 //    [self.scrollView setContentInset:UIEdgeInsetsMake((IS_iPhoneX ? 88 : 64), 0, 0, 0)];
     [self.view addSubview:self.scrollView];
@@ -54,28 +55,27 @@
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
-//        make.top.equalTo(self.navBar.mas_bottom).offset(0);
     }];
 
-    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - (IS_iPhoneX ? 79 : 49))];
     
-    self.loginView = [HYUkLoginView new];
-    self.loginView.delegate = self;
-    [self.scrollView addSubview:self.loginView];
-    
-    [self.loginView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView.mas_top).offset(IS_iPhoneX ? 88 : 64);
-        make.left.equalTo(self.scrollView.mas_left).offset(15);
-        make.width.mas_offset(SCREEN_WIDTH - 30);
-        make.height.mas_offset(100);
-    }];
+//    self.loginView = [HYUkLoginView new];
+//    self.loginView.delegate = self;
+//    [self.scrollView addSubview:self.loginView];
+//
+//    [self.loginView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.scrollView.mas_top).offset(IS_iPhoneX ? 88 : 64);
+//        make.left.equalTo(self.scrollView.mas_left).offset(15);
+//        make.width.mas_offset(SCREEN_WIDTH - 30);
+//        make.height.mas_offset(100);
+//    }];
     
     self.toolView = [HYCenterToolView new];
     self.toolView.delegate = self;
     [self.scrollView addSubview:self.toolView];
     
     [self.toolView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loginView.mas_bottom).offset(20);
+        make.top.equalTo(self.scrollView.mas_top).offset(IS_iPhoneX ? 88 : 64);
+//        make.top.equalTo(self.loginView.mas_bottom).offset(20);
         make.left.equalTo(self.scrollView.mas_left).offset(15);
         make.width.mas_offset(SCREEN_WIDTH - 30);
         make.height.mas_offset(115);
@@ -91,6 +91,24 @@
         make.width.mas_offset(SCREEN_WIDTH - 30);
         make.height.mas_offset(152);
     }];
+    
+    self.settingView = [HYUkSettingView new];
+    self.settingView.delegate = self;
+    [self.scrollView addSubview:self.settingView];
+    
+    [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.historyView.mas_bottom).offset(20);
+        make.left.equalTo(self.scrollView.mas_left).offset(15);
+        make.width.mas_offset(SCREEN_WIDTH - 30);
+        make.height.mas_offset(50 * 7);
+    }];
+    
+    CGFloat h = (IS_iPhoneX ? 88 : 64) + 115 + 20 + 152 + 20 + 50 * 7 + 20;
+    if (h > SCREEN_HEIGHT - (IS_iPhoneX ? 80 : 50)) {
+        [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, h)];
+    }else {
+        [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - (IS_iPhoneX ? 79 : 49))];
+    }
 }
 
 - (void)getData {

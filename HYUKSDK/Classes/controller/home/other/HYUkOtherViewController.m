@@ -69,9 +69,11 @@
 
 - (void)getData {
     __weak typeof(self) weakSelf = self;
-    [[HYUkShowLoadingManager sharedInstance] showLoading];
-//    [self.collectionView updateEmptyViewWithImageName:@"" title:@""];
 
+    CGFloat oy = (SCREEN_HEIGHT - self.headHeight - (IS_iPhoneX ? 168 : 114) - (SCREEN_WIDTH / 5.0)) / 2.0 + (IS_iPhoneX ? 88 : 64) + self.headHeight;
+    
+    [[HYUkShowLoadingManager sharedInstance] showLoading:oy];
+        
     [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID type_id:self.categeryListView.tempCategaryModel.type_id vod_area:self.categeryListView.tempCategaryModel.vod_area vod_lang:self.categeryListView.tempCategaryModel.vod_lang vod_year:self.categeryListView.tempCategaryModel.vod_year order:self.categeryListView.tempCategaryModel.order success:^(NSString *message, id responseObject) {
         [weakSelf.dataArray addObjectsFromArray:responseObject];
         [weakSelf.collectionView reloadData];
@@ -165,10 +167,12 @@
         if ([dic[@"type"] isEqualToString:@"h"]) {
             NSInteger index = [dic[@"h"] intValue];
             self.headHeight = 40.0 * index;
+            [self.collectionView updateEmptyViewWithImageName:@"" title:@""];
             [self.collectionView reloadData];
         }else {
             self.page = 0;
             [self.dataArray removeAllObjects];
+            [self.collectionView updateEmptyViewWithImageName:@"" title:@""];
             [self.collectionView reloadData];
             [self getData];
         }

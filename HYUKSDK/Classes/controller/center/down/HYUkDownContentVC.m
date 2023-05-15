@@ -10,8 +10,8 @@
 #import "HYUkDownProgressCell.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
 
-#import "MCSPrefetcherManager.h"
-#import "MCSDownload.h"
+
+#import "SJMediaCacheServer.h"
 
 @interface HYUkDownContentVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -21,6 +21,10 @@
 @end
 
 @implementation HYUkDownContentVC
+
+- (void)dealloc {
+    NSLog(@"HYUkDownContentVC 灰飞烟灭");
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -106,11 +110,24 @@
 
         __weak typeof(self) weakSelf = self;
         
-        [[MCSPrefetcherManager shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] preloadSize:100000 progress:^(float progress) {
+//        [[MCSPrefetcherManager shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] progress:^(float progress) {
+//            NSLog(@"下载进度:%.2f",progress);
+//        } completed:^(NSError * _Nullable error) {
+//            NSLog(@"%@",error);
+//        }];
+        
+        [[SJMediaCacheServer shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] progress:^(float progress) {
             NSLog(@"下载进度:%.2f",progress);
         } completed:^(NSError * _Nullable error) {
-            NSLog(@"%@",error);
+            if (!error) {
+                NSLog(@"下载完成");
+            }else {
+                NSLog(@"下载出错了:%@",error);
+            }
         }];
+//        [[MCSPrefetcherManager shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] preloadSize:2000 * 1024 * 1024 progress:^(float progress) {
+//        } completed:^(NSError * _Nullable error) {
+//        }];
     }
 }
 

@@ -38,6 +38,7 @@
     self.bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
     
     [[HYVideoDBLogic share] initDB];
+    [[HYUkDownManager sharedInstance] startNetworkMonitoring];
     
     [self.navBar addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,7 +100,7 @@
     
     BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
     if (isOpenTheProxy) {
-        [MYToast showWithText:@"请关闭设备代理,否则会播放失败!" inView:self.view hideAfterDelay:15.0];
+        [MYToast showWithText:@"请关闭设备代理,否则会播放失败!" inView:self.view hideAfterDelay:10.0];
     }
     
     [self getData];

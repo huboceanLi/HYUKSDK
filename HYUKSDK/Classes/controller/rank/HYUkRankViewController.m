@@ -69,7 +69,7 @@
 
 - (void)getData {
     __weak typeof(self) weakSelf = self;
-    [[HYUkShowLoadingManager sharedInstance] showLoading];
+    [[HYUkShowLoadingManager sharedInstance] showLoading:-1];
     [[HYVideoSingle sharedInstance] getRnakListWithPage:self.page success:^(NSString *message, id responseObject) {
         [weakSelf.dataArray addObjectsFromArray:responseObject];
         [weakSelf.tableView reloadData];

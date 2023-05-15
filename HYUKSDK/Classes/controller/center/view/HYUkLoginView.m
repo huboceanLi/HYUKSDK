@@ -53,7 +53,7 @@
     self.noLoginLab = [UILabel new];
     self.noLoginLab.font = [UIFont boldSystemFontOfSize:20];
     self.noLoginLab.textColor = UIColor.blackColor;
-    self.noLoginLab.text = @"点击登录";
+    self.noLoginLab.text = @"欢迎来到这里!";
     [self addSubview:self.noLoginLab];
 
     [self.name mas_makeConstraints:^(MASConstraintMaker *make) {

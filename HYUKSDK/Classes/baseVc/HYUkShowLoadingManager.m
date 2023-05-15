@@ -27,15 +27,18 @@ static HYUkShowLoadingManager * manager = nil;
     return manager;
 }
 
-- (void)showLoading
+- (void)showLoading:(CGFloat)oy
 {
     if (!self.activityIndicatorView) {
         self.activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallSpinFadeLoader tintColor:[UIColor mainColor]];
         CGFloat width = SCREEN_WIDTH / 5.0f;
         
         UIView *v = [UIApplication sharedApplication].keyWindow.rootViewController.view;
-
-        self.activityIndicatorView.frame = CGRectMake((v.frame.size.width - width)/2, (v.frame.size.height - width)/2, width, width);
+        if (oy <= -1) {
+            self.activityIndicatorView.frame = CGRectMake((v.frame.size.width - width)/2, (v.frame.size.height - width)/2, width, width);
+        }else {
+            self.activityIndicatorView.frame = CGRectMake((v.frame.size.width - width)/2, oy, width, width);
+        }
         [v addSubview:self.activityIndicatorView];
 //        [self.activityIndicatorView mas_updateConstraints:^(MASConstraintMaker *make) {
 //            make.width.height.mas_equalTo(width);

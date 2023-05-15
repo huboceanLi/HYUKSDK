@@ -52,8 +52,9 @@
 }
 
 - (void)getData {
-    [[HYUkShowLoadingManager sharedInstance] showLoading];
     
+    [[HYUkShowLoadingManager sharedInstance] showLoading:-1];
+
     __weak typeof(self) weakSelf = self;
     [[HYVideoSingle sharedInstance] homeRecommendWithListSuccess:^(NSString *message, id responseObject) {
         NSArray *models = responseObject;

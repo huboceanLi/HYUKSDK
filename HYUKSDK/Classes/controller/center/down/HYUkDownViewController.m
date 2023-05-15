@@ -18,6 +18,10 @@
 
 @implementation HYUkDownViewController
 
+- (void)dealloc {
+    NSLog(@"HYUkDownViewController 灰飞烟灭");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

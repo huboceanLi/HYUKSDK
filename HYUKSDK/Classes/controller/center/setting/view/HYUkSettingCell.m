@@ -24,7 +24,7 @@
 
         
         self.headImageView = [UIImageView new];
-        self.headImageView.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
+//        self.headImageView.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
         self.headImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:self.headImageView];
         
@@ -57,6 +57,14 @@
             make.centerY.equalTo(self.contentView);
         }];
         
+        self.playSwitch = [[UISwitch alloc] init];
+        self.playSwitch.transform = CGAffineTransformMakeScale(0.7, 0.7);
+        [self.contentView addSubview:self.playSwitch];
+        [self.playSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView.mas_right).offset(-10);
+            make.centerY.equalTo(self.contentView);
+        }];
+        
         self.briefLab = [UILabel new];
         self.briefLab.text = @"就拉上倒海课程";
         self.briefLab.font = [UIFont systemFontOfSize:12];
@@ -80,7 +88,6 @@
     }
     return self;
 }
-
 
 - (void)awakeFromNib {
     [super awakeFromNib];

@@ -31,6 +31,11 @@ extern NSString * const video_rank;
 
 extern NSString * const video_guess_Like;
 
+#pragma mark-- config
+extern NSString * const video_allow_flow_play;
+extern NSString * const video_allow_flow_down;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

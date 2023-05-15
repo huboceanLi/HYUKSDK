@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (HYUkShowLoadingManager *)sharedInstance;
 
-- (void)showLoading;
+- (void)showLoading:(CGFloat)oy;
+
 
 - (void)removeLoading;
 

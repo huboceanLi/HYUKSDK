@@ -169,7 +169,26 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 #pragma mark -
 
 - (void)_play:(NSURL *)URL {
-//    URL = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"com.SJMediaCacheServer.cache/87d5ff79f295648c071555a12fb412cc/file_0_0.mp4"]];
+
+    if (![UserDefault boolValueForKey:video_allow_flow_play]) {
+        MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下播放视频会消耗流量,确定要播放吗?"];
+        dialogVC.customView.height = 110;
+        __weak typeof(self) weakSelf = self;
+        [dialogVC addSubmitButtonWithText:@"播放" block:^(__kindof QMUIDialogViewController * _Nonnull aDialogViewController) {
+            [aDialogViewController hide];
+            [UserDefault setBool:true forKey:video_allow_flow_play];
+            [[NSNotificationCenter defaultCenter] postNotificationName:video_allow_flow_play object:nil];
+            [weakSelf startPaly:URL];
+        }];
+        [dialogVC addCancelButtonWithText:@"取消" block:nil];
+        [dialogVC show];
+        return;
+    }
+
+    [self startPaly:URL];
+}
+
+- (void)startPaly:(NSURL *)URL {
     
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
         [self.delegate customView:self event:self.currentRecordModel];
@@ -179,7 +198,6 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     NSURL *playbackURL = [SJMediaCacheServer.shared playbackURLWithURL:URL];
 //    // play
     _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:self.currentRecordModel.playDuration];
-
 }
 
 - (void)changeSelect:(NSString *)name Url:(NSString *)url {
@@ -190,11 +208,5 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     NSURL *URL = [NSURL URLWithString:url];
     [self _play:URL];
 }
-
-//- (void)videoPlayer:(__kindof SJBaseVideoPlayer *)videoPlayer currentTimeDidChange:(NSTimeInterval)currentTime
-//{
-//    NSLog(@"");
-//}
-
 
 @end

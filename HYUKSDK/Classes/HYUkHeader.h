@@ -33,6 +33,9 @@
 #import "HYUkTextTempModel.h"
 #import "HYUkTempCategaryModel.h"
 #import "MYToast.h"
+#import "APIString.h"
+#import "MYDialogViewController.h"
+#import "HYUkDownManager.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

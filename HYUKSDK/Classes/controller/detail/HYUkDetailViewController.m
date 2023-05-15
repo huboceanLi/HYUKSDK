@@ -181,7 +181,7 @@ static CGFloat briefViewHeoght = 60.0;
 
 - (void)getData {
     __weak typeof(self) weakSelf = self;
-    [[HYUkShowLoadingManager sharedInstance] showLoading];
+    [[HYUkShowLoadingManager sharedInstance] showLoading:-1];
     [[HYVideoSingle sharedInstance] getVideoDetaildID:self.videoId success:^(NSString *message, id responseObject) {
         weakSelf.detailModel = responseObject;
         weakSelf.scrollView.hidden = NO;
