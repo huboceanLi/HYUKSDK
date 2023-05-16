@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger index;
 
+- (void)deleteData;
+
 @end
 
 NS_ASSUME_NONNULL_END

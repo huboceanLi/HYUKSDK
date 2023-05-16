@@ -42,4 +42,11 @@ import Foundation
         HYUkDownListDao.default.updateDownStatus(primaryId: primaryId)
     }
 
+    public func deleteAll(status: Int) {
+        HYUkDownListDao.default.deleteAll(status: status)
+    }
+    
+    public func removeAppointDown(primaryId: String) {
+        HYUkDownListDao.default.removeAppointDown(primaryId: primaryId)
+    }
 }

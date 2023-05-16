@@ -148,8 +148,12 @@
         downModel.vod_area = self.detailModel.vod_area;
         downModel.playName = itemModel.name;
         downModel.playUrl = itemModel.url;
+        downModel.content = self.detailModel.vod_content;
         downModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
         [[HYUkDownListLogic share] insertDownListWithModel:downModel];
+        
+        [[HYUkDownManager sharedInstance] startDown:downModel];
+
         [MYToast showWithText:@"已添加到下载队列中!"];
         return;
     }

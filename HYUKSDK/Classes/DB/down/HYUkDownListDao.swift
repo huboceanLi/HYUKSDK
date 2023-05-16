@@ -46,18 +46,31 @@ struct HYUkDownListDao {
         }
     }
     
-//    func removeAppointDown(videoId: Int) {
-//        guard let database = HYVideoDataBaseTool.default.base else {
-//            return
-//        }
-//        let condion: Condition = HYUkDownListModel.Properties.video_id == videoId
-//
-//        do {
-//            try database.delete(fromTable: HY_MOIVE_DOWN_TABLE_NAME, where: condion)
-//        } catch  {
-//            print("removeAppointCollection error: \(error)")
-//        }
-//    }
+    func deleteAll(status: Int) {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return
+        }
+        let condion: Condition = HYUkDownListModel.Properties.status == status
+
+        do {
+            try database.delete(fromTable: HY_MOIVE_DOWN_TABLE_NAME, where: condion)
+        } catch  {
+            print("deleteAll error: \(error)")
+        }
+    }
+    
+    func removeAppointDown(primaryId: String) {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return
+        }
+        let condion: Condition = HYUkDownListModel.Properties.primary_Id == primaryId
+
+        do {
+            try database.delete(fromTable: HY_MOIVE_DOWN_TABLE_NAME, where: condion)
+        } catch  {
+            print("removeAppointDown error: \(error)")
+        }
+    }
     
     func queryAppointDown(primaryId: String) -> [HYUkDownListModel] {
 

@@ -24,6 +24,7 @@ import YYKit
     public var progress: Int = 0
     public var playName: String = "" //第三集
     public var playUrl: String = "" //第三集的url
+    public var content: String = "" //第三集的url
 
     public enum CodingKeys: String, CodingTableKey {
         public typealias Root = HYUkDownListModel
@@ -41,6 +42,7 @@ import YYKit
         case progress
         case playName
         case playUrl
+        case content
         case create_Time
 
         public static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
@@ -56,6 +58,7 @@ import YYKit
                 vod_area: ColumnConstraintBinding(defaultTo: ""),
                 playUrl: ColumnConstraintBinding(defaultTo: ""),
                 playName: ColumnConstraintBinding(defaultTo: ""),
+                content: ColumnConstraintBinding(defaultTo: ""),
                 status: ColumnConstraintBinding(defaultTo: 0),
                 progress: ColumnConstraintBinding(defaultTo: 0),
                 create_Time: ColumnConstraintBinding(defaultTo: 0),

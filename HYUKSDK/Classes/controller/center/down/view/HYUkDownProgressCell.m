@@ -18,10 +18,11 @@
 
 @property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) UIView *progressView;
-@property (nonatomic, strong) UIImageView *stopImageView;
 
 @property (nonatomic, assign) CGFloat singleProgress;
 @property (nonatomic, strong) HYUkDownListModel *downModel;
+
+@property (nonatomic, assign) CGFloat currentProgress;
 
 @end
 
@@ -47,18 +48,6 @@
             make.width.mas_equalTo(90);
             make.bottom.equalTo(self.contentView.mas_bottom).offset(-12);
             make.top.equalTo(self.contentView.mas_top).offset(12);
-        }];
-        
-        self.stopImageView = [UIImageView new];
-        self.stopImageView.backgroundColor = UIColor.redColor;
-        self.stopImageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.headImageView addSubview:self.stopImageView];
-        
-        [self.stopImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(self.headImageView);
-            make.width.height.mas_equalTo(24);
-//            make.bottom.equalTo(self.contentView.mas_bottom).offset(-12);
-//            make.top.equalTo(self.contentView.mas_top).offset(12);
         }];
         
         self.name = [UILabel new];
@@ -94,20 +83,7 @@
             make.top.left.bottom.equalTo(self.coverView);
             make.width.mas_equalTo(50);
         }];
-        
-//        self.sizeLab = [UILabel new];
-//        self.sizeLab.text = @"599.7M";
-//        self.sizeLab.font = [UIFont systemFontOfSize:12];
-//        self.sizeLab.textColor = [UIColor lightGrayColor];
-//        [self.contentView addSubview:self.sizeLab];
-//
-//        
-//        [self.sizeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.coverView.mas_bottom).offset(13);
-//            make.right.equalTo(self.contentView.mas_right).offset(-12);
-//            make.height.mas_equalTo(16);
-//        }];
-        
+
         self.progressLab = [UILabel new];
         self.progressLab.textAlignment = NSTextAlignmentRight;
         self.progressLab.font = [UIFont systemFontOfSize:12];
@@ -144,6 +120,7 @@
     [self.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
     
     NSInteger progress = model.progress;
+    self.currentProgress = progress;
     
     [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(self.singleProgress * progress);
@@ -166,16 +143,16 @@
 
 - (void)downProgress:(NSString *)primary_Id progress:(NSInteger)progress status:(HYUkDownStatus)status
 {
-    NSLog(@"downProgress: %@",primary_Id);
-    NSLog(@"cell上的: %@",self.downModel.primary_Id);
-
     if ([self.downModel.primary_Id isEqualToString:primary_Id]) {
         if (status == downing) {
             self.progressLab.text = @"下载中...";
-            
-            [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.width.mas_equalTo(self.singleProgress * progress);
-            }];
+            NSInteger p = self.currentProgress;
+            if (p <= progress) {
+                [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.mas_equalTo(self.singleProgress * progress);
+                }];
+            }
+
             return;
         }
         

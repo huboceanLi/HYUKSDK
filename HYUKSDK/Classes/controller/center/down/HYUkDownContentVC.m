@@ -9,14 +9,15 @@
 #import "HYUkDownCompleteCell.h"
 #import "HYUkDownProgressCell.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
-
-
+#import "HYUkPlayDownViewController.h"
 #import "SJMediaCacheServer.h"
+#import "HYUkDownEditView.h"
 
-@interface HYUkDownContentVC ()<UITableViewDelegate,UITableViewDataSource,BaseCellDelegate,HYUkDownManagerDelegate>
+@interface HYUkDownContentVC ()<UITableViewDelegate,UITableViewDataSource,BaseCellDelegate,HYUkDownManagerDelegate,HYBaseViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) HYUkDownEditView *editView;
 
 @end
 
@@ -48,13 +49,35 @@
     if (@available (iOS 11.0, *)) {
         [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
+
+    
+    self.editView = [HYUkDownEditView new];
+    [self.view addSubview:self.editView];
+    [self.editView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(IS_iPhoneX ? 90 : 46);
+        make.bottom.equalTo(self.view).offset(IS_iPhoneX ? 90 : 46);
+    }];
+    self.editView.hidden = YES;
+    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.top.equalTo(self.view);
+        make.bottom.equalTo(self.editView.mas_bottom).offset(0);
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self getData];
-    });
+    if (self.index == 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self getData];
+        });
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.index == 1) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self getData];
+        });
+    }
 }
 
 - (void)getData {
@@ -78,6 +101,7 @@
     return self.dataArray.count;
 }
 
+#pragma mark - UITableViewDelegate -
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (self.index == 0) {
@@ -107,46 +131,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
+    HYUkDownListModel *model = self.dataArray[indexPath.row];
     if (self.index == 0) {
-        HYUkDownListModel *model = self.dataArray[indexPath.row];
-
         [[HYUkDownManager sharedInstance] startDown:model];
-        
-//        if ([[HYUkDownManager sharedInstance].downIngArray containsObject:model.primary_Id]) {
-//            //暂停
-//            [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
-//            return;
-//        }
-//
-//        if ([[HYUkDownManager sharedInstance].downWaitArray containsObject:model.primary_Id]) {
-//            //暂停
-//            [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
-//            return;
-//        }
-        
-//        if ([[HYUkDownManager sharedInstance].downPauseArray containsObject:model.primary_Id]) {
-//            //排队或者开始下载
-//            return;
-//        }
-        //三个数组都没有就开启下载
-//        [[HYUkDownManager sharedInstance].downIngArray addObject:model.primary_Id];
-//        __weak typeof(self) weakSelf = self;
-//        [[SJMediaCacheServer shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] progress:^(float progress) {
-//            NSLog(@"下载进度:%.2f",progress);
-//        } completed:^(NSError * _Nullable error) {
-//            if (!error) {
-////                [[HYUkDownManager sharedInstance].downIngArray removeObject:model.primary_Id];
-//                [weakSelf.dataArray removeObject:model];
-//                [weakSelf.tableView reloadData];
-//                NSLog(@"下载完成");
-//            }else {
-//                NSLog(@"下载出错了:%@",error);
-//            }
-//        }];
-//        [[MCSPrefetcherManager shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] preloadSize:2000 * 1024 * 1024 progress:^(float progress) {
-//        } completed:^(NSError * _Nullable error) {
-//        }];
+    }else {
+        HYUkPlayDownViewController *vc = [HYUkPlayDownViewController new];
+        vc.downModel = model;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -175,6 +166,39 @@
             break;
         }
     }
+}
+
+- (void)deleteData
+{
+    if (self.index == 1) {
+        [self.editView changeUI:false];
+
+//        [[HYUkDownListLogic share] deleteAllWithStatus:1];
+    }else {
+        [self.editView changeUI:true];
+
+//        [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
+//        [[HYUkDownListLogic share] deleteAllWithStatus:0];
+    }
+    self.editView.hidden = NO;
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.editView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view).offset(0);
+        }];
+        [self.editView.superview layoutIfNeeded];
+    }];
+//    NSMutableArray *arr = [NSMutableArray array];
+//    for (HYUkDownListModel *item in self.dataArray) {
+//        [arr addObject:item.playUrl];
+//    }
+//    [[HYUkDownManager sharedInstance] removeCacheForURLs:arr];
+//    [self.dataArray removeAllObjects];
+//    [self.tableView reloadData];
+}
+
+- (void)customView:(HYBaseView *)view event:(id)event
+{
+    
 }
 
 @end

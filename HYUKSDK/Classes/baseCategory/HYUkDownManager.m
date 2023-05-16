@@ -11,7 +11,7 @@
 #import "SJMediaCacheServer.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
 
-static NSInteger exportCount = 2;
+static NSInteger exportCount = 1;
 
 static HYUkDownManager *manager = nil;
 
@@ -72,7 +72,9 @@ static HYUkDownManager *manager = nil;
         [self.downIngDic removeObjectForKey:model.primary_Id];
         NSArray *arr = self.downIngDic.allKeys;
         for (int i = 0; arr.count; i++) {
-            [self downIng:self.downIngDic[arr[i]]];
+            if (arr.count > i) {
+                [self downIng:self.downIngDic[arr[i]]];
+            }
         }
         if ([self.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
             [self.delegate downProgress:model.primary_Id progress:0 status:down_pause];
@@ -142,6 +144,15 @@ static HYUkDownManager *manager = nil;
         [self downIng:model];
     }else {
         NSLog(@"没有下载任务了");
+    }
+}
+
+- (void)removeCacheForURLs:(NSArray *)urls
+{
+    if (urls.count > 0) {
+        for (NSString *item in urls) {
+            [[SJMediaCacheServer shared] removeCacheForURL:[NSURL URLWithString:item]];
+        }
     }
 }
 
