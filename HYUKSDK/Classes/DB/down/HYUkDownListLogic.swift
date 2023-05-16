@@ -49,4 +49,8 @@ import Foundation
     public func removeAppointDown(primaryId: String) {
         HYUkDownListDao.default.removeAppointDown(primaryId: primaryId)
     }
+    
+    public func queryDownAllList() -> [HYUkDownListModel] {
+        HYUkDownListDao.default.queryDownAllList()
+    }
 }

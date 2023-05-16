@@ -1,11 +1,11 @@
 //
-//  HYUkDownContentVC.m
+//  HYUkDownVC.m
 //  HYUKSDK
 //
-//  Created by Ocean 李 on 2023/5/14.
+//  Created by Ocean 李 on 2023/5/16.
 //
 
-#import "HYUkDownContentVC.h"
+#import "HYUkDownVC.h"
 #import "HYUkDownCompleteCell.h"
 #import "HYUkDownProgressCell.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
@@ -13,7 +13,7 @@
 #import "SJMediaCacheServer.h"
 #import "HYUkDownEditView.h"
 
-@interface HYUkDownContentVC ()<UITableViewDelegate,UITableViewDataSource,BaseCellDelegate,HYUkDownManagerDelegate,HYBaseViewDelegate>
+@interface HYUkDownVC ()<UITableViewDelegate,UITableViewDataSource,BaseCellDelegate,HYUkDownManagerDelegate,HYBaseViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -21,15 +21,23 @@
 
 @end
 
-@implementation HYUkDownContentVC
+@implementation HYUkDownVC
 
 - (void)dealloc {
-    NSLog(@"HYUkDownContentVC 灰飞烟灭");
+    [HYUkDownManager sharedInstance].delegate = nil;
+    NSLog(@"HYUkDownVC 灰飞烟灭");
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navBar.backgroundColor = UIColor.whiteColor;
+    self.navBar.qmui_borderPosition = QMUIViewBorderPositionBottom;
+    self.navBar.qmui_borderColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3];
+    self.navTitleLabel.text = @"我的下载";
+    self.navTitleLabel.textColor = UIColor.textColor22;
+    [self.navBackButton setImage:[UIImage uk_bundleImage:@"31fanhui1"] forState:0];
+    
     self.dataArray = [NSMutableArray array];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -50,44 +58,28 @@
         [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
 
-    
     self.editView = [HYUkDownEditView new];
+    self.editView.delegate = self;
     [self.view addSubview:self.editView];
     [self.editView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
+        make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(IS_iPhoneX ? 90 : 46);
-        make.bottom.equalTo(self.view).offset(IS_iPhoneX ? 90 : 46);
     }];
-    self.editView.hidden = YES;
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.top.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.navBar.mas_bottom).offset(0);
         make.bottom.equalTo(self.editView.mas_bottom).offset(0);
     }];
-    
-    if (self.index == 0) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self getData];
-        });
-    }
-}
+    [HYUkDownManager sharedInstance].delegate = self;
 
-- (void)viewWillAppear:(BOOL)animated {
-    if (self.index == 1) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self getData];
-        });
-    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getData];
+    });
 }
 
 - (void)getData {
-    if (self.index == 0) {
-        [HYUkDownManager sharedInstance].delegate = self;
-
-        self.dataArray = [[[HYUkDownListLogic share] queryDownListWithCreateTime:NSIntegerMax isComplete:YES] mutableCopy];
-    }else {
-        self.dataArray = [[[HYUkDownListLogic share] queryDownListWithCreateTime:NSIntegerMax isComplete:NO] mutableCopy];
-    }
+    self.dataArray = [[[HYUkDownListLogic share] queryDownAllList] mutableCopy];
     [self.tableView reloadData];
 }
 
@@ -104,7 +96,9 @@
 #pragma mark - UITableViewDelegate -
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (self.index == 0) {
+    HYUkDownListModel *model = self.dataArray[indexPath.row];
+
+    if (model.status == 0) {
         HYUkDownProgressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProgressCell"];
         if (!cell) {
             cell = [[HYUkDownProgressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ProgressCell"];
@@ -132,7 +126,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     HYUkDownListModel *model = self.dataArray[indexPath.row];
-    if (self.index == 0) {
+    if (model.status == 0) {
         [[HYUkDownManager sharedInstance] startDown:model];
     }else {
         HYUkPlayDownViewController *vc = [HYUkPlayDownViewController new];
@@ -145,13 +139,17 @@
 {
     if ([cell isKindOfClass:[HYUkDownProgressCell class]]) {
         NSString *primary_Id = event;
-        for (HYUkDownListModel *model in self.dataArray) {
+        
+        for (int i = 0; i < self.dataArray.count; i++) {
+            HYUkDownListModel *model = self.dataArray[i];
             if ([model.primary_Id isEqualToString:primary_Id]) {
-                [self.dataArray removeObject:model];
-                [self.tableView reloadData];
+                model.status = 1;
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
                 break;
             }
         }
+
     }
 }
 
@@ -168,37 +166,27 @@
     }
 }
 
-- (void)deleteData
-{
-    if (self.index == 1) {
-        [self.editView changeUI:false];
-
-//        [[HYUkDownListLogic share] deleteAllWithStatus:1];
-    }else {
-        [self.editView changeUI:true];
-
-//        [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
-//        [[HYUkDownListLogic share] deleteAllWithStatus:0];
-    }
-    self.editView.hidden = NO;
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.editView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view).offset(0);
-        }];
-        [self.editView.superview layoutIfNeeded];
-    }];
-//    NSMutableArray *arr = [NSMutableArray array];
-//    for (HYUkDownListModel *item in self.dataArray) {
-//        [arr addObject:item.playUrl];
-//    }
-//    [[HYUkDownManager sharedInstance] removeCacheForURLs:arr];
-//    [self.dataArray removeAllObjects];
-//    [self.tableView reloadData];
-}
-
 - (void)customView:(HYBaseView *)view event:(id)event
 {
+    NSInteger index = [event integerValue];
+    if (index == 1) { //all down
+        for (HYUkDownListModel *item in self.dataArray) {
+            [[HYUkDownManager sharedInstance] startDown:item];
+        }
+        return;
+    }
     
+    if (index == 2) { //all delete
+        [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
+        NSMutableArray *arr = [NSMutableArray array];
+        for (HYUkDownListModel *item in self.dataArray) {
+            [arr addObject:item.playUrl];
+        }
+        [[HYUkDownManager sharedInstance] removeCacheForURLs:arr];
+        [self.dataArray removeAllObjects];
+        [self.tableView reloadData];
+        return;
+    }
 }
 
 @end

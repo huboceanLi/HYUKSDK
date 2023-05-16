@@ -101,6 +101,18 @@ struct HYUkDownListDao {
         return []
     }
     
+    func queryDownAllList() -> [HYUkDownListModel] {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return []
+        }
+
+        let result: [HYUkDownListModel]? = try? database.getObjects(fromTable: HY_MOIVE_DOWN_TABLE_NAME, orderBy: [HYUkDownListModel.Properties.create_Time.asOrder(by: .descending)])
+
+        if let r = result {
+            return r
+        }
+        return []
+    }
     func queryDownProgressList(createTime: Int) -> [HYUkDownListModel] {
         guard let database = HYVideoDataBaseTool.default.base else {
             return []

@@ -11,7 +11,6 @@
 
 @property (nonatomic, strong) UIButton *clearBtn;
 @property (nonatomic, strong) UIButton *downBtn;
-@property (nonatomic, strong) UIButton *deleteAppointBtn;
 
 @end
 
@@ -42,7 +41,7 @@
     [self.downBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(0);
         make.top.equalTo(self.mas_top).offset(0);
-        make.width.mas_equalTo(@(50));
+        make.width.mas_equalTo(@(SCREEN_WIDTH / 2.0));
         make.height.mas_equalTo(@(46));
     }];
     
@@ -58,62 +57,13 @@
     [self.clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.downBtn.mas_right).offset(0);
         make.top.equalTo(self.mas_top).offset(0);
-        make.width.mas_equalTo(@(50));
+        make.width.mas_equalTo(@(SCREEN_WIDTH / 2.0));
         make.height.mas_equalTo(@(46));
 
     }];
-    
-    self.deleteAppointBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.deleteAppointBtn setTitle:@"指定删除" forState:0];
-    self.deleteAppointBtn.tag = 3;
-    [self.deleteAppointBtn setTitleColor:UIColor.mainColor forState:0];
-    self.deleteAppointBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    [self addSubview:self.deleteAppointBtn];
-    self.deleteAppointBtn.qmui_borderPosition = QMUIViewBorderPositionBottom;
-    [self.deleteAppointBtn addTarget:self action:@selector(deleteButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-
-    [self.deleteAppointBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.clearBtn.mas_right).offset(0);
-        make.top.equalTo(self.mas_top).offset(0);
-        make.width.mas_equalTo(@(50));
-        make.height.mas_equalTo(@(46));
-    }];
 }
 
-- (void)changeUI:(BOOL)isDown
-{
-    self.downBtn.hidden = !isDown;
-    CGFloat bw = SCREEN_WIDTH / 3.0;
-    if (!isDown) {
-        bw = SCREEN_WIDTH / 2.0;
-        [self.downBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(@(0));
-        }];
-        
-        [self.clearBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(@(bw));
-        }];
-        
-        [self.deleteAppointBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(@(bw));
-        }];
-    }else {
-        [self.downBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(@(bw));
-        }];
-        
-        [self.clearBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(@(bw));
-        }];
-        
-        [self.deleteAppointBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(@(bw));
-        }];
-    }
 
-    
-
-}
 
 - (void)downButtonClick:(UIButton *)sender {
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
@@ -127,10 +77,5 @@
     }
 }
 
-- (void)deleteButtonClick:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@(sender.tag)];
-    }
-}
 
 @end

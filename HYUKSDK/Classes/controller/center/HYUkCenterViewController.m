@@ -10,12 +10,12 @@
 #import "HYUkCenterHistoryView.h"
 #import "HYCenterToolView.h"
 #import "HYUkCollectionViewController.h"
-#import "HYUkDownViewController.h"
 #import "HYUkSettingViewController.h"
 #import "HYUkCenterHistoryListViewController.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
 #import "HYUkDetailViewController.h"
 #import "HYUkSettingView.h"
+#import "HYUkDownVC.h"
 
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
@@ -124,7 +124,7 @@
             HYUkCollectionViewController *vc = [HYUkCollectionViewController new];
             [self.navigationController pushViewController:vc animated:YES];
         }else if (index == 2) {
-            HYUkDownViewController *vc = [HYUkDownViewController new];
+            HYUkDownVC *vc = [HYUkDownVC new];
             [self.navigationController pushViewController:vc animated:YES];
         }else if (index == 3) {
             
