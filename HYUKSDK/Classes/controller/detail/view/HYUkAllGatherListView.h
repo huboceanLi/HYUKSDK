@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HYUkAllGatherListView : HYBaseView
 
 - (void)changeSelect:(HYUkHistoryRecordModel *)recordModel;
-@property (nonatomic, assign) BOOL isDown;
 
 @end
 

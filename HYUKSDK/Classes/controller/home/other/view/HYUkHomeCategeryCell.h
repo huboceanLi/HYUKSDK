@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HYUkHomeCategeryCell : HYBaseCollectionViewCell
 
 @property (nonatomic, strong) UILabel *name;
+@property (nonatomic, strong) UIImageView *downImageView;
 
 @end
 

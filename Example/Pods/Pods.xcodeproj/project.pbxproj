@@ -911,6 +911,8 @@
 		83572532FD34066826EE50F2E4E03CB3 /* JXCategoryListContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D51C875BD4A6C1B15B054CC3C7E9B /* JXCategoryListContainerView.m */; };
 		83665894DB75DB320CB8BEEDFA948864 /* MCSAssetContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 067F7B0FA1D982DC3EBAA024E4519120 /* MCSAssetContent.m */; };
 		83759C364B38EC28D7C81AFB524C9A55 /* CALayer+YYWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C260334C642D6865554040BD1A5FC8 /* CALayer+YYWebImage.m */; };
+		83B6B0862A14650A00A80866 /* HYUkDownGatherView.h in Headers */ = {isa = PBXBuildFile; fileRef = 83B6B0842A14650A00A80866 /* HYUkDownGatherView.h */; };
+		83B6B0872A14650A00A80866 /* HYUkDownGatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B6B0852A14650A00A80866 /* HYUkDownGatherView.m */; };
 		841E01C020B2F675777D15DFAECE7AF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DAB80533A9929DD66F6091BFE2469AB /* Images.xcassets */; };
 		844A60D8530053992C36CDA9CB961B94 /* SJNotReachableControlLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C5EC09792600FF64FB20AD8291BA4F7 /* SJNotReachableControlLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		846238B906AAFCCE04734C97301A2166 /* SJRotationFullscreenNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC433E6BEE1C772017D80A47FA89F06 /* SJRotationFullscreenNavigationController.m */; };
@@ -2939,6 +2941,8 @@
 		836F59C705658777502855A8A37ABF2C /* NSCharacterSet+QMUI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSCharacterSet+QMUI.h"; path = "QMUIKit/UIKitExtensions/NSCharacterSet+QMUI.h"; sourceTree = "<group>"; };
 		83786F82A8E959032E44A4FE3A1740B6 /* SJBaseVideoPlayerConst.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SJBaseVideoPlayerConst.m; sourceTree = "<group>"; };
 		83B1505C7A3F060B29AA538616D6E12D /* JXCategoryIndicatorImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JXCategoryIndicatorImageView.m; path = Sources/Indicator/IndicatorViews/JXCategoryIndicatorImageView.m; sourceTree = "<group>"; };
+		83B6B0842A14650A00A80866 /* HYUkDownGatherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYUkDownGatherView.h; sourceTree = "<group>"; };
+		83B6B0852A14650A00A80866 /* HYUkDownGatherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYUkDownGatherView.m; sourceTree = "<group>"; };
 		8403A4C808FDD6BAB610A9CF350D4EA1 /* HYUkDownDetailBriefView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HYUkDownDetailBriefView.m; sourceTree = "<group>"; };
 		8467337A7D3248F447E9D19D5E007883 /* HYUkDownEditView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HYUkDownEditView.m; sourceTree = "<group>"; };
 		846A85D4E9CF0945A6A22628A5B5D8C3 /* sj_video_player_lock.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = sj_video_player_lock.png; sourceTree = "<group>"; };
@@ -6504,6 +6508,8 @@
 				171910A491C2F3267CA8CA906E7607A1 /* HYUkVideoPlayView.m */,
 				0B6EA06CF50126B9296F2BDC4B1267BE /* HYUkVideoRecommendView.h */,
 				E353E7D36E34E27BEC64D361934B67D5 /* HYUkVideoRecommendView.m */,
+				83B6B0842A14650A00A80866 /* HYUkDownGatherView.h */,
+				83B6B0852A14650A00A80866 /* HYUkDownGatherView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -8172,6 +8178,7 @@
 				41C1302AA28F45B618D2A9D93D03FC70 /* MCSPrefetcherManager.h in Headers */,
 				740454A2D76671FD9A155B4D2D8425DF /* MCSProxyServer.h in Headers */,
 				DDA667CFF18217AEBA0091534BF8FFB9 /* MCSProxyTask.h in Headers */,
+				83B6B0862A14650A00A80866 /* HYUkDownGatherView.h in Headers */,
 				425E62B003EFD9195B2BEC2720BAE2F9 /* MCSQueue.h in Headers */,
 				4CFBEFCAC91F69CDF8E99B07698AAA7E /* MCSReadwrite.h in Headers */,
 				E331DE29225342857996DAE4ADE5140F /* MCSResponse.h in Headers */,
@@ -9332,6 +9339,7 @@
 				0A83EBC8CF9C7284D4746F77CC9619DA /* MCSResponse.m in Sources */,
 				E812E4A9B5BFBE3C0BE8D28D4600A0A9 /* MCSRootDirectory.m in Sources */,
 				936A6B060219B20AC5F25532444A5A48 /* MCSURL.m in Sources */,
+				83B6B0872A14650A00A80866 /* HYUkDownGatherView.m in Sources */,
 				9DF367CE94BB83F66AE7DBF903BE044A /* MCSUtils.m in Sources */,
 				D7D1C17EA40D5A72002582C86E476E2D /* MultipartFormDataParser.m in Sources */,
 				CD1CACC313F6E199C101948208D162DD /* MultipartMessageHeader.m in Sources */,

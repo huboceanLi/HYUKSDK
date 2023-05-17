@@ -1,24 +1,24 @@
 //
-//  HYUkAllGatherListView.m
+//  HYUkDownGatherView.m
 //  HYUKSDK
 //
-//  Created by Ocean 李 on 2023/5/14.
+//  Created by oceanMAC on 2023/5/17.
 //
 
-#import "HYUkAllGatherListView.h"
+#import "HYUkDownGatherView.h"
 #import "HYUkHomeCategeryCell.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
 
-@interface HYUkAllGatherListView()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface HYUkDownGatherView()<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UILabel *name;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) HYUkHistoryRecordModel *recordModel;
+@property (nonatomic, strong) NSMutableArray *dowList;
 @property (nonatomic, strong) HYUkVideoDetailModel *detailModel;
 
 @end
 
-@implementation HYUkAllGatherListView
+@implementation HYUkDownGatherView
 
 - (void)initSubviews {
     [super initSubviews];
@@ -26,7 +26,7 @@
     self.backgroundColor = UIColor.whiteColor;
     
     self.name = [UILabel new];
-    self.name.text = @"选集";
+    self.name.text = @"下载";
     self.name.font = [UIFont boldSystemFontOfSize:16];
     self.name.textColor = UIColor.textColor22;
     [self addSubview:self.name];
@@ -76,6 +76,9 @@
         make.left.right.bottom.equalTo(self);
         make.top.equalTo(self.name.mas_bottom).offset(0);
     }];
+    
+    self.dowList = [[[HYUkDownListLogic share] queryDownAllList] mutableCopy];
+
 }
 
 - (void)loadContent
@@ -107,7 +110,8 @@
     
     HYUkHomeCategeryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 //    cell.delegate = self;
-
+    cell.downImageView.hidden = YES;
+    
     HYUkVideoDetailItemModel *model = self.detailModel.vod_play_url[indexPath.row];
     cell.contentView.backgroundColor = UIColor.clearColor;
     cell.backgroundColor = UIColor.clearColor;
@@ -115,14 +119,22 @@
 
     cell.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
     cell.name.text = model.name;
-
-    if ([model.name isEqualToString:self.recordModel.playName] || [model.url isEqualToString:self.recordModel.playUrl]) {
-        cell.name.textColor = [UIColor mainColor];
-        cell.userInteractionEnabled = NO;
-    }else {
-        cell.name.textColor = [UIColor textColor22];
-        cell.userInteractionEnabled = YES;
+    cell.name.textColor = [UIColor textColor22];
+    
+    if (self.dowList.count > 0) {
+        for (HYUkDownListModel *item in self.dowList) {
+            if ([model.name isEqualToString:item.playName] || [model.url isEqualToString:item.playUrl]) {
+//                cell.name.textColor = [UIColor mainColor];
+                cell.downImageView.hidden = NO;
+                cell.userInteractionEnabled = NO;
+                break;
+            }else {
+//                cell.name.textColor = [UIColor textColor22];
+                cell.userInteractionEnabled = YES;
+            }
+        }
     }
+
 
     return cell;
 }
@@ -130,21 +142,45 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYUkVideoDetailItemModel *model = self.detailModel.vod_play_url[indexPath.row];
+
+    NSString *str = [NSString stringWithFormat:@"%ld-%@",self.detailModel.ID,model.name];
     
-    self.recordModel.playName = model.name;
-    self.recordModel.playUrl = model.url;
-    [self.collectionView reloadData];
-    
-    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@{@"name":model.name,@"url":model.url,@"type":@"change"}];
+    if ([[HYUkDownListLogic share] queryAppointDownWithPrimaryId:str]) {
+        [MYToast showWithText:@"已在下载队列中!"];
+        return;
     }
+    HYUkDownListModel *downModel = [HYUkDownListModel new];
+    downModel.primary_Id = str;
+    downModel.video_id = self.detailModel.ID;
+    downModel.type_id_1 = self.detailModel.type_id_1;
+    downModel.vod_name = self.detailModel.vod_name;
+    downModel.vod_pic = self.detailModel.vod_pic;
+    downModel.vod_year = self.detailModel.vod_year;
+    downModel.vod_area = self.detailModel.vod_area;
+    downModel.playName = model.name;
+    downModel.playUrl = model.url;
+    downModel.content = self.detailModel.vod_content;
+    downModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+    [[HYUkDownListLogic share] insertDownListWithModel:downModel];
+    
+    [self.dowList addObject:downModel];
+    
+    [[HYUkDownManager sharedInstance] startDown:downModel];
+
+    [MYToast showWithText:@"已添加到下载队列中!"];
+    
+    [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]];
+
+    
+//    
+//    self.recordModel.playName = model.name;
+//    self.recordModel.playUrl = model.url;
+//    [self.collectionView reloadData];
+//    
+//    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+//        [self.delegate customView:self event:@{@"name":model.name,@"url":model.url,@"type":@"change"}];
+//    }
 }
 
-- (void)changeSelect:(HYUkHistoryRecordModel *)recordModel
-{
-    self.recordModel = recordModel;
-    
-    [self.collectionView reloadData];
-}
 
 @end

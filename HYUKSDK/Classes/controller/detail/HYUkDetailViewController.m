@@ -16,6 +16,7 @@
 #import "HYUkDetailErrorView.h"
 #import "HYResponseRecommendModel.h"
 #import "HYUkAllGatherListView.h"
+#import "HYUkDownGatherView.h"
 
 static CGFloat briefViewHeoght = 60.0;
 
@@ -32,6 +33,7 @@ static CGFloat briefViewHeoght = 60.0;
 @property(nonatomic, strong) HYUkVideoDetailModel * detailModel;
 @property(nonatomic, strong) HYUkDetailErrorView * errorView;
 @property(nonatomic, strong) HYUkAllGatherListView * gatherListView;
+@property(nonatomic, strong) HYUkDownGatherView * downGatherView;
 
 @end
 
@@ -157,6 +159,10 @@ static CGFloat briefViewHeoght = 60.0;
 
     self.gatherListView.hidden = YES;
     
+    [self.view addSubview:self.downGatherView];
+
+    self.downGatherView.hidden = YES;
+    
     self.scrollView.hidden = YES;
     
     [self.view addSubview:self.errorView];
@@ -204,6 +210,9 @@ static CGFloat briefViewHeoght = 60.0;
         
         weakSelf.gatherListView.data = responseObject;
         [weakSelf.gatherListView loadContent];
+        
+        weakSelf.downGatherView.data = responseObject;
+        [weakSelf.downGatherView loadContent];
         
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
         self.errorView.hidden = NO;
@@ -282,12 +291,24 @@ static CGFloat briefViewHeoght = 60.0;
             }
             return;
         }
-        self.gatherListView.hidden = NO;
-        self.gatherListView.isDown = YES;
-        self.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+        self.downGatherView.hidden = NO;
+        self.downGatherView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
         [UIView animateWithDuration:0.2 animations:^{
-            self.gatherListView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+            self.downGatherView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
         }];
+        return;
+    }
+    
+    if ([view isKindOfClass:[HYUkDownGatherView class]]) {
+        NSDictionary *dic = event;
+        if ([dic[@"type"] isEqualToString:@"close"]) {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.downGatherView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+            } completion:^(BOOL finished) {
+                self.downGatherView.hidden = YES;
+            }];
+            return;
+        }
         return;
     }
     
@@ -296,7 +317,6 @@ static CGFloat briefViewHeoght = 60.0;
         NSDictionary *dic = event;
         if ([dic[@"type"] isEqualToString:@"more"]) {
             self.gatherListView.hidden = NO;
-            self.gatherListView.isDown = NO;
             self.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
             [UIView animateWithDuration:0.2 animations:^{
                 self.gatherListView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
@@ -349,6 +369,14 @@ static CGFloat briefViewHeoght = 60.0;
         _gatherListView.delegate = self;
     }
     return _gatherListView;
+}
+
+- (HYUkDownGatherView *)downGatherView {
+    if (!_downGatherView) {
+        _downGatherView = [HYUkDownGatherView new];
+        _downGatherView.delegate = self;
+    }
+    return _downGatherView;
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle {

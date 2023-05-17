@@ -110,7 +110,6 @@ static HYUkDownManager *manager = nil;
     if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkDownManager sharedInstance].isWan) {
         MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下载视频会消耗流量,确定要下载吗?"];
         dialogVC.customView.height = 110;
-        __weak typeof(self) weakSelf = self;
         [dialogVC addSubmitButtonWithText:@"下载" block:^(__kindof QMUIDialogViewController * _Nonnull aDialogViewController) {
             [aDialogViewController hide];
             [UserDefault setBool:true forKey:video_allow_flow_play];
@@ -121,6 +120,7 @@ static HYUkDownManager *manager = nil;
         [dialogVC show];
         return;
     }
+    [[HYUkDownManager sharedInstance] downStart:model];
 }
 
 - (void)downIng:(HYUkDownListModel *)model {

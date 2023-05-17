@@ -36,6 +36,17 @@
             make.right.equalTo(self.mas_right).offset(-10);
             make.centerY.equalTo(self);
         }];
+        
+        self.downImageView = [UIImageView new];
+        self.downImageView.contentMode = 1;
+        self.downImageView.image = [UIImage uk_bundleImage:@"uk_detail_down"];
+        [self addSubview:self.downImageView];
+        [self.downImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.mas_bottom).offset(0);
+            make.right.equalTo(self.mas_right).offset(0);
+            make.width.height.mas_equalTo(10);
+        }];
+        self.downImageView.hidden = YES;
     }
     return self;
 }
