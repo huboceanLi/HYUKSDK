@@ -135,6 +135,39 @@
     }
 }
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return @"删除";
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HYUkDownListModel *model = self.dataArray[indexPath.row];
+
+    NSLog(@"commitEditingStyle");
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    if (model.status == 0) {
+        [[HYUkDownManager sharedInstance] endDown:model];
+    }
+    [[HYUkDownManager sharedInstance] removeCacheForURLs:@[model.playUrl]];
+    [self.dataArray removeObject:model];
+    [self.tableView endUpdates];
+}
+
+
+
 - (void)customCell:(HYBaseTableViewCell *)cell event:(id)event
 {
     if ([cell isKindOfClass:[HYUkDownProgressCell class]]) {

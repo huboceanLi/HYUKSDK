@@ -147,6 +147,15 @@ static HYUkDownManager *manager = nil;
     }
 }
 
+- (void)endDown:(HYUkDownListModel *)model
+{
+    if ([self.downIngDic.allKeys containsObject:model.primary_Id]) {
+        [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
+        [self.downIngDic removeObjectForKey:model.primary_Id];
+        [self startNext];
+    }
+}
+
 - (void)removeCacheForURLs:(NSArray *)urls
 {
     if (urls.count > 0) {

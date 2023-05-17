@@ -48,6 +48,7 @@ typedef NS_ENUM(NSUInteger, HYUkDownStatus) {
 
 - (void)removeCacheForURLs:(NSArray *)urls;
 
+- (void)endDown:(HYUkDownListModel *)model;
 
 @end
 
