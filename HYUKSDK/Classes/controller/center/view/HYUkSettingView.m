@@ -41,8 +41,8 @@
         make.top.equalTo(self.mas_top).offset(0);
     }];
     
-    self.dataArray = @[@"允许流量播放",@"允许流量下载",@"免责申明",@"隐私政策",@"清除缓存",@"联系我们"];
-    self.imageArray = @[@"uk_setting_play",@"uk_setting_download",@"uk_setting_declare",@"uk_setting_yinsi",@"uk_setting_clear",@"uk_setting_contact"];
+    self.dataArray = @[@"允许流量播放和下载",@"免责申明",@"隐私政策",@"清除缓存",@"联系我们"];
+    self.imageArray = @[@"uk_setting_play",@"uk_setting_declare",@"uk_setting_yinsi",@"uk_setting_clear",@"uk_setting_contact"];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -67,18 +67,11 @@
     }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(flowPlayNotic) name:video_allow_flow_play object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(flowDownNotic) name:video_allow_flow_down object:nil];
 
 }
 
 - (void)flowPlayNotic {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
-
-}
-
-- (void)flowDownNotic {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
 
 }
@@ -123,14 +116,7 @@
             cell.playSwitch.on = NO;
         }
     }
-    
-    if (indexPath.row == 1) {
-        if ([UserDefault boolValueForKey:video_allow_flow_down]) {
-            cell.playSwitch.on = YES;
-        }else {
-            cell.playSwitch.on = NO;
-        }
-    }
+
     
     return cell;
 }
@@ -141,14 +127,6 @@
             [UserDefault setBool:false forKey:video_allow_flow_play];
         }else {
             [UserDefault setBool:true forKey:video_allow_flow_play];
-        }
-        return;
-    }
-    if (sender.tag == 1) {
-        if ([UserDefault boolValueForKey:video_allow_flow_down]) {
-            [UserDefault setBool:false forKey:video_allow_flow_down];
-        }else {
-            [UserDefault setBool:true forKey:video_allow_flow_down];
         }
         return;
     }

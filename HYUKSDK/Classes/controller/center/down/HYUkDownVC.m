@@ -128,6 +128,7 @@
     HYUkDownListModel *model = self.dataArray[indexPath.row];
     if (model.status == 0) {
         [[HYUkDownManager sharedInstance] startDown:model];
+        
     }else {
         HYUkPlayDownViewController *vc = [HYUkPlayDownViewController new];
         vc.downModel = model;

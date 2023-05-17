@@ -36,6 +36,7 @@ static HYUkDownManager *manager = nil;
         
         manager.hostReachability = [LHYReachability reachabilityWithHostName:@"https://www.baidu.com"];
         [manager.hostReachability startNotifier];
+        
     });
     return manager;
 }
@@ -54,7 +55,9 @@ static HYUkDownManager *manager = nil;
             NSLog(@"ViewController : 4G/3G");
             self.isWan = YES;
             [[NSNotificationCenter defaultCenter] postNotificationName:net_change_wan object:nil];
-            
+            if (![UserDefault boolValueForKey:video_allow_flow_play]) {
+                [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
+            }
             break;
         }
         case ReachableViaWiFi: {
@@ -65,7 +68,7 @@ static HYUkDownManager *manager = nil;
     }
 }
 
-- (void)startDown:(HYUkDownListModel *)model {
+- (void)downStart:(HYUkDownListModel *)model {
     if ([self.downIngDic.allKeys containsObject:model.primary_Id]) {
         
         [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
@@ -100,7 +103,24 @@ static HYUkDownManager *manager = nil;
         [self.delegate downProgress:model.primary_Id progress:model.progress status:downing];
     }
     [self downIng:model];
+}
 
+- (void)startDown:(HYUkDownListModel *)model {
+    
+    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkDownManager sharedInstance].isWan) {
+        MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下载视频会消耗流量,确定要下载吗?"];
+        dialogVC.customView.height = 110;
+        __weak typeof(self) weakSelf = self;
+        [dialogVC addSubmitButtonWithText:@"下载" block:^(__kindof QMUIDialogViewController * _Nonnull aDialogViewController) {
+            [aDialogViewController hide];
+            [UserDefault setBool:true forKey:video_allow_flow_play];
+            [[NSNotificationCenter defaultCenter] postNotificationName:video_allow_flow_play object:nil];
+            [[HYUkDownManager sharedInstance] downStart:model];
+        }];
+        [dialogVC addCancelButtonWithText:@"取消" block:nil];
+        [dialogVC show];
+        return;
+    }
 }
 
 - (void)downIng:(HYUkDownListModel *)model {
