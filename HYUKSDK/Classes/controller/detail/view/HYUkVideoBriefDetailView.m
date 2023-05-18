@@ -26,7 +26,7 @@
     self.backgroundColor = UIColor.whiteColor;
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeBtn setImage:[UIImage uk_bundleImage:@"guanbi"] forState:0];
+    [closeBtn setImage:[UIImage uk_bundleImage:@"uk_video_guanbi"] forState:0];
     [self addSubview:closeBtn];
     [closeBtn addTarget:self action:@selector(closeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     

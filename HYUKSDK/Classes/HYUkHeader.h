@@ -36,6 +36,8 @@
 #import "APIString.h"
 #import "MYDialogViewController.h"
 #import "HYUkDownManager.h"
+#import "HYVideoVersionModel.h"
+#import "HYUkLinkViewController.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

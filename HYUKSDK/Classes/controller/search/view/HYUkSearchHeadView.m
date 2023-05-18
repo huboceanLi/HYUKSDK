@@ -33,7 +33,7 @@
     [self addSubview:self.searchContentView];
     
     UIImageView *searchImageView = [UIImageView new];
-    searchImageView.image = [UIImage uk_bundleImage:@"sousuo1"];
+    searchImageView.image = [UIImage uk_bundleImage:@"uk_search_wh1"];
     [self.searchContentView addSubview:searchImageView];
     
     

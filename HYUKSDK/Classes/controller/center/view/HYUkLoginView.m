@@ -27,7 +27,7 @@
     self.headImageView = [UIImageView new];
     [self addSubview:self.headImageView];
     self.headImageView.layer.borderWidth = 4.0f;
-    self.headImageView.image = [UIImage uk_bundleImage:@"morentouxiang"];
+    self.headImageView.image = [UIImage uk_bundleImage:@"uk_morentouxiang"];
     self.headImageView.layer.borderColor = [[UIColor colorWithHexString:@"#DDDDDD"] colorWithAlphaComponent:0.4].CGColor;
     self.headImageView.layer.cornerRadius = 30.0f;
     self.headImageView.layer.masksToBounds = YES;

@@ -25,7 +25,7 @@
 - (UIButton *)clearBtn {
     if (!_clearBtn) {
         _clearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_clearBtn setImage:[UIImage uk_bundleImage:@"qingchu_1"] forState:0];
+        [_clearBtn setImage:[UIImage uk_bundleImage:@"uk_center_clear"] forState:0];
         _clearBtn.adjustsImageWhenHighlighted = NO;
     }
     return _clearBtn;
@@ -39,7 +39,7 @@
     self.navBar.qmui_borderColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3];
     self.navTitleLabel.text = @"观看历史";
     self.navTitleLabel.textColor = UIColor.textColor22;
-    [self.navBackButton setImage:[UIImage uk_bundleImage:@"31fanhui1"] forState:0];
+    [self.navBackButton setImage:[UIImage uk_bundleImage:@"uk_back"] forState:0];
     
     self.create_Time = NSIntegerMax;
     self.dataArray = [NSMutableArray array];

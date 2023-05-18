@@ -34,6 +34,8 @@ NSString * const video_search = @"search_movies";
 NSString * const video_rank = @"get_rank";
 NSString * const video_guess_Like = @"guess_you_like";
 
+NSString * const video_get_version = @"http://vod.wxspb.cn/api/index/get_version";
+
 #pragma mark-- config
 NSString * const video_allow_flow_play = @"video_allow_flow_play";
 NSString * const net_change_wan = @"net_change_wan";

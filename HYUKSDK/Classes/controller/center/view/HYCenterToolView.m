@@ -43,7 +43,7 @@
     [self.collectionBtn setTitle:@"我的收藏" forState:0];
     [self.collectionBtn setTitleColor:UIColor.textColor22 forState:0];
     self.collectionBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.collectionBtn setImage:[UIImage uk_bundleImage:@"shoucang_1"] forState:0];
+    [self.collectionBtn setImage:[UIImage uk_bundleImage:@"uk_center_collection"] forState:0];
     [self.collectionBtn setImagePosition:QMUIButtonImagePositionTop];
     self.collectionBtn.spacingBetweenImageAndTitle = 10;
     self.collectionBtn.tag = 1;
@@ -54,7 +54,7 @@
     [self.downBtn setTitle:@"我的下载" forState:0];
     [self.downBtn setTitleColor:UIColor.textColor22 forState:0];
     self.downBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.downBtn setImage:[UIImage uk_bundleImage:@"xiazai"] forState:0];
+    [self.downBtn setImage:[UIImage uk_bundleImage:@"uk_down_Img"] forState:0];
     [self.downBtn setImagePosition:QMUIButtonImagePositionTop];
     self.downBtn.spacingBetweenImageAndTitle = 10;
     self.downBtn.tag = 2;
@@ -65,7 +65,7 @@
     [self.shareBtn setTitle:@"分享APP" forState:0];
     [self.shareBtn setTitleColor:UIColor.textColor22 forState:0];
     self.shareBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.shareBtn setImage:[UIImage uk_bundleImage:@"fenxiang"] forState:0];
+    [self.shareBtn setImage:[UIImage uk_bundleImage:@"uk_fenxiang"] forState:0];
     [self.shareBtn setImagePosition:QMUIButtonImagePositionTop];
     self.shareBtn.spacingBetweenImageAndTitle = 10;
     self.shareBtn.tag = 3;

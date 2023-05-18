@@ -25,7 +25,7 @@
     [clearBtn setTitle:@"清除" forState:0];
     [clearBtn setTitleColor:UIColor.textColor99 forState:0];
     clearBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [clearBtn setImage:[UIImage uk_bundleImage:@"qingchu"] forState:0];
+    [clearBtn setImage:[UIImage uk_bundleImage:@"uk_center_delete"] forState:0];
     [clearBtn setImagePosition:QMUIButtonImagePositionLeft];
     clearBtn.spacingBetweenImageAndTitle = 5;
     [self addSubview:clearBtn];

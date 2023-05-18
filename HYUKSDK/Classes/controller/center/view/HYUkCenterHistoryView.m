@@ -40,7 +40,7 @@
     [self.moreBtn setTitle:@"更多" forState:0];
     [self.moreBtn setTitleColor:UIColor.textColor99 forState:0];
     self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self.moreBtn setImage:[UIImage uk_bundleImage:@"jinrujiantou"] forState:0];
+    [self.moreBtn setImage:[UIImage uk_bundleImage:@"uk_video_arrow"] forState:0];
     [self.moreBtn setImagePosition:QMUIButtonImagePositionRight];
     self.moreBtn.spacingBetweenImageAndTitle = 0;
     [self addSubview:self.moreBtn];

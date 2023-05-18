@@ -26,7 +26,7 @@
     self.navBar.qmui_borderColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3];
     self.navTitleLabel.text = @"设置";
     self.navTitleLabel.textColor = UIColor.textColor22;
-    [self.navBackButton setImage:[UIImage uk_bundleImage:@"31fanhui1"] forState:0];
+    [self.navBackButton setImage:[UIImage uk_bundleImage:@"uk_back"] forState:0];
     
     
     self.dataArray = @[@[@"允许流量播放",@"允许流量下载",@"免责申明",@"隐私政策",@"清除缓存",@"联系我们"],@[@"我的账号",@"修改密码",@"退出账号"]];

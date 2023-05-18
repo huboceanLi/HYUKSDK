@@ -41,7 +41,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navBar.backgroundColor = UIColor.clearColor;
-    self.bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
+    self.bgImageView.image = [UIImage uk_bundleImage:@"uk_bg_Img"];
 
     self.scrollView = [UIScrollView new];
     self.scrollView.showsVerticalScrollIndicator = NO;

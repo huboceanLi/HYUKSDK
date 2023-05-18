@@ -11,6 +11,7 @@
 #import "HYUkSearchViewController.h"
 #import "HYUkHomeSearchView.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
+#import "HYUkRequestWorking.h"
 
 @interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate>
 
@@ -20,6 +21,8 @@
 @property (nonatomic, strong) HYUkHomeSearchView *searchView;
 @property (nonatomic, strong) BadgeButton *messageBtn;
 @property (nonatomic, strong) NSArray *categeryModels;
+
+
 
 @end
 
@@ -35,7 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navBar.backgroundColor = UIColor.clearColor;
-    self.bgImageView.image = [UIImage uk_bundleImage:@"WechatIMG488"];
+    self.bgImageView.image = [UIImage uk_bundleImage:@"uk_bg_Img"];
     
     [[HYVideoDBLogic share] initDB];
     [[HYUkDownManager sharedInstance] startNetworkMonitoring];
@@ -104,6 +107,8 @@
     }
     
     [self getData];
+    
+
 }
 
 - (void)getData {
@@ -159,7 +164,7 @@
 - (BadgeButton *)messageBtn {
     if (!_messageBtn) {
         _messageBtn = [BadgeButton buttonWithType:UIButtonTypeCustom];
-        [_messageBtn setImage:[UIImage uk_bundleImage:@"xiaoxi"] forState:0];
+        [_messageBtn setImage:[UIImage uk_bundleImage:@"uk_message"] forState:0];
         [_messageBtn setBadgeInset:UIEdgeInsetsMake(16, 30, 0, 0)];
         [_messageBtn setBadgeStr:@"100"];
         _messageBtn.adjustsImageWhenHighlighted = NO;

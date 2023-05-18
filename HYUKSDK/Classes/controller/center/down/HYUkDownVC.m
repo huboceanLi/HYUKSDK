@@ -36,7 +36,7 @@
     self.navBar.qmui_borderColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3];
     self.navTitleLabel.text = @"我的下载";
     self.navTitleLabel.textColor = UIColor.textColor22;
-    [self.navBackButton setImage:[UIImage uk_bundleImage:@"31fanhui1"] forState:0];
+    [self.navBackButton setImage:[UIImage uk_bundleImage:@"uk_back"] forState:0];
     
     self.dataArray = [NSMutableArray array];
     

@@ -48,7 +48,7 @@
 
         self.arrowImageView = [UIImageView new];
         self.arrowImageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.arrowImageView.image = [UIImage uk_bundleImage:@"jinrujiantou"];
+        self.arrowImageView.image = [UIImage uk_bundleImage:@"uk_video_arrow"];
         [self.contentView addSubview:self.arrowImageView];
         
         [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {

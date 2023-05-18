@@ -42,7 +42,7 @@
     self.navBar.backgroundColor = UIColor.clearColor;
 //    self.navBar.qmui_borderPosition = QMUIViewBorderPositionBottom;
 //    self.navBar.qmui_borderColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3];
-    [self.navBackButton setImage:[UIImage uk_bundleImage:@"31fanhui1"] forState:0];
+    [self.navBackButton setImage:[UIImage uk_bundleImage:@"uk_back"] forState:0];
     
     [self.navBar addSubview:self.searchHeadView];
     [self.searchHeadView mas_makeConstraints:^(MASConstraintMaker *make) {
