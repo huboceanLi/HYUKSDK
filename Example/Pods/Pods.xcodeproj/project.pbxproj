@@ -1261,7 +1261,7 @@
 		B6A9E8194EEFFCF54A3EEB7B126F4B61 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC54C58FC105DBA7DFB3B38F65A70E4A /* Statement.swift */; };
 		B711B785BCE333C562FFE051DD62D6E2 /* mem2.c in Sources */ = {isa = PBXBuildFile; fileRef = F3CC3FCAC4DDE31B866ED4BF7E576451 /* mem2.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B71404055C594A6D8FD21570CF91C592 /* HYUkDownCompleteCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D3648825CF7838A6B8358BBEF2C9F09D /* HYUkDownCompleteCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B7164639D6A5F7C05F013D1C3E58FA1F /* QMUIKit-QMUIResources in Resources */ = {isa = PBXBuildFile; fileRef = FFDF743B2D7D655F7364FF1154FFEDE6 /* QMUIKit-QMUIResources */; };
+		B7164639D6A5F7C05F013D1C3E58FA1F /* QMUIResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FFDF743B2D7D655F7364FF1154FFEDE6 /* QMUIResources.bundle */; };
 		B71EE6F8972C19DB7276EFDE6849AE6A /* SJButtonProgressSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C274DE8D834ADBADDCDF7D8709FC967 /* SJButtonProgressSlider.m */; };
 		B76D6560A5D2422B1F3D92B122FD38AA /* Localizable.strings in Sources */ = {isa = PBXBuildFile; fileRef = F3F2B87DD31A8CCCAD494628CA9D1BEC /* Localizable.strings */; };
 		B797D05A7A1832C904EA38F4A5C1C152 /* SJSQLite3TableClassCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 0930AB5A484B0C37918B2BF0AA57DA43 /* SJSQLite3TableClassCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3842,7 +3842,7 @@
 		FF8B0513957860E38BD32FB3A95CF518 /* SJRotationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SJRotationManager.h; sourceTree = "<group>"; };
 		FFA4D3A341943554F8EB509BBB12309E /* alter.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = alter.c; path = src/alter.c; sourceTree = "<group>"; };
 		FFB7335BF5B24E95D583E74590D42893 /* UIView+QMUIBorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+QMUIBorder.h"; path = "QMUIKit/UIKitExtensions/UIView+QMUIBorder.h"; sourceTree = "<group>"; };
-		FFDF743B2D7D655F7364FF1154FFEDE6 /* QMUIKit-QMUIResources */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "QMUIKit-QMUIResources"; path = QMUIResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFDF743B2D7D655F7364FF1154FFEDE6 /* QMUIResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QMUIResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFF9382E150035FB917A90838BDF0BDA /* YYWebImageManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YYWebImageManager.h; path = YYKit/Image/YYWebImageManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -7679,7 +7679,7 @@
 				41F2CF87E0E6A65F9A21F2216A842F93 /* Pods-HYUKSDK_Example */,
 				F7A71BA00E40FFF8D725275887F5BEA7 /* Pods-HYUKSDK_Tests */,
 				8596B7A0C5A3E188061E9EDDAB573FCE /* QMUIKit */,
-				FFDF743B2D7D655F7364FF1154FFEDE6 /* QMUIKit-QMUIResources */,
+				FFDF743B2D7D655F7364FF1154FFEDE6 /* QMUIResources.bundle */,
 				5DCCF5B5F792D4EC76585F50AC7D8D7B /* SQLiteRepairKit */,
 				3A669A12B69A63E0BEF5B0382A3A729B /* WCDB.swift */,
 				B3CF92365D6AE0F35C3602CF6C0872AE /* WCDBOptimizedSQLCipher */,
@@ -8893,7 +8893,7 @@
 			);
 			name = "QMUIKit-QMUIResources";
 			productName = QMUIResources;
-			productReference = FFDF743B2D7D655F7364FF1154FFEDE6 /* QMUIKit-QMUIResources */;
+			productReference = FFDF743B2D7D655F7364FF1154FFEDE6 /* QMUIResources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		CA298FF53B6D582AE40929DFE1454BBD /* WCDB.swift */ = {
@@ -8944,6 +8944,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					A4F02C53B5B4FD6A5A304A7F0FAC06E6 = {
+						DevelopmentTeam = V6VQ8W355L;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -9051,7 +9056,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7164639D6A5F7C05F013D1C3E58FA1F /* QMUIKit-QMUIResources in Resources */,
+				B7164639D6A5F7C05F013D1C3E58FA1F /* QMUIResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10819,6 +10824,7 @@
 			buildSettings = {
 				CODE_SIGNING_ALLOWED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/QMUIKit";
+				DEVELOPMENT_TEAM = V6VQ8W355L;
 				IBSC_MODULE = QMUIKit;
 				INFOPLIST_FILE = "Target Support Files/QMUIKit/ResourceBundle-QMUIResources-QMUIKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -11541,6 +11547,7 @@
 			buildSettings = {
 				CODE_SIGNING_ALLOWED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/QMUIKit";
+				DEVELOPMENT_TEAM = V6VQ8W355L;
 				IBSC_MODULE = QMUIKit;
 				INFOPLIST_FILE = "Target Support Files/QMUIKit/ResourceBundle-QMUIResources-QMUIKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
