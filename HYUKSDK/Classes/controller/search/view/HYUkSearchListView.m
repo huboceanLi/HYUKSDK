@@ -129,7 +129,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     HYResponseSearchModel *model = self.dataArray[indexPath.section];
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@(model.video_id)];
+        [self.delegate customView:self event:@(model.ID)];
     }
 }
 

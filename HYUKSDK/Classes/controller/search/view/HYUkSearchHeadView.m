@@ -39,7 +39,7 @@
     
     self.textField = [QMUITextField new];
     self.textField.placeholder = @"请输入关键词";
-    self.textField.text = @"疯狂";
+    self.textField.text = @"黑豹";
     self.textField.delegate = self;
     self.textField.placeholderColor = UIColor.lightGrayColor;
     self.textField.font = [UIFont systemFontOfSize:14];

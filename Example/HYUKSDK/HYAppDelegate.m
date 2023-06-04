@@ -20,12 +20,12 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = UIColor.whiteColor;
-    HYUkLinkViewController * loginVC = [[HYUkLinkViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-    self.window.rootViewController = nav;
-//    HYUkVideoTabBarViewController *tabBar = [HYUkVideoTabBarViewController new];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
+//    HYUkLinkViewController * loginVC = [[HYUkLinkViewController alloc] init];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
 //    self.window.rootViewController = nav;
+    HYUkVideoTabBarViewController *tabBar = [HYUkVideoTabBarViewController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 
     [HYUkConfigManager sharedInstance].delegate = self;
