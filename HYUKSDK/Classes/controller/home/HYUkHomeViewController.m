@@ -12,6 +12,8 @@
 #import "HYUkHomeSearchView.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
 #import "HYUkRequestWorking.h"
+#import "HYUkDetailViewController.h"
+#import "HYUKHistoryRecodeView.h"
 
 @interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate>
 
@@ -21,6 +23,7 @@
 @property (nonatomic, strong) HYUkHomeSearchView *searchView;
 @property (nonatomic, strong) BadgeButton *messageBtn;
 @property (nonatomic, strong) NSArray *categeryModels;
+@property (nonatomic, strong) HYUKHistoryRecodeView *recodeView;
 
 
 
@@ -32,6 +35,8 @@
     [super viewWillAppear:animated];
     self.hidesBottomBarWhenPushed = NO;
     self.tabBarController.tabBar.hidden = NO;
+    
+    [self getHistory];
 }
 
 - (void)viewDidLoad {
@@ -109,6 +114,33 @@
     [self getData];
     
 
+    [self.view addSubview:self.recodeView];
+    [self.recodeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(0);
+        make.bottom.equalTo(self.view.mas_bottom).offset(- (IS_iPhoneX ? 120 : 80));
+        make.height.mas_equalTo(60);
+    }];
+    
+    self.recodeView.hidden = YES;
+}
+
+- (void)getHistory {
+    NSArray *arr = [[HYUkHistoryRecordLogic share] queryHistoryRecordListWithCreateTime:NSIntegerMax count:1];
+    if (arr.count > 0) {
+        HYUkHistoryRecordModel *m = arr.firstObject;
+        
+        if (m.duration - m.playDuration < 120) {
+            self.recodeView.hidden = YES;
+        }else {
+            self.recodeView.hidden = NO;
+            self.recodeView.data = m;
+            [self.recodeView loadContent];
+        }
+        
+
+    }else {
+        self.recodeView.hidden = YES;
+    }
 }
 
 - (void)getData {
@@ -154,10 +186,27 @@
     return _searchView;
 }
 
+- (HYUKHistoryRecodeView *)recodeView {
+    if (!_recodeView) {
+        _recodeView = [HYUKHistoryRecodeView new];
+        _recodeView.delegate = self;
+    }
+    return _recodeView;
+}
+
 - (void)customView:(HYBaseView *)view event:(id)event{
     if ([view isKindOfClass:[HYUkHomeSearchView class]]) {
         HYUkSearchViewController *vc = [HYUkSearchViewController new];
         [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
+    if ([view isKindOfClass:[HYUKHistoryRecodeView class]]) {
+        HYUkHistoryRecordModel *m = view.data;
+        HYUkDetailViewController *vc = [HYUkDetailViewController new];
+        vc.videoId = m.tvId;
+        [self.navigationController pushViewController:vc animated:YES];
+
     }
 }
 

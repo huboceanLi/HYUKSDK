@@ -97,10 +97,10 @@
     cell.arrowImageView.hidden = NO;
     cell.briefLab.hidden = YES;
 
-    if (indexPath.row == 0 || indexPath.row == 1) {
+    if (indexPath.row == 0) {
         cell.playSwitch.hidden = NO;
         cell.arrowImageView.hidden = YES;
-    }else if (indexPath.row == 4 || indexPath.row == 5) {
+    }else if (indexPath.row == 3 || indexPath.row == 4) {
         cell.briefLab.hidden = NO;
     }
 

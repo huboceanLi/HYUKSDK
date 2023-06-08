@@ -77,6 +77,7 @@
 #import "HYUkHomeRecommendCell.h"
 #import "HYUkRecommendHeadView.h"
 #import "HYUkRecommendListView.h"
+#import "HYUKHistoryRecodeView.h"
 #import "HYUkHomeSearchView.h"
 #import "HYUkVideoHomeListCell.h"
 #import "HYUkLinkViewController.h"

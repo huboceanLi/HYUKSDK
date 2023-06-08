@@ -39,8 +39,7 @@ static HYUkConfigManager *manager = nil;
         }
         return [NSString stringWithFormat:@"%02ld:%02ld",min,sec];
     }
-    
-    
+
     return @"00:00";
 }
 
