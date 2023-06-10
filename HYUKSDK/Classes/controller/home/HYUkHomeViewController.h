@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUkHomeViewController : HYUkVideoBaseViewController
 
-@property (nonatomic, strong) HYVideoVersionModel *versionModel;
+//@property (nonatomic, strong) HYUKVideoVersionModel *versionModel;
 
 @end
 

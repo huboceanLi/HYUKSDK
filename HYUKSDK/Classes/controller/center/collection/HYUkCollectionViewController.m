@@ -127,7 +127,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+    BOOL isOpenTheProxy = [[HYUkVideoConfigManager sharedInstance] isOpenTheProxy];
     if (isOpenTheProxy) {
         [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
         return;

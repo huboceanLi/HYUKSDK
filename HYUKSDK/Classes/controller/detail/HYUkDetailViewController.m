@@ -49,7 +49,7 @@ static CGFloat briefViewHeoght = 60.0;
     [super viewWillAppear:animated];
     
     
-    [[HYUkConfigManager sharedInstance] setChangeOrientation:YES];
+    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -61,7 +61,7 @@ static CGFloat briefViewHeoght = 60.0;
         [self.delegate changeVideoProgressVideoId:self.videoId];
     }
     
-    [[HYUkConfigManager sharedInstance] setChangeOrientation:NO];
+    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:NO];
     if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
         SEL selector = NSSelectorFromString(@"setOrientation:");
         NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
@@ -260,7 +260,7 @@ static CGFloat briefViewHeoght = 60.0;
     }
     
     if ([view isKindOfClass:[HYUkVideoRecommendView class]]) {
-        BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+        BOOL isOpenTheProxy = [[HYUkVideoConfigManager sharedInstance] isOpenTheProxy];
         if (isOpenTheProxy) {
             [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
             return;

@@ -1,17 +1,17 @@
 //
-//  HYUkConfigManager.m
+//  HYUkVideoConfigManager.m
 //  HYUKSDK
 //
 //  Created by oceanMAC on 2023/5/6.
 //
 
-#import "HYUkConfigManager.h"
+#import "HYUkVideoConfigManager.h"
 
-static HYUkConfigManager *manager = nil;
+static HYUkVideoConfigManager *manager = nil;
 
-@implementation HYUkConfigManager
+@implementation HYUkVideoConfigManager
 
-+ (HYUkConfigManager *)sharedInstance {
++ (HYUkVideoConfigManager *)sharedInstance {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[self alloc] init];

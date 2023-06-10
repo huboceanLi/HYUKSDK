@@ -6,6 +6,7 @@
 //
 
 #import "HYUkRequestWorking.h"
+#import <YYModel/YYModel.h>
 
 @implementation HYUkRequestWorking
 
@@ -15,7 +16,7 @@
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
     
     NSDictionary *dic = @{@"bundleid":bundleId};
-    return [self GET:video_get_version parameters:dic complationHandle:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+    return [self GET:@"http://vod.wxspb.cn/api/index/get_version" parameters:dic complationHandle:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
         if (!error) {
             HYVideoVersionBaseModel *model = [HYVideoVersionBaseModel yy_modelWithDictionary:responseObject];
             completed(model.data, YES);

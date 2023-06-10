@@ -115,7 +115,7 @@
     self.collectionModel.vod_area = self.detailModel.vod_area;
     self.collectionModel.vod_class = self.detailModel.vod_class;
     self.collectionModel.vod_remarks = self.detailModel.vod_remarks;
-    self.collectionModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+    self.collectionModel.create_Time = [[[HYUkVideoConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
 }
 
 - (void)downButtonClick {
@@ -138,7 +138,7 @@
         downModel.playName = itemModel.name;
         downModel.playUrl = itemModel.url;
         downModel.content = self.detailModel.vod_content;
-        downModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+        downModel.create_Time = [[[HYUkVideoConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
         [[HYUkDownListLogic share] insertDownListWithModel:downModel];
         
         [[HYUkDownManager sharedInstance] startDown:downModel];

@@ -30,7 +30,7 @@
 #import "HYUkShowLoadingManager.h"
 #import "HYVideoSingle.h"
 #import "BaseModel.h"
-#import "HYUkConfigManager.h"
+#import "HYUkVideoConfigManager.h"
 #import "HYUkVideoDetailModel.h"
 #import "HYResponseCategeryModel.h"
 #import "HYResponseVideoListModel.h"
@@ -41,8 +41,8 @@
 #import "APIString.h"
 #import "MYDialogViewController.h"
 #import "HYUkDownManager.h"
-#import "HYVideoVersionModel.h"
-#import "HYUkLinkViewController.h"
+//#import "HYUKVideoVersionModel.h"
+//#import "HYUkLinkViewController.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

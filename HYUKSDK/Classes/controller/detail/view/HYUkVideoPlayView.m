@@ -182,7 +182,7 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
         recordModel.duration = self.player.duration;
         recordModel.playDuration = currentTime;
         recordModel.playName = self.currentRecordModel.playName;
-        recordModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+        recordModel.create_Time = [[[HYUkVideoConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
         [[HYUkHistoryRecordLogic share] insertHistoryRecordWithRecordModel:recordModel];
     }
 }

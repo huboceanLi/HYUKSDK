@@ -115,14 +115,14 @@
         cell.des.text = model.vod_remarks;
     }
     cell.scoreLab.text = model.vod_douban_score;
-    [[HYUkConfigManager sharedInstance] changeScoreColor:model.vod_douban_score Label:cell.scoreLab];
+    [[HYUkVideoConfigManager sharedInstance] changeScoreColor:model.vod_douban_score Label:cell.scoreLab];
     
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+    BOOL isOpenTheProxy = [[HYUkVideoConfigManager sharedInstance] isOpenTheProxy];
     if (isOpenTheProxy) {
         [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
         return;

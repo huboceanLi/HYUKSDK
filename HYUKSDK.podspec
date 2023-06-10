@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HYUKSDK'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'A short description of HYUKSDK.'
 
 # This description is used to generate tags and improve search results.
@@ -57,6 +57,11 @@ TODO: Add long description of the pod here.
   s.dependency "YYText"
   s.dependency "YYCategories"
   s.dependency "YYWebImage"
+  
+  s.dependency "Ads-CN"
+  s.dependency "UMCommon"
+
+#  s.dependency "LHYADTool", '0.1.2'
 
 #  pod 'BuzzMsg', '1.6.0.1'
 

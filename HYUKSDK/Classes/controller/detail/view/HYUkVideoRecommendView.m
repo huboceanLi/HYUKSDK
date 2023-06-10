@@ -108,7 +108,7 @@
         cell.des.text = model.vod_remarks;
     }
     cell.scoreLab.text = model.vod_douban_score;
-    [[HYUkConfigManager sharedInstance] changeScoreColor:model.vod_douban_score Label:cell.scoreLab];
+    [[HYUkVideoConfigManager sharedInstance] changeScoreColor:model.vod_douban_score Label:cell.scoreLab];
 
     return cell;
 }

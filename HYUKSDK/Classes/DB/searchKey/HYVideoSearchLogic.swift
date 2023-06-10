@@ -16,7 +16,7 @@ import Foundation
     public func insertMovieList(name: String) {
         let model = HYUkSearchKeyModel()
         model.name = name
-        let t = Int(HYUkConfigManager.sharedInstance().getNowTimeTimestamp())
+        let t = Int(HYUkVideoConfigManager.sharedInstance().getNowTimeTimestamp())
         model.create_Time = t ?? 0
         HYUkSearchKeyDao.default.insertMovieList(model: model)
     }

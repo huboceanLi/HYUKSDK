@@ -11,7 +11,7 @@
 #import "HYUkSearchViewController.h"
 #import "HYUkHomeSearchView.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
-#import "HYUkRequestWorking.h"
+//#import "HYUkVideoRequestWorking.h"
 #import "HYUkDetailViewController.h"
 #import "HYUKHistoryRecodeView.h"
 
@@ -106,7 +106,7 @@
         make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
     }];
     
-    BOOL isOpenTheProxy = [[HYUkConfigManager sharedInstance] isOpenTheProxy];
+    BOOL isOpenTheProxy = [[HYUkVideoConfigManager sharedInstance] isOpenTheProxy];
     if (isOpenTheProxy) {
         [MYToast showWithText:@"请关闭设备代理,否则会播放失败!" inView:self.view hideAfterDelay:10.0];
     }

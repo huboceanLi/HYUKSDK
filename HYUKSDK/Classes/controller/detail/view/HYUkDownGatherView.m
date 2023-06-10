@@ -160,7 +160,7 @@
     downModel.playName = model.name;
     downModel.playUrl = model.url;
     downModel.content = self.detailModel.vod_content;
-    downModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+    downModel.create_Time = [[[HYUkVideoConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
     [[HYUkDownListLogic share] insertDownListWithModel:downModel];
     
     [self.dowList addObject:downModel];

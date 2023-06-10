@@ -54,7 +54,7 @@
 
 - (void)loadContent {
     HYUkHistoryRecordModel *recordModel = self.data;
-    NSString *t = [NSString stringWithFormat:@"    %@ | ",[[HYUkConfigManager sharedInstance] changeTimeWithDuration:recordModel.playDuration]];
+    NSString *t = [NSString stringWithFormat:@"    %@ | ",[[HYUkVideoConfigManager sharedInstance] changeTimeWithDuration:recordModel.playDuration]];
     NSString *name = recordModel.name;
 
     if (name.length > 7) {

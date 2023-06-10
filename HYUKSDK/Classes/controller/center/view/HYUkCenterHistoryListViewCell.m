@@ -70,7 +70,7 @@
     
     self.name.text = recordModel.name;
     [self.headImageView yy_setImageWithURL:[NSURL URLWithString:recordModel.imageUrl] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
-    self.timeLab.text = [[HYUkConfigManager sharedInstance] changeTimeWithDuration:recordModel.playDuration];
+    self.timeLab.text = [[HYUkVideoConfigManager sharedInstance] changeTimeWithDuration:recordModel.playDuration];
 }
 
 @end

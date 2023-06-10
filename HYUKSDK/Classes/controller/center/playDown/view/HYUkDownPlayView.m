@@ -55,7 +55,7 @@
         recordModel.duration = self.player.duration;
         recordModel.playDuration = currentTime;
         recordModel.playName = self.currentRecordModel.playName;
-        recordModel.create_Time = [[[HYUkConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+        recordModel.create_Time = [[[HYUkVideoConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
         [[HYUkHistoryRecordLogic share] insertHistoryRecordWithRecordModel:recordModel];
     }
 }

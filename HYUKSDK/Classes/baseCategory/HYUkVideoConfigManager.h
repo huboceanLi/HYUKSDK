@@ -1,5 +1,5 @@
 //
-//  HYUkConfigManager.h
+//  HYUkVideoConfigManager.h
 //  HYUKSDK
 //
 //  Created by oceanMAC on 2023/5/6.
@@ -19,9 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface HYUkConfigManager : NSObject
+@interface HYUkVideoConfigManager : NSObject
 
-+ (HYUkConfigManager *)sharedInstance;
++ (HYUkVideoConfigManager *)sharedInstance;
 
 - (void)changeScoreColor:(NSString *)scoreStr Label:(UILabel *)lab;
 
