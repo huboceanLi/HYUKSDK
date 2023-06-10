@@ -8,7 +8,8 @@
 #ifndef HYUKADHeader_h
 #define HYUKADHeader_h
 
-//#import "UKExpressAdManager.h"
-//#import "UKNativeExpressFullscreenManager.h"
+#import "UKExpressAdManager.h"
+#import "UKNativeExpressFullscreenManager.h"
+#import "HYUKInitTool.h"
 
 #endif /* HYUKADDHeader_h */

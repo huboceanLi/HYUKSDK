@@ -17,18 +17,31 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = UIColor.whiteColor;
+    
+    __weak typeof(self) weakSelf = self;
+    [HYUKInitTool initTool:[UIImage imageNamed:@"引导页"] linkRect:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) window:self.window enter:^(BOOL pt) {
+        if (!pt) {
+            HYUkVideoTabBarViewController *tabBar = [HYUkVideoTabBarViewController new];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
+            weakSelf.window.rootViewController = nav;
+            [weakSelf.window makeKeyAndVisible];
+        }
+    }];
+    
+    // Override point for customization after application launch.
+
 //    HYUkLinkViewController * loginVC = [[HYUkLinkViewController alloc] init];
 //    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
 //    self.window.rootViewController = nav;
-    HYUkVideoTabBarViewController *tabBar = [HYUkVideoTabBarViewController new];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
-    self.window.rootViewController = nav;
-    [self.window makeKeyAndVisible];
+//    HYUkVideoTabBarViewController *tabBar = [HYUkVideoTabBarViewController new];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
+//    self.window.rootViewController = nav;
+//    [self.window makeKeyAndVisible];
 
-    [HYUkConfigManager sharedInstance].delegate = self;
+    [HYUkVideoConfigManager sharedInstance].delegate = self;
 
     return YES;
 }

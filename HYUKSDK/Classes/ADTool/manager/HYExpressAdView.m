@@ -40,9 +40,9 @@ static NSInteger allTime = 61;
         
         self.timeButton.hidden = YES;
         
-        self.timer = [NSTimer timerWithTimeInterval:(1.0f) target:self selector:@selector(timeRecordCurrent) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
-        [self.timer setFireDate:[NSDate distantFuture]];
+//        self.timer = [NSTimer timerWithTimeInterval:(1.0f) target:self selector:@selector(timeRecordCurrent) userInfo:nil repeats:YES];
+//        [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
+//        [self.timer setFireDate:[NSDate distantFuture]];
     }
     return self;
 }

@@ -11,7 +11,7 @@
 #import "HYUkSearchViewController.h"
 #import "HYUkHomeSearchView.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
-//#import "HYUkVideoRequestWorking.h"
+#import "HYUKADHeader.h"
 #import "HYUkDetailViewController.h"
 #import "HYUKHistoryRecodeView.h"
 
@@ -122,6 +122,10 @@
     }];
     
     self.recodeView.hidden = YES;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[UKNativeExpressFullscreenManager shared] loadExpressAdWithVC:self];
+    });
 }
 
 - (void)getHistory {

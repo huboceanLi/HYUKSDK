@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeView;
 
+- (void)pause;
+
+- (void)startPlay;
+
 @end
 
 NS_ASSUME_NONNULL_END

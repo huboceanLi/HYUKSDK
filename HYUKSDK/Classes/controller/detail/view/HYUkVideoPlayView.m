@@ -30,6 +30,8 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) NSInteger recordIndex;
 
+@property (nonatomic, assign) BOOL allowPlayback;
+
 @end
 
 @implementation HYUkVideoPlayView
@@ -38,7 +40,8 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     [super initSubviews];
     
     self.backgroundColor = UIColor.blackColor;
-    
+    self.allowPlayback = YES;
+
     _player = SJVideoPlayer.player;
     _player.pausedInBackground = YES;
 //    self.player.controlLayerDataSource = self;
@@ -219,6 +222,10 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     NSURL *playbackURL = [SJMediaCacheServer.shared playbackURLWithURL:URL];
 //    // play
     _player.URLAsset = [SJVideoPlayerURLAsset.alloc initWithURL:playbackURL startPosition:self.currentRecordModel.playDuration];
+    
+    if (!self.allowPlayback) {
+        [self.player pause];
+    }
 }
 
 - (void)changeSelect:(NSString *)name Url:(NSString *)url {
@@ -228,6 +235,18 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
     
     NSURL *URL = [NSURL URLWithString:url];
     [self _play:URL];
+}
+
+- (void)pause
+{
+    self.allowPlayback = NO;
+    [self.player pause];
+}
+
+- (void)startPlay
+{
+    self.allowPlayback = YES;
+    [self.player play];
 }
 
 @end

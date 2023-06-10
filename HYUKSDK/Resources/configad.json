@@ -1,8 +1,9 @@
 {
     "buAppId" : "5040922",
     "buOpenId" : "840922326",
-    "buBannerBigId" : "946213113",
-    "buRewardedId" : "952503579",
+    "expressId" : "952503579",
+    "nativeExpressId" : "952503885",
     "umAppkey" : "123",
 }
+
 

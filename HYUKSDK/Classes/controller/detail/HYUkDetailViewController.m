@@ -178,6 +178,17 @@ static CGFloat briefViewHeoght = 60.0;
                                                   name:UIApplicationDidEnterBackgroundNotification
                                                 object:nil];
     [self getData];
+    
+    __weak typeof(self) weakSelf = self;
+    [[UKExpressAdManager shared] loadExpressAdWithVC1:self rect:CGRectMake(0, IS_iPhoneX ? 44 : 24, SCREEN_WIDTH, self.playViewHeight - (IS_iPhoneX ? 44 : 24)) show:^(UKExpressAdStatus status) {
+        if (status == expressAd_start || status == expressAd_loading) {
+            [weakSelf.view bringSubviewToFront:weakSelf.navBar];
+            [weakSelf.playView pause];
+        }else if (status == expressAd_error || status == expressAd_end) {
+            NSLog(@"可以播放视频了");
+            [weakSelf.playView startPlay];
+        }
+    }];
 }
 
 - (void)enterBackGround:(NSNotificationCenter *)notification

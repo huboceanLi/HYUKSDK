@@ -11,12 +11,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, UKExpressAdStatus) {
+    expressAd_start,
+    expressAd_loading,
+    expressAd_end,
+    expressAd_error
+};
+
 @interface UKExpressAdManager : NSObject
 
 +(UKExpressAdManager *)shared;
 
-- (void)loadExpressAdWithVC:(UIViewController *)vc rect:(CGRect)rect show:(void (^)(void))show;
+//- (void)loadExpressAdWithVC:(UIViewController *)vc rect:(CGRect)rect show:(void (^)(void))show;
 
+- (void)loadExpressAdWithVC1:(UIViewController *)vc rect:(CGRect)rect show:(void (^)(UKExpressAdStatus status))show;
 
 @end
 

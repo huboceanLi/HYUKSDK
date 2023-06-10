@@ -16,7 +16,7 @@ static UKExpressAdManager * configManager = nil;
 
 @property (nonatomic, strong) BUNativeExpressAdManager *nativeExpressAdManager;
 @property (strong, nonatomic) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
-@property (copy, nonatomic) void (^show)(void);
+@property (copy, nonatomic) void (^show)(UKExpressAdStatus status);
 @property (nonatomic, strong) UIViewController *vc;
 @property (nonatomic, assign) CGRect rect;
 @property (nonatomic, strong) UIButton *timeButton;
@@ -54,10 +54,11 @@ static UKExpressAdManager * configManager = nil;
 
 - (void)closeAddButton {
     [self.expressAdViews removeAllObjects];
-    self.show();
+    self.show(expressAd_end);
 }
 
-- (void)loadExpressAdWithVC:(UIViewController *)vc rect:(CGRect)rect show:(void (^)(void))show
+//- (void)loadExpressAdWithVC:(UIViewController *)vc rect:(CGRect)rect show:(void (^)(void))show
+- (void)loadExpressAdWithVC1:(UIViewController *)vc rect:(CGRect)rect show:(void (^)(UKExpressAdStatus status))show
 {
     self.show = show;
     self.rect = rect;
@@ -68,7 +69,7 @@ static UKExpressAdManager * configManager = nil;
 - (void)registerAppId {
     
     BUAdSlot *slot1 = [[BUAdSlot alloc] init];
-    slot1.ID = [HYUKConfigManager shareInstance].ADIDModel.buRewardedId;
+    slot1.ID = [HYUKConfigManager shareInstance].ADIDModel.expressId;
     slot1.AdType = BUAdSlotAdTypeFeed;
     BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Banner600_150];
     slot1.imgSize = imgSize;
@@ -80,6 +81,8 @@ static UKExpressAdManager * configManager = nil;
     self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
     self.nativeExpressAdManager.delegate = self;
     [self.nativeExpressAdManager loadAdDataWithCount:1];
+    
+    self.show(expressAd_start);
 }
 
 - (void)nativeAdsManagerSuccessToLoad:(BUNativeAdsManager *)adsManager nativeAds:(NSArray<BUNativeAd *> *_Nullable)nativeAdDataArray
@@ -91,6 +94,7 @@ static UKExpressAdManager * configManager = nil;
 - (void)nativeAdsManager:(BUNativeAdsManager *)adsManager didFailWithError:(NSError *_Nullable)error
 {
     NSLog(@"didFailWithError : %@", error);
+    self.show(expressAd_error);
 
 }
 /**
@@ -133,6 +137,7 @@ static UKExpressAdManager * configManager = nil;
 - (void)nativeExpressAdFailToLoad:(BUNativeExpressAdManager *)nativeExpressAdManager error:(NSError *_Nullable)error
 {
     NSLog(@"nativeExpressAdFailToLoad : %@", error);
+    self.show(expressAd_error);
 
 }
 
@@ -161,6 +166,7 @@ static UKExpressAdManager * configManager = nil;
 {
     NSLog(@"nativeExpressAdViewWillShow");
     [self.expressAdView showAd];
+    self.show(expressAd_loading);
 
 }
 

@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic, strong) NSString * googleRewardedId;   ///
 @property (nonatomic, strong) NSString * buAppId;   ///
 @property (nonatomic, strong) NSString * buOpenId;   ///开屏
-@property (nonatomic, strong) NSString * buBannerSmallId;   /// 新式插页
-@property (nonatomic, strong) NSString * buBannerBigId;   ///banner
-@property (nonatomic, strong) NSString * buRewardedId;   //信息流
+@property (nonatomic, strong) NSString * nativeExpressId;   /// 新式插页
+//@property (nonatomic, strong) NSString * buBannerBigId;   ///banner
+@property (nonatomic, strong) NSString * expressId;   //信息流
 @property (nonatomic, strong) NSString * umAppkey;   ///
 
 

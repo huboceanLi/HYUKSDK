@@ -32,7 +32,7 @@ static UKNativeExpressFullscreenManager * configManager = nil;
 - (void)loadExpressAdWithVC:(UIViewController *)vc
 {
     self.vc = vc;
-    self.fullscreenAd = [[BUNativeExpressFullscreenVideoAd alloc] initWithSlotID:[HYUKConfigManager shareInstance].ADIDModel.buBannerSmallId];
+    self.fullscreenAd = [[BUNativeExpressFullscreenVideoAd alloc] initWithSlotID:[HYUKConfigManager shareInstance].ADIDModel.nativeExpressId];
     self.fullscreenAd.delegate = self;
     [self.fullscreenAd loadAdData];
 }
