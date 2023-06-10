@@ -6,7 +6,8 @@
 //  Copyright © 2019年 cdhnf. All rights reserved.
 //
 #import "Target_FaceStoreService.h"
-#import <YYKit/YYKit.h>
+//#import <YYKit/YYKit.h>
+#import <YYModel/YYModel.h>
 
 typedef void (^RequestSuccessed)(NSString * message, id responseObject);
 typedef void (^RequestFailure)(CTAPIManagerErrorType errorType, NSString * errorMessage);

@@ -97,7 +97,7 @@
 
 - (void)loadContent {
     HYUkCollectionModel *model = self.data;
-    [self.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    [self.headImageView yy_setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
     self.name.text = model.vod_name;
     
     NSString *str = @"";

@@ -6,6 +6,7 @@
 //
 
 #import "HYVideoUpgradeView.h"
+#import <YYCategories/YYCategories.h>
 
 @interface HYVideoUpgradeView()
 

@@ -17,7 +17,7 @@
     NSDictionary *dic = @{@"bundleid":bundleId};
     return [self GET:video_get_version parameters:dic complationHandle:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
         if (!error) {
-            HYVideoVersionBaseModel *model = [HYVideoVersionBaseModel modelWithDictionary:responseObject];
+            HYVideoVersionBaseModel *model = [HYVideoVersionBaseModel yy_modelWithDictionary:responseObject];
             completed(model.data, YES);
         }else {
             completed(nil, NO);

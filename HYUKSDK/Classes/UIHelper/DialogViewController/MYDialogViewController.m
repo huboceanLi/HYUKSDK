@@ -7,6 +7,8 @@
 //
 
 #import "MYDialogViewController.h"
+#import <YYText/YYText.h>
+#import <YYCategories/YYCategories.h>
 
 @interface MYDialogViewController ()
 
@@ -84,8 +86,8 @@
     [super addCancelButtonWithText:buttonText block:block];
     
     NSMutableAttributedString * attriStr = [[NSMutableAttributedString alloc] initWithString:buttonText];
-    attriStr.font = UIFontMake(16);
-    attriStr.color = UIColor.textColor99;
+    attriStr.yy_font = UIFontMake(16);
+    attriStr.yy_color = UIColor.textColor99;
     [self.cancelButton setAttributedTitle:attriStr forState:UIControlStateNormal];
 }
 

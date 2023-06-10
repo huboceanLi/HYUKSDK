@@ -78,10 +78,10 @@
 
     HYResponseRecommendModel *model = self.dataArray[indexPath.row];
 
-    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    [cell.headImageView yy_setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
     
 //    __block HYUkVideoHomeListCell *strongBlock = cell;
-//    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:nil options:nil completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+//    [cell.headImageView yy_setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:nil options:nil completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
 //        if (error) {
 //            strongBlock.headImageView.image = [UIImage uk_bundleImage:@"uk_image_fail"];
 //        }

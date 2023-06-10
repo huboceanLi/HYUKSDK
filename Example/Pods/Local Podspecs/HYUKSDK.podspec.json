@@ -36,9 +36,6 @@
     "HYBaseTool": [
       "1.0.4"
     ],
-    "YYKit": [
-
-    ],
     "AFNetworking": [
 
     ],
@@ -52,6 +49,18 @@
 
     ],
     "WCDB.swift": [
+
+    ],
+    "YYModel": [
+
+    ],
+    "YYText": [
+
+    ],
+    "YYCategories": [
+
+    ],
+    "YYWebImage": [
 
     ]
   },

@@ -8,6 +8,7 @@
 
 #import "BadgeButton.h"
 #import <HYBaseTool/HYBaseTool.h>
+#import <YYCategories/YYCategories.h>
 
 @interface BadgeButton()
 

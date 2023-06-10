@@ -97,7 +97,7 @@
 
     self.name.text = [NSString stringWithFormat:@"%@ %@",model.vod_name,model.playName];
     self.completeLab.text = @"下载已完成";
-    [self.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    [self.headImageView yy_setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
 
     NSString *str = @"";
     if (model.type_id_1 == 1) {

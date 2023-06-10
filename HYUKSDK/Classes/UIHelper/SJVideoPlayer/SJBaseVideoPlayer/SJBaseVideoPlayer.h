@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// \code
 ///     // 设置占位图
 ///     _player.presentView.placeholderImageView.image = [UIImage imageNamed:@"..."];
-///     // [_player.presentView.placeholderImageView sd_setImageWithURL:URL];
+///     // [_player.presentView.placeholderImageView sd_yy_setImageWithURL:URL];
 /// \endcode
 ///
 @property (nonatomic, strong, readonly) UIView<SJVideoPlayerPresentView> *presentView;

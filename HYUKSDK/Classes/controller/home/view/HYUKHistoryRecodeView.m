@@ -7,6 +7,7 @@
 
 #import "HYUKHistoryRecodeView.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
+#import <YYText/YYText.h>
 
 @interface HYUKHistoryRecodeView()
 
@@ -62,7 +63,8 @@
     NSString *j = @" 继续观看    ";
     
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@",t,name,j]];
-    att.font = [UIFont systemFontOfSize:13];
+    
+    att.yy_font = [UIFont systemFontOfSize:13];
     
     
     [att addAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor],NSFontAttributeName: [UIFont systemFontOfSize:13]} range:NSMakeRange(0, t.length)];

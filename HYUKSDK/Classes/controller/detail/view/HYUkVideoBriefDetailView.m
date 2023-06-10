@@ -117,7 +117,7 @@
 - (NSAttributedString *)getFirstChapterString:(NSString *)chapterStr
 {
     NSMutableAttributedString *textAttributed = [[NSMutableAttributedString alloc] initWithString:chapterStr];
-    textAttributed.font = [UIFont systemFontOfSize:13];
+    textAttributed.yy_font = [UIFont systemFontOfSize:13];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:8];
     [textAttributed addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [textAttributed length])];

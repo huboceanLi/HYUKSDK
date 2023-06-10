@@ -107,7 +107,7 @@
 
     HYResponseVideoListModel *model = self.dataArray[indexPath.row];
 
-    [cell.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    [cell.headImageView yy_setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
     cell.name.text = model.vod_name;
     cell.des.hidden = YES;
     if (model.vod_remarks.length > 0) {

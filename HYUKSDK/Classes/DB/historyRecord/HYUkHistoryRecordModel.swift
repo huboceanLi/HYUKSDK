@@ -7,7 +7,7 @@
 
 import Foundation
 import WCDBSwift
-import YYKit
+import YYModel
 
 @objcMembers public class HYUkHistoryRecordModel: NSObject, TableCodable {
 

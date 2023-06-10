@@ -9,7 +9,12 @@
 #define HYUkHeader_h
 
 #import <QMUIKit/QMUIKit.h>
-#import <YYKit/YYKit.h>
+//#import <YYKit/YYKit.h>
+#import <YYText/YYText.h>
+#import <YYModel/YYModel.h>
+#import <YYWebImage/YYWebImage.h>
+#import <YYCategories/YYCategories.h>
+
 //#import "MBProgressHUD+JDragon.h"
 #import <JXCategoryView/JXCategoryView.h>
 #import <HYUKSDK/HYUkHeader.h>

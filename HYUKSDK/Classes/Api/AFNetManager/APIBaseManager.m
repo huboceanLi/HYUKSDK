@@ -150,11 +150,11 @@ static CTAPIManagerRequestType _requestType = 0;
         if (modelName) {
             BaseModel * baseModel;
             if ([fetchedRawData isKindOfClass:[NSDictionary class]]) {
-                baseModel = [BaseModel modelWithDictionary:fetchedRawData];
+                baseModel = [BaseModel yy_modelWithDictionary:fetchedRawData];
             }
             
             if ([fetchedRawData isKindOfClass:[NSString class]]) {
-                baseModel = [BaseModel modelWithJSON:fetchedRawData];
+                baseModel = [BaseModel yy_modelWithJSON:fetchedRawData];
             }
             //若需要状态码可在此处理
 //            if (baseModel.status == 200) {
@@ -163,11 +163,11 @@ static CTAPIManagerRequestType _requestType = 0;
             NSObject * dataModel = baseModel.data;
             if (modelName.length > 0 && [NSClassFromString(modelName) isSubclassOfClass:[CommonBaseModel class]]) {
                 if ([dataModel isKindOfClass:[NSArray class]]) {
-                    dataModel = [NSArray modelArrayWithClass:NSClassFromString(modelName) json:dataModel];
+                    dataModel = [NSArray yy_modelArrayWithClass:NSClassFromString(modelName) json:dataModel];
                 } else if ([dataModel isKindOfClass:[NSDictionary class]]) {
-                    dataModel = [NSClassFromString(modelName) modelWithDictionary:(NSDictionary *)dataModel];
+                    dataModel = [NSClassFromString(modelName) yy_modelWithDictionary:(NSDictionary *)dataModel];
                 } else if ([dataModel isKindOfClass:[NSString class]]) {
-                    dataModel = [NSClassFromString(modelName) modelWithJSON:dataModel];
+                    dataModel = [NSClassFromString(modelName) yy_modelWithJSON:dataModel];
                 }
             }
             
@@ -188,7 +188,7 @@ static CTAPIManagerRequestType _requestType = 0;
             fetchedRawData = [apiManager.response.responseData copy];
         }
         
-        BaseModel * baseModel = [BaseModel modelWithDictionary:fetchedRawData];
+        BaseModel * baseModel = [BaseModel yy_modelWithDictionary:fetchedRawData];
         //自定义错误码-9999代表BaseModel模型转换失败
         if (baseModel.code == 500) {
             failCallback(CTAPIManagerErrorTypeNoContent, errorMessage);
@@ -248,7 +248,7 @@ static CTAPIManagerRequestType _requestType = 0;
 
 - (CTAPIManagerErrorType)manager:(CTAPIBaseManager *)manager isCorrectWithCallBackData:(NSDictionary *)data
 {
-    BaseModel * baseModel = [BaseModel modelWithDictionary:data];
+    BaseModel * baseModel = [BaseModel yy_modelWithDictionary:data];
     if (baseModel.code == 1) {
         return CTAPIManagerErrorTypeNoError;
     } else if (baseModel.code == -9999) {

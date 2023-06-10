@@ -117,7 +117,7 @@
     self.downModel = model;
     
     self.name.text = [NSString stringWithFormat:@"%@ %@",model.vod_name,model.playName];
-    [self.headImageView setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    [self.headImageView yy_setImageWithURL:[NSURL URLWithString:model.vod_pic] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
     
     NSInteger progress = model.progress;
     self.currentProgress = progress;

@@ -69,7 +69,7 @@
     HYUkHistoryRecordModel *recordModel = self.data;
     
     self.name.text = recordModel.name;
-    [self.headImageView setImageWithURL:[NSURL URLWithString:recordModel.imageUrl] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
+    [self.headImageView yy_setImageWithURL:[NSURL URLWithString:recordModel.imageUrl] placeholder:[UIImage uk_bundleImage:@"uk_image_fail"]];
     self.timeLab.text = [[HYUkConfigManager sharedInstance] changeTimeWithDuration:recordModel.playDuration];
 }
 

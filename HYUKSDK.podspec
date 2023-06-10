@@ -47,14 +47,16 @@ TODO: Add long description of the pod here.
   s.dependency "QMUIKit"
   s.dependency "Masonry"
    s.dependency "HYBaseTool", '1.0.4'
-  s.dependency "YYKit"
+#  s.dependency "YYKit"
   s.dependency "AFNetworking"
   s.dependency "CTNetworking"
   s.dependency "MBProgressHUD+JDragon"
   s.dependency "JXCategoryView"
-#  s.dependency "HYUKApiSdk", '~> 0.0.1'
-#  s.dependency "HYVideoDB"
   s.dependency "WCDB.swift"
+  s.dependency "YYModel"
+  s.dependency "YYText"
+  s.dependency "YYCategories"
+  s.dependency "YYWebImage"
 
 #  pod 'BuzzMsg', '1.6.0.1'
 

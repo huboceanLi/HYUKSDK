@@ -75,7 +75,7 @@
 - (void)loadContent {
 //    HYMovieListItemModel *model = self.data;
 //
-//    [self.headImageView setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholder:nil];
+//    [self.headImageView yy_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholder:nil];
 //    self.name.text = model.name;
 }
 

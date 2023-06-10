@@ -8,7 +8,8 @@
 
 #import "BaseModel.h"
 #import <objc/runtime.h>
-#import <YYKit/YYKit.h>
+//#import <YYKit/YYKit.h>
+#import <YYModel/YYModel.h>
 
 @implementation BaseModel
 
@@ -69,9 +70,9 @@
 
 #pragma mark-- <NSCoding>
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [self modelEncodeWithCoder:aCoder];
+    [self yy_modelEncodeWithCoder:aCoder];
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    return [self modelInitWithCoder:aDecoder];
+    return [self yy_modelInitWithCoder:aDecoder];
 }
 @end
