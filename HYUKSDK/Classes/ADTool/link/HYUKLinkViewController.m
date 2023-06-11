@@ -15,7 +15,6 @@
 
 #import "UKBuSplashManager.h"
 
-#import "UKExpressAdManager.h"
 
 @interface HYUKLinkViewController ()
 

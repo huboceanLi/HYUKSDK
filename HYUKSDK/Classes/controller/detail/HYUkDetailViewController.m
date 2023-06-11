@@ -18,9 +18,15 @@
 #import "HYUkAllGatherListView.h"
 #import "HYUkDownGatherView.h"
 
+#import <BUAdSDK/BUAdSDK.h>
+#import <BUAdSDK/BUNativeExpressAdManager.h>
+#import "HYUKConfigManager.h"
+
 static CGFloat briefViewHeoght = 60.0;
 
-@interface HYUkDetailViewController ()<HYBaseViewDelegate>
+static NSInteger allTime = 61;
+
+@interface HYUkDetailViewController ()<HYBaseViewDelegate,BUNativeExpressAdViewDelegate>
 
 @property(nonatomic, assign) CGFloat playViewHeight;
 @property(nonatomic, strong) UIScrollView * scrollView;
@@ -34,6 +40,16 @@ static CGFloat briefViewHeoght = 60.0;
 @property(nonatomic, strong) HYUkDetailErrorView * errorView;
 @property(nonatomic, strong) HYUkAllGatherListView * gatherListView;
 @property(nonatomic, strong) HYUkDownGatherView * downGatherView;
+
+@property (nonatomic, strong) BUNativeExpressAdManager *nativeExpressAdManager;
+@property (strong, nonatomic) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) UIButton *timeButton;
+@property (nonatomic, assign) NSInteger recordIndex;
+@property (nonatomic, strong) BUNativeExpressAdView *expressAdView;
+@property (nonatomic, strong) UIView *tempView;
+
+@property (nonatomic, strong) UIButton *backButton;
 
 @end
 
@@ -55,6 +71,8 @@ static CGFloat briefViewHeoght = 60.0;
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
+    [self closeAddButton];
+    
     [self.playView saveHistoryRecord];
     
     if ([self.delegate respondsToSelector:@selector(changeVideoProgressVideoId:)]) {
@@ -73,11 +91,22 @@ static CGFloat briefViewHeoght = 60.0;
     }
 }
 
+- (void)clickedBackButton {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navBar.backgroundColor = UIColor.clearColor;
-    [self.navBackButton setTitle:@"" forState:0];
+//    self.navBar.backgroundColor = UIColor.clearColor;
+//    [self.navBackButton setTitle:@"" forState:0];
+    
+    self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backButton.frame = CGRectMake(0, (IS_iPhoneX?48:24), 40, 40);
+    [self.backButton addTarget:self action:@selector(clickedBackButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.backButton setImage:[UIImage uk_bundleImage:@"p_back"] forState:UIControlStateNormal];
+    [self.view addSubview:self.backButton];
+    
     
     self.playViewHeight = 220 * SCREEN_WIDTH / 390 + (IS_iPhoneX ? 44 : 24);
 
@@ -90,8 +119,9 @@ static CGFloat briefViewHeoght = 60.0;
         make.height.mas_offset(self.playViewHeight);
     }];
     
-    [self.view bringSubviewToFront:self.navBar];
-    
+//    [self.view bringSubviewToFront:self.navBar];
+    [self.view bringSubviewToFront:self.backButton];
+
     self.scrollView = [UIScrollView new];
     self.scrollView.showsVerticalScrollIndicator = NO;
 //    self.scrollView.delegate = self;
@@ -179,17 +209,89 @@ static CGFloat briefViewHeoght = 60.0;
                                                 object:nil];
     [self getData];
     
-    __weak typeof(self) weakSelf = self;
-    [[UKExpressAdManager shared] loadExpressAdWithVC1:self rect:CGRectMake(0, IS_iPhoneX ? 44 : 24, SCREEN_WIDTH, self.playViewHeight - (IS_iPhoneX ? 44 : 24)) show:^(UKExpressAdStatus status) {
-        if (status == expressAd_start || status == expressAd_loading) {
-            [weakSelf.view bringSubviewToFront:weakSelf.navBar];
-            [weakSelf.playView pause];
-        }else if (status == expressAd_error || status == expressAd_end) {
-            NSLog(@"可以播放视频了");
-            [weakSelf.playView startPlay];
-        }
-    }];
+    
+    [self requestExpressAd];
 }
+
+- (void)requestExpressAd {
+    self.expressAdViews = [NSMutableArray array];
+
+    BUAdSlot *slot1 = [[BUAdSlot alloc] init];
+    slot1.ID = [HYUKConfigManager shareInstance].ADIDModel.expressId;
+    slot1.AdType = BUAdSlotAdTypeFeed;
+    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Banner600_150];
+    slot1.imgSize = imgSize;
+    slot1.position = BUAdSlotPositionFeed;
+    // self.nativeExpressAdManager可以重用
+     if (!self.nativeExpressAdManager) {
+        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot1 adSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 0)];
+        }
+    self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
+    self.nativeExpressAdManager.delegate = self;
+    [self.nativeExpressAdManager loadAdDataWithCount:1];
+    
+    [self.playView pause];
+    self.playView.hidden = YES;
+    
+    self.tempView = [UIView new];
+    self.tempView.backgroundColor = UIColor.blackColor;
+    self.tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.playViewHeight);
+    [self.view addSubview:self.tempView];
+    
+    
+    self.timeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.timeButton.layer.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.8].CGColor;
+    self.timeButton.frame = CGRectMake(SCREEN_WIDTH - 95, 15 + (IS_iPhoneX ? 44 : 20), 86, 30);
+    self.timeButton.layer.borderWidth = 1.0;
+    self.timeButton.layer.borderColor = UIColor.whiteColor.CGColor;
+    self.timeButton.layer.cornerRadius = 15.0;
+    self.timeButton.layer.masksToBounds = YES;
+    [self.timeButton setTitle:@"点击跳过" forState:0];
+    self.timeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.timeButton setTitleColor:UIColor.whiteColor forState:0];
+    [self.view addSubview:self.timeButton];
+    [self.timeButton addTarget:self action:@selector(closeAddButton) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.timeButton.hidden = YES;
+    [self.view bringSubviewToFront:self.backButton];
+    
+    self.timer = [NSTimer timerWithTimeInterval:(1.0f) target:self selector:@selector(timeRecordCurrent) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    [self.timer setFireDate:[NSDate distantFuture]];
+}
+
+- (void)closeAddButton {
+
+    [self.timer setFireDate:[NSDate distantFuture]];
+    [self.timer invalidate];
+    [self.expressAdView removeFromSuperview];
+    self.expressAdView = nil;
+    self.timer = nil;
+    [self.timeButton removeFromSuperview];
+    self.timeButton = nil;
+    [self.playView startPlay];
+    self.playView.hidden = NO;
+    self.tempView.hidden = YES;
+}
+
+- (void)timeRecordCurrent {
+    
+    self.recordIndex--;
+    if (self.recordIndex <= 0) {
+        [self.timer setFireDate:[NSDate distantFuture]];
+        self.timeButton.userInteractionEnabled = YES;
+        [self closeAddButton];
+        return;
+    }
+    if (self.recordIndex > 0 && self.recordIndex > 40) {
+        self.timeButton.userInteractionEnabled = NO;
+        [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ 后可跳过",21 - allTime + self.recordIndex,@"s"] forState:0];
+        return;
+    }
+    self.timeButton.userInteractionEnabled = YES;
+    [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ 点击跳过",self.recordIndex,@"s"] forState:0];
+}
+
 
 - (void)enterBackGround:(NSNotificationCenter *)notification
 {
@@ -393,5 +495,162 @@ static CGFloat briefViewHeoght = 60.0;
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
+
+#pragma BUNativeExpressAdViewDelegate
+- (void)nativeAdsManagerSuccessToLoad:(BUNativeAdsManager *)adsManager nativeAds:(NSArray<BUNativeAd *> *_Nullable)nativeAdDataArray
+{
+    NSLog(@"nativeAdsManagerSuccessToLoad : %@", nativeAdDataArray);
+
+}
+
+- (void)nativeAdsManager:(BUNativeAdsManager *)adsManager didFailWithError:(NSError *_Nullable)error
+{
+    NSLog(@"didFailWithError : %@", error);
+    [self closeAddButton];
+}
+/**
+ * Sent when views successfully load ad
+ */
+- (void)nativeExpressAdSuccessToLoad:(BUNativeExpressAdManager *)nativeExpressAdManager views:(NSArray<__kindof BUNativeExpressAdView *> *)views
+{
+    [self.expressAdViews removeAllObjects];
+    self.expressAdView = nil;
+    
+    if (views.count) {
+
+        [self.expressAdViews addObjectsFromArray:views];
+//        [self.expressAdViews addObject:views.firstObject];
+        [views enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            BUNativeExpressAdView *expressView = (BUNativeExpressAdView *)obj;
+            expressView.rootViewController = self;
+            // important: 此处会进行WKWebview的渲染，建议一次最多预加载三个广告，如果超过3个会很大概率导致WKWebview渲染失败。
+            [expressView render];
+            *stop = YES;
+        }];
+
+        if (self.expressAdViews.count > 0) {
+            
+            self.expressAdView = self.expressAdViews.firstObject;
+            self.expressAdView.frame = CGRectMake(0, IS_iPhoneX ?  44 : 20, SCREEN_WIDTH, self.playViewHeight - (IS_iPhoneX ?  44 : 20));
+            [self.view addSubview:self.expressAdView];
+            [self.view bringSubviewToFront:self.backButton];
+        }
+    }else {
+        [self closeAddButton];
+    }
+    NSLog(@"nativeExpressAdSuccessToLoad");
+
+}
+
+/**
+ * Sent when views fail to load ad
+ */
+- (void)nativeExpressAdFailToLoad:(BUNativeExpressAdManager *)nativeExpressAdManager error:(NSError *_Nullable)error
+{
+    NSLog(@"nativeExpressAdFailToLoad : %@", error);
+    [self closeAddButton];
+}
+
+/**
+ * This method is called when rendering a nativeExpressAdView successed, and nativeExpressAdView.size.height has been updated
+ */
+- (void)nativeExpressAdViewRenderSuccess:(BUNativeExpressAdView *)nativeExpressAdView
+{
+    NSLog(@"nativeExpressAdViewRenderSuccess");
+
+}
+
+/**
+ * This method is called when a nativeExpressAdView failed to render
+ */
+- (void)nativeExpressAdViewRenderFail:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *_Nullable)error
+{
+    NSLog(@"nativeExpressAdViewRenderFail");
+
+}
+
+/**
+ * Sent when an ad view is about to present modal content
+ */
+- (void)nativeExpressAdViewWillShow:(BUNativeExpressAdView *)nativeExpressAdView
+{
+    NSLog(@"nativeExpressAdViewWillShow");
+    self.timeButton.hidden = NO;
+    self.timeButton.userInteractionEnabled = NO;
+    self.recordIndex = allTime;
+    [self.timer setFireDate:[NSDate date]];
+    [self.view bringSubviewToFront:self.timeButton];
+    [self.playView pause];
+    self.playView.hidden = YES;
+}
+
+/**
+ * Sent when an ad view is clicked
+ */
+- (void)nativeExpressAdViewDidClick:(BUNativeExpressAdView *)nativeExpressAdView
+{
+    NSLog(@"nativeExpressAdViewDidClick");
+
+}
+
+/**
+Sent when a playerw playback status changed.
+@param playerState : player state after changed
+*/
+- (void)nativeExpressAdView:(BUNativeExpressAdView *)nativeExpressAdView stateDidChanged:(BUPlayerPlayState)playerState
+{
+    NSLog(@"nativeExpressAdView");
+
+}
+
+/**
+ * Sent when a player finished
+ * @param error : error of player
+ */
+- (void)nativeExpressAdViewPlayerDidPlayFinish:(BUNativeExpressAdView *)nativeExpressAdView error:(NSError *)error
+{
+    NSLog(@"nativeExpressAdViewPlayerDidPlayFinish");
+
+}
+
+/**
+ * Sent when a user clicked dislike reasons.
+ * @param filterWords : the array of reasons why the user dislikes the ad
+ */
+- (void)nativeExpressAdView:(BUNativeExpressAdView *)nativeExpressAdView dislikeWithReason:(NSArray<BUDislikeWords *> *)filterWords
+{
+    NSLog(@"nativeExpressAdView");
+
+}
+
+/**
+ * Sent after an ad view is clicked, a ad landscape view will present modal content
+ */
+- (void)nativeExpressAdViewWillPresentScreen:(BUNativeExpressAdView *)nativeExpressAdView
+{
+    NSLog(@"nativeExpressAdViewWillPresentScreen");
+
+}
+
+/**
+ This method is called when another controller has been closed.
+ @param interactionType : open appstore in app or open the webpage or view video ad details page.
+ */
+- (void)nativeExpressAdViewDidCloseOtherController:(BUNativeExpressAdView *)nativeExpressAdView interactionType:(BUInteractionType)interactionType
+{
+    NSLog(@"nativeExpressAdViewDidCloseOtherController");
+
+}
+
+
+/**
+ This method is called when the Ad view container is forced to be removed.
+ @param nativeExpressAdView : Ad view container
+ */
+- (void)nativeExpressAdViewDidRemoved:(BUNativeExpressAdView *)nativeExpressAdView
+{
+    NSLog(@"nativeExpressAdViewDidRemoved");
+}
+
 
 @end
