@@ -29,8 +29,8 @@
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc] init];
     flow.sectionInset = UIEdgeInsetsMake(0, leftSpace, 0, leftSpace);
     flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flow.minimumLineSpacing = space;
-    flow.minimumInteritemSpacing = 0;
+    flow.minimumLineSpacing = XJFlexibleFont(space);
+    flow.minimumInteritemSpacing = IS_IPAD ? 15 : 0;
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flow];
     _collectionView.delegate = self;
@@ -50,14 +50,14 @@
     [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
         make.centerY.equalTo(self);
-        make.height.mas_equalTo(28);
+        make.height.mas_equalTo(XJFlexibleFont(30));
     }];
 }
 
 #pragma mark  --- UICollectionViewDataSource
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     HYUkTextTempModel *m = self.dataArray[indexPath.row];
-    return CGSizeMake(m.nameWidth, 30);
+    return CGSizeMake(m.nameWidth, XJFlexibleFont(30));
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -110,7 +110,7 @@
         NSString *item = a[i];
         HYUkTextTempModel *m = [HYUkTextTempModel new];
         m.name = item;
-        m.nameFont = [UIFont systemFontOfSize:13];
+        m.nameFont = [UIFont systemFontOfSize:XJFlexibleFont(13)];
         [temArray addObject:m];
     }
     self.dataArray = [temArray mutableCopy];

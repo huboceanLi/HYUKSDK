@@ -26,40 +26,39 @@
         self.backgroundColor = UIColor.clearColor;
         
         self.headImageView = [UIImageView new];
-        self.headImageView.layer.cornerRadius = 6.0;
+        self.headImageView.layer.cornerRadius = XJFlexibleFont(6);
         self.headImageView.layer.masksToBounds = YES;
         self.headImageView.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
         self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:self.headImageView];
         
         self.timeLab = [UILabel new];
-        self.timeLab.text = @"59:59";
-        self.timeLab.font = [UIFont systemFontOfSize:11];
+        self.timeLab.font = [UIFont systemFontOfSize:XJFlexibleFont(11)];
         self.timeLab.textAlignment = NSTextAlignmentRight;
         self.timeLab.textColor = [UIColor whiteColor];
         [self addSubview:self.timeLab];
 
         self.name = [UILabel new];
-        self.name.font = [UIFont systemFontOfSize:12];
+        self.name.font = [UIFont systemFontOfSize:XJFlexibleFont(12)];
         self.name.numberOfLines = 2;
         self.name.textColor = [UIColor textColor22];
         [self addSubview:self.name];
         
         [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.contentView);
-            make.height.mas_equalTo(54);
+            make.height.mas_equalTo(XJFlexibleFont(54));
         }];
         
         [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self);
-            make.top.equalTo(self.headImageView.mas_bottom).offset(6);
-            make.height.lessThanOrEqualTo(@(32));
+            make.top.equalTo(self.headImageView.mas_bottom).offset(XJFlexibleFont(6));
+            make.height.lessThanOrEqualTo(@(XJFlexibleFont(32)));
         }];
         
         [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.mas_right).offset(-4);
+            make.right.equalTo(self.mas_right).offset(-XJFlexibleFont(4));
             make.bottom.equalTo(self.headImageView);
-            make.height.mas_equalTo(20);
+            make.height.mas_equalTo(XJFlexibleFont(20));
         }];
     }
     return self;

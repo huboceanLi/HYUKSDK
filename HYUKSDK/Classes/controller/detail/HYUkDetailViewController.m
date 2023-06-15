@@ -100,6 +100,7 @@ static NSInteger allTime = 61;
     // Do any additional setup after loading the view.
 //    self.navBar.backgroundColor = UIColor.clearColor;
 //    [self.navBackButton setTitle:@"" forState:0];
+    briefViewHeoght = XJFlexibleFont(60.0);
     
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backButton.frame = CGRectMake(0, (IS_iPhoneX?48:24), 40, 40);
@@ -155,7 +156,7 @@ static NSInteger allTime = 61;
         make.top.equalTo(self.briefView.mas_bottom).offset(0);
         make.left.equalTo(self.scrollView);
         make.width.mas_offset(SCREEN_WIDTH);
-        make.height.mas_offset(70);
+        make.height.mas_offset(XJFlexibleFont(70));
     }];
 
     self.selectWorkView = [HYUkVideoDetailSelectWorkView new];
@@ -166,7 +167,7 @@ static NSInteger allTime = 61;
         make.top.equalTo(self.toolView.mas_bottom).offset(0);
         make.left.equalTo(self.scrollView);
         make.width.mas_offset(SCREEN_WIDTH);
-        make.height.mas_offset(100);
+        make.height.mas_offset(XJFlexibleFont(100.0));
     }];
     
     self.recommendView = [HYUkVideoRecommendView new];
@@ -177,7 +178,7 @@ static NSInteger allTime = 61;
         make.top.equalTo(self.selectWorkView.mas_bottom).offset(0);
         make.left.equalTo(self.scrollView);
         make.width.mas_offset(SCREEN_WIDTH);
-        make.height.mas_offset(186);
+        make.height.mas_offset(XJFlexibleFont(186));
         make.bottom.equalTo(self.scrollView).offset(-(IS_iPhoneX ? 34 : 20));
     }];
     

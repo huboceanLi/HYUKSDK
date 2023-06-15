@@ -101,7 +101,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    CGFloat w = 70;
+    CGFloat w = XJFlexibleFont(70);
     CGFloat h = 160 * w / 120 + 20;
     return h;
 }

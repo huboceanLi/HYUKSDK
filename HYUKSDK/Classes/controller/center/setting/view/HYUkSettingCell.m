@@ -30,19 +30,18 @@
         
         [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView.mas_left).offset(16);
-            make.width.height.mas_equalTo(24);
+            make.width.height.mas_equalTo(XJFlexibleFont(24));
             make.centerY.equalTo(self.contentView);
         }];
         
         self.name = [UILabel new];
-        self.name.text = @"是的是大的是丰收";
-        self.name.font = [UIFont systemFontOfSize:16];
+        self.name.font = [UIFont systemFontOfSize:XJFlexibleFont(16)];
         self.name.textColor = [UIColor textColor22];
         [self.contentView addSubview:self.name];
         
         [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.headImageView.mas_right).offset(12);
-            make.right.equalTo(self.contentView.mas_right).offset(-100);
+            make.left.equalTo(self.headImageView.mas_right).offset(XJFlexibleFont(12));
+            make.right.equalTo(self.contentView.mas_right).offset(-XJFlexibleFont(100));
             make.centerY.equalTo(self.contentView);
         }];
 
@@ -52,8 +51,8 @@
         [self.contentView addSubview:self.arrowImageView];
         
         [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView.mas_right).offset(-12);
-            make.width.height.mas_equalTo(14);
+            make.right.equalTo(self.contentView.mas_right).offset(-XJFlexibleFont(12));
+            make.width.height.mas_equalTo(XJFlexibleFont(14));
             make.centerY.equalTo(self.contentView);
         }];
         
@@ -61,19 +60,18 @@
         self.playSwitch.transform = CGAffineTransformMakeScale(0.7, 0.7);
         [self.contentView addSubview:self.playSwitch];
         [self.playSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView.mas_right).offset(-10);
+            make.right.equalTo(self.contentView.mas_right).offset(-XJFlexibleFont(10));
             make.centerY.equalTo(self.contentView);
         }];
         
         self.briefLab = [UILabel new];
-        self.briefLab.text = @"就拉上倒海课程";
-        self.briefLab.font = [UIFont systemFontOfSize:12];
+        self.briefLab.font = [UIFont systemFontOfSize:XJFlexibleFont(12)];
         self.briefLab.textAlignment = NSTextAlignmentRight;
         self.briefLab.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:self.briefLab];
 
         [self.briefLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.arrowImageView.mas_left).offset(-2);
+            make.right.equalTo(self.arrowImageView.mas_left).offset(-XJFlexibleFont(2));
             make.centerY.equalTo(self.contentView);
         }];
         

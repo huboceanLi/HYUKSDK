@@ -23,19 +23,19 @@
     self.backgroundColor = UIColor.whiteColor;
     
     self.name = [UILabel new];
-    self.name.font = [UIFont boldSystemFontOfSize:16];
+    self.name.font = [UIFont boldSystemFontOfSize:XJFlexibleFont(16)];
     self.name.textColor = UIColor.textColor22;
     [self addSubview:self.name];
     
     self.des = [UILabel new];
-    self.des.font = [UIFont systemFontOfSize:13];
+    self.des.font = [UIFont systemFontOfSize:XJFlexibleFont(13)];
     self.des.textColor = UIColor.textColor99;
     [self addSubview:self.des];
     
     self.moreBtn = [QMUIButton buttonWithType:UIButtonTypeCustom];
     [self.moreBtn setTitle:@"简介" forState:0];
     [self.moreBtn setTitleColor:UIColor.textColor99 forState:0];
-    self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:XJFlexibleFont(13)];
     [self.moreBtn setImage:[UIImage uk_bundleImage:@"uk_video_arrow"] forState:0];
     [self.moreBtn setImagePosition:QMUIButtonImagePositionRight];
     self.moreBtn.spacingBetweenImageAndTitle = 0;
@@ -44,20 +44,20 @@
     
     [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(16);
-        make.top.equalTo(self.mas_top).offset(10);
-        make.height.mas_offset(20);
+        make.top.equalTo(self.mas_top).offset(XJFlexibleFont(10));
+        make.height.mas_offset(XJFlexibleFont(20));
     }];
     
     [self.des mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(16);
-        make.top.equalTo(self.name.mas_bottom).offset(6);
-        make.height.mas_offset(16);
+        make.top.equalTo(self.name.mas_bottom).offset(XJFlexibleFont(6));
+        make.height.mas_offset(XJFlexibleFont(16));
     }];
     
     [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-8);
-        make.top.equalTo(self.mas_top).offset(12);
-        make.height.mas_offset(20);
+        make.top.equalTo(self.mas_top).offset(XJFlexibleFont(12));
+        make.height.mas_offset(XJFlexibleFont(20));
     }];
     
 }

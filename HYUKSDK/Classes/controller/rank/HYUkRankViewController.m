@@ -92,7 +92,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat w = 80;
+    CGFloat w = XJFlexibleFont(80);
     CGFloat h = 160 * w / 120 + 20;
     return h;
 }
@@ -107,7 +107,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 
-    return 12.f;
+    return XJFlexibleFont(12);
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

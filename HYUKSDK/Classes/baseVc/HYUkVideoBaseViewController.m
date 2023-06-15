@@ -71,7 +71,7 @@
 -(UIView *)navBar {
     
     if (!_navBar) {
-        _navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (IS_iPhoneX?88:64))];
+        _navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, IS_IPAD ? 88 : (IS_iPhoneX?88:64))];
         _navBar.backgroundColor = [UIColor mainColor];
         [self.view addSubview:_navBar];
     }
@@ -80,9 +80,9 @@
 
 -(UILabel *)navTitleLabel {
     if (!_navTitleLabel) {
-        _navTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, IS_iPhoneX?48:24, SCREEN_WIDTH, 40)];
+        _navTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, IS_IPAD ? 48 : (IS_iPhoneX?48:24), SCREEN_WIDTH, 40)];
         _navTitleLabel.textColor = [UIColor bgColorFF];
-        _navTitleLabel.font = [UIFont boldSystemFontOfSize:17];
+        _navTitleLabel.font = [UIFont boldSystemFontOfSize:IS_IPAD ? 24 : 17];
         _navTitleLabel.textAlignment = NSTextAlignmentCenter;
         [self.navBar addSubview:_navTitleLabel];
     }
@@ -92,7 +92,7 @@
 -(UIButton *)navBackButton {
     if (!_navBackButton) {
         _navBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _navBackButton.frame = CGRectMake(0, (IS_iPhoneX?48:24), 40, 40);
+        _navBackButton.frame = CGRectMake(0, IS_IPAD ? 48 : (IS_iPhoneX?48:24), 40, 40);
         [_navBackButton addTarget:self action:@selector(clickedBackButton:) forControlEvents:UIControlEventTouchUpInside];
         [_navBackButton setImage:[UIImage uk_bundleImage:@"p_back"] forState:UIControlStateNormal];
         [self.navBar addSubview:_navBackButton];

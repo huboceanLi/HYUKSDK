@@ -23,7 +23,7 @@
     self.backgroundColor = UIColor.clearColor;
     
     CGFloat leftSpace = 15;
-    CGFloat space = 8;
+    CGFloat space = XJFlexibleFont(8);
     NSInteger count = 3;
     CGFloat w = ceil((SCREEN_WIDTH - leftSpace * 2 - space * 2) / count) - 1;
     CGFloat h = 160 * w / 120 + 6 + 20;

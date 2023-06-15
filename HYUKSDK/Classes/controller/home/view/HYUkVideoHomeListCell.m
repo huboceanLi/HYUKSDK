@@ -32,7 +32,7 @@
         [self addSubview:self.headImageView];
         
         self.name = [UILabel new];
-        self.name.font = [UIFont systemFontOfSize:13];
+        self.name.font = [UIFont systemFontOfSize:XJFlexibleFont(13)];
         self.name.textColor = [UIColor textColor22];
         [self addSubview:self.name];
         
@@ -43,7 +43,7 @@
         
         [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.equalTo(self);
-            make.bottom.equalTo(self.name.mas_top).offset(-6);
+            make.bottom.equalTo(self.name.mas_top).offset(-XJFlexibleFont(6));
         }];
         
         self.des = [UILabel new];

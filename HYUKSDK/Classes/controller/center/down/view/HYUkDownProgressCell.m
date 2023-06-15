@@ -37,7 +37,7 @@
 
         
         self.headImageView = [UIImageView new];
-        self.headImageView.layer.cornerRadius = 6.0;
+        self.headImageView.layer.cornerRadius = IS_IPAD ? 10.0 : 6.0;
         self.headImageView.layer.masksToBounds = YES;
         self.headImageView.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.3].CGColor;
         self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -45,34 +45,34 @@
         
         [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView.mas_left).offset(16);
-            make.width.mas_equalTo(90);
+            make.width.mas_equalTo(XJFlexibleFont(90));
             make.bottom.equalTo(self.contentView.mas_bottom).offset(-12);
             make.top.equalTo(self.contentView.mas_top).offset(12);
         }];
         
         self.name = [UILabel new];
-        self.name.font = [UIFont boldSystemFontOfSize:16];
+        self.name.font = [UIFont boldSystemFontOfSize:XJFlexibleFont(16)];
         self.name.textColor = [UIColor textColor22];
         [self.contentView addSubview:self.name];
         
         [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.headImageView.mas_right).offset(12);
+            make.left.equalTo(self.headImageView.mas_right).offset(XJFlexibleFont(12));
             make.right.equalTo(self.contentView.mas_right).offset(-12);
             make.top.equalTo(self.contentView.mas_top).offset(14);
         }];
 
         self.coverView = [UIView new];
-        self.coverView.layer.cornerRadius = 2.0;
+        self.coverView.layer.cornerRadius = XJFlexibleFont(2.0);
         self.coverView.layer.masksToBounds = YES;
         self.coverView.clipsToBounds = YES;
         self.coverView.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.2];
         [self.contentView addSubview:self.coverView];
         
         [self.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.name.mas_bottom).offset(13);
-            make.left.equalTo(self.headImageView.mas_right).offset(12);
-            make.right.equalTo(self.contentView.mas_right).offset(-12);
-            make.height.mas_equalTo(4);
+            make.top.equalTo(self.name.mas_bottom).offset(XJFlexibleFont(12));
+            make.left.equalTo(self.headImageView.mas_right).offset(XJFlexibleFont(12));
+            make.right.equalTo(self.contentView.mas_right).offset(-XJFlexibleFont(12));
+            make.height.mas_equalTo(XJFlexibleFont(4));
         }];
         
         self.progressView = [UIView new];
@@ -81,19 +81,19 @@
         
         [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.equalTo(self.coverView);
-            make.width.mas_equalTo(50);
+            make.width.mas_equalTo(XJFlexibleFont(50));
         }];
 
         self.progressLab = [UILabel new];
         self.progressLab.textAlignment = NSTextAlignmentRight;
-        self.progressLab.font = [UIFont systemFontOfSize:12];
+        self.progressLab.font = [UIFont systemFontOfSize:XJFlexibleFont(12)];
         self.progressLab.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:self.progressLab];
         
         [self.progressLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.coverView.mas_bottom).offset(13);
-            make.left.equalTo(self.headImageView.mas_right).offset(12);
-            make.height.mas_equalTo(16);
+            make.top.equalTo(self.coverView.mas_bottom).offset(XJFlexibleFont(13));
+            make.left.equalTo(self.headImageView.mas_right).offset(XJFlexibleFont(12));
+            make.height.mas_equalTo(XJFlexibleFont(16));
         }];
         
         self.lineView = [UIView new];
@@ -105,7 +105,7 @@
             make.height.mas_equalTo(0.5);
         }];
         
-        CGFloat allW = SCREEN_WIDTH - 16 - 90 - 12 - 12;
+        CGFloat allW = SCREEN_WIDTH - XJFlexibleFont(16) - XJFlexibleFont(90) - XJFlexibleFont(12) - XJFlexibleFont(12);
         self.singleProgress = allW / 100.0;
         
     }

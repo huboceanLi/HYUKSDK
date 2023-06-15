@@ -22,13 +22,13 @@
     [super initSubviews];
     
     CGFloat leftSpace = 15;
-    CGFloat space = 8;
+    CGFloat space = XJFlexibleFont(8);
 
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc] init];
     flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, leftSpace);
     flow.scrollDirection = UICollectionViewScrollDirectionVertical;
     flow.minimumLineSpacing = space;
-    flow.minimumInteritemSpacing = 0;
+    flow.minimumInteritemSpacing = XJFlexibleFont(4);
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flow];
     _collectionView.delegate = self;
@@ -52,7 +52,7 @@
 #pragma mark  --- UICollectionViewDataSource
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     HYUkTextTempModel *m = self.dataArray[indexPath.row];
-    return CGSizeMake(m.nameWidth, 20);
+    return CGSizeMake(m.nameWidth, XJFlexibleFont(20));
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -101,7 +101,7 @@
         NSString *item = array[i];
         HYUkTextTempModel *m = [HYUkTextTempModel new];
         m.name = item;
-        m.nameFont = [UIFont systemFontOfSize:13];
+        m.nameFont = [UIFont systemFontOfSize:XJFlexibleFont(13)];
         [self.dataArray addObject:m];
     }
     [self.collectionView reloadData];

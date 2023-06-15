@@ -20,12 +20,12 @@
     if (self) {
         
 //        self.backgroundColor = UIColor.clearColor;
-        self.layer.cornerRadius = 14.0;
+        self.layer.cornerRadius = XJFlexibleFont(14);
         self.clipsToBounds = YES;
         self.layer.masksToBounds = YES;
         
         self.name = [UILabel new];
-        self.name.font = [UIFont systemFontOfSize:13];
+        self.name.font = [UIFont systemFontOfSize:XJFlexibleFont(13)];
         self.name.textColor = [UIColor mainColor];
         self.name.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.name];

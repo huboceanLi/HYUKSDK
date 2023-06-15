@@ -42,7 +42,7 @@
 #import "MYDialogViewController.h"
 #import "HYUkDownManager.h"
 #import "HYUKADHeader.h"
-//#import "HYUkLinkViewController.h"
+#import "AdaptScreen.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

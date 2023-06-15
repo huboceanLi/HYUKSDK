@@ -43,7 +43,7 @@
     
     [self.scoreView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(XJFlexibleFont(40));
     }];
 
     self.typeView = [HYUkHomeCategeryView new];
@@ -53,7 +53,7 @@
     
     [self.typeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(XJFlexibleFont(40));
         make.top.equalTo(self.scoreView.mas_bottom).offset(0);
     }];
     
@@ -64,7 +64,7 @@
     
     [self.areaView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(XJFlexibleFont(40));
         make.top.equalTo(self.typeView.mas_bottom).offset(0);
     }];
     
@@ -75,7 +75,7 @@
     
     [self.langView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(XJFlexibleFont(40));
         make.top.equalTo(self.areaView.mas_bottom).offset(0);
     }];
     
@@ -86,7 +86,7 @@
     
     [self.yearView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(XJFlexibleFont(40));
         make.top.equalTo(self.langView.mas_bottom).offset(0);
     }];
 }
@@ -108,7 +108,7 @@
         [self.typeView loadContent];
         self.typeView.hidden = NO;
         [self.typeView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(40);
+            make.height.mas_equalTo(XJFlexibleFont(40));
         }];
         self.index++;
     }else {
@@ -126,7 +126,7 @@
         
         self.yearView.hidden = NO;
         [self.yearView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(40);
+            make.height.mas_equalTo(XJFlexibleFont(40));
         }];
         self.index++;
     }else {
@@ -144,7 +144,7 @@
         
         self.areaView.hidden = NO;
         [self.areaView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(40);
+            make.height.mas_equalTo(XJFlexibleFont(40));
         }];
         self.index++;
     }else {
@@ -162,7 +162,7 @@
         
         self.langView.hidden = NO;
         [self.langView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(40);
+            make.height.mas_equalTo(XJFlexibleFont(40));
         }];
         self.index++;
     }else {

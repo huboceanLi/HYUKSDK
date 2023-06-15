@@ -26,8 +26,6 @@
 @property (nonatomic, strong) NSArray *categeryModels;
 @property (nonatomic, strong) HYUKHistoryRecodeView *recodeView;
 
-
-
 @end
 
 @implementation HYUkHomeViewController
@@ -71,15 +69,14 @@
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     
-//    _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];
-
     _headerView = [[JXCategoryTitleView alloc] initWithFrame:CGRectZero];
     _headerView.backgroundColor = UIColor.clearColor;
     _headerView.titles = _titleArray;
     _headerView.titleColor = UIColor.textColor22;
     _headerView.titleSelectedColor = UIColor.whiteColor;
-    _headerView.titleSelectedFont = [UIFont boldSystemFontOfSize:16];
-    _headerView.titleFont = UIFontMake(14);
+    
+    _headerView.titleSelectedFont = [UIFont boldSystemFontOfSize:XJFlexibleFont(16)];
+    _headerView.titleFont = UIFontMake(XJFlexibleFont(14));
     _headerView.titleColorGradientEnabled = YES;
     _headerView.titleLabelZoomScale = 1.1;
     _headerView.titleLabelZoomEnabled = YES;
@@ -99,7 +96,7 @@
     [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.navBar.mas_bottom);
         make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(IS_IPAD ? 60 : 40);
     }];
     
     [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -114,13 +111,12 @@
     }
     
     [self getData];
-    
 
     [self.view addSubview:self.recodeView];
     [self.recodeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(0);
-        make.bottom.equalTo(self.view.mas_bottom).offset(- (IS_iPhoneX ? 120 : 80));
-        make.height.mas_equalTo(60);
+        make.bottom.equalTo(self.view.mas_bottom).offset(- (IS_IPAD ? 150 : (IS_iPhoneX ? 120 : 80)));
+        make.height.mas_equalTo(XJFlexibleFont(60));
     }];
     
     self.recodeView.hidden = YES;

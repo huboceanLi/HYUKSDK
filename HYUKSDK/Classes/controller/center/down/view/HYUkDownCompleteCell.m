@@ -29,7 +29,7 @@
 
         
         self.headImageView = [UIImageView new];
-        self.headImageView.layer.cornerRadius = 6.0;
+        self.headImageView.layer.cornerRadius = IS_IPAD ? 10.0 : 6.0;
         self.headImageView.layer.masksToBounds = YES;
         self.headImageView.backgroundColor = UIColor.lightGrayColor;
         self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -37,24 +37,24 @@
         
         [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView.mas_left).offset(16);
-            make.width.mas_equalTo(90);
+            make.width.mas_equalTo(XJFlexibleFont(90));
             make.bottom.equalTo(self.contentView.mas_bottom).offset(-12);
             make.top.equalTo(self.contentView.mas_top).offset(12);
         }];
         
         self.name = [UILabel new];
-        self.name.font = [UIFont boldSystemFontOfSize:16];
+        self.name.font = [UIFont boldSystemFontOfSize:XJFlexibleFont(16)];
         self.name.textColor = [UIColor textColor22];
         [self.contentView addSubview:self.name];
         
         [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.headImageView.mas_right).offset(12);
             make.right.equalTo(self.contentView.mas_right).offset(-12);
-            make.top.equalTo(self.contentView.mas_top).offset(14);
+            make.top.equalTo(self.contentView.mas_top).offset(XJFlexibleFont(14));
         }];
 
         self.briefLab = [UILabel new];
-        self.briefLab.font = [UIFont systemFontOfSize:12];
+        self.briefLab.font = [UIFont systemFontOfSize:XJFlexibleFont(12)];
         self.briefLab.numberOfLines = 1;
         self.briefLab.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:self.briefLab];
@@ -63,12 +63,12 @@
         [self.briefLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.headImageView.mas_right).offset(12);
             make.right.equalTo(self.contentView.mas_right).offset(-12);
-            make.top.equalTo(self.name.mas_bottom).offset(5);
+            make.top.equalTo(self.name.mas_bottom).offset(XJFlexibleFont(5));
             make.height.mas_equalTo(16);
         }];
         
         self.completeLab = [UILabel new];
-        self.completeLab.font = [UIFont systemFontOfSize:12];
+        self.completeLab.font = [UIFont systemFontOfSize:XJFlexibleFont(12)];
         self.completeLab.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:self.completeLab];
 
@@ -76,7 +76,7 @@
         [self.completeLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.headImageView.mas_right).offset(12);
             make.right.equalTo(self.contentView.mas_right).offset(-12);
-            make.top.equalTo(self.briefLab.mas_bottom).offset(5);
+            make.top.equalTo(self.briefLab.mas_bottom).offset(XJFlexibleFont(5));
             make.height.mas_equalTo(16);
         }];
         

@@ -52,7 +52,7 @@
 //    if (indexPath.section == 0 && indexPath.row == 0) {
 //        return 70;
 //    }
-    CGFloat w = 80;
+    CGFloat w = XJFlexibleFont(80);
     CGFloat h = 160 * w / 120 + 20;
     return h;
 }

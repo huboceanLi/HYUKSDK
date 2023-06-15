@@ -31,7 +31,7 @@
     self.clipsToBounds = NO;
     
     self.bgView = [UIView new];
-    self.bgView.layer.cornerRadius = 20.0;
+    self.bgView.layer.cornerRadius = XJFlexibleFont(20);
     self.bgView.layer.masksToBounds = YES;
     self.bgView.layer.qmui_maskedCorners = QMUILayerMaxXMinYCorner | QMUILayerMaxXMaxYCorner;
     self.bgView.backgroundColor = UIColor.whiteColor;
@@ -41,7 +41,7 @@
     
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(XJFlexibleFont(40));
         make.centerY.equalTo(self);
     }];
     
@@ -67,9 +67,9 @@
     att.yy_font = [UIFont systemFontOfSize:13];
     
     
-    [att addAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor],NSFontAttributeName: [UIFont systemFontOfSize:13]} range:NSMakeRange(0, t.length)];
-    [att addAttributes:@{NSForegroundColorAttributeName: [UIColor textColor22],NSFontAttributeName: [UIFont systemFontOfSize:13]} range:NSMakeRange(t.length, name.length)];
-    [att addAttributes:@{NSForegroundColorAttributeName: [UIColor mainColor],NSFontAttributeName: [UIFont boldSystemFontOfSize:13]} range:NSMakeRange(name.length + t.length, j.length)];
+    [att addAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor],NSFontAttributeName: [UIFont systemFontOfSize:XJFlexibleFont(13)]} range:NSMakeRange(0, t.length)];
+    [att addAttributes:@{NSForegroundColorAttributeName: [UIColor textColor22],NSFontAttributeName: [UIFont systemFontOfSize:XJFlexibleFont(13)]} range:NSMakeRange(t.length, name.length)];
+    [att addAttributes:@{NSForegroundColorAttributeName: [UIColor mainColor],NSFontAttributeName: [UIFont boldSystemFontOfSize:XJFlexibleFont(13)]} range:NSMakeRange(name.length + t.length, j.length)];
     self.name.attributedText = att;
 }
 

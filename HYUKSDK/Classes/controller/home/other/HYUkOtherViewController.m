@@ -28,7 +28,7 @@
     self.dataArray = [NSMutableArray array];
     self.view.backgroundColor = UIColor.clearColor;
 //    [[HYVideoPlayTypeManager shareInstance] getPlayTypeLisy];
-    self.headHeight = 200.0;
+    self.headHeight = XJFlexibleFont(200);
     
     CGFloat leftSpace = 15;
     CGFloat space = 8;
@@ -40,7 +40,7 @@
     flow.sectionInset = UIEdgeInsetsMake(leftSpace, leftSpace, leftSpace, leftSpace);
     flow.itemSize = CGSizeMake(w, h);
     flow.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flow.minimumLineSpacing = space;
+    flow.minimumLineSpacing = IS_IPAD ? space * 3 : space;
     flow.minimumInteritemSpacing = space;
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flow];
@@ -166,7 +166,7 @@
         NSDictionary *dic = event;
         if ([dic[@"type"] isEqualToString:@"h"]) {
             NSInteger index = [dic[@"h"] intValue];
-            self.headHeight = 40.0 * index;
+            self.headHeight = XJFlexibleFont(40) * index;
             [self.collectionView updateEmptyViewWithImageName:@"" title:@""];
             [self.collectionView reloadData];
         }else {

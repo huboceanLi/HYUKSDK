@@ -16,7 +16,7 @@
     self.backgroundColor = UIColor.clearColor;
     
     self.name = [UILabel new];
-    self.name.font = [UIFont boldSystemFontOfSize:17];
+    self.name.font = [UIFont boldSystemFontOfSize:XJFlexibleFont(17)];
     self.name.textColor = [UIColor textColor22];
     [self addSubview:self.name];
     

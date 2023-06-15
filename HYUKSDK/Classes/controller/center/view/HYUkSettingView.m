@@ -27,20 +27,20 @@
 - (void)initSubviews {
     [super initSubviews];
     self.backgroundColor = UIColor.whiteColor;
-    self.layer.cornerRadius = 12.0;
+    self.layer.cornerRadius = IS_IPAD ? 18.0 : 12.0;
     self.layer.masksToBounds = YES;
     
     self.cacheSize = [[HYUkVideoConfigManager sharedInstance] getCacheSize];
     
     self.name = [UILabel new];
-    self.name.font = [UIFont boldSystemFontOfSize:16];
+    self.name.font = [UIFont boldSystemFontOfSize:XJFlexibleFont(16)];
     self.name.textColor = UIColor.textColor22;
     self.name.text = @"设置";
     [self addSubview:self.name];
     
     [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(16);
-        make.height.mas_offset(50);
+        make.height.mas_offset(XJFlexibleFont(50));
         make.top.equalTo(self.mas_top).offset(0);
     }];
     
@@ -82,7 +82,7 @@
 #pragma mark - Table view datasource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    return 50;
+    return XJFlexibleFont(50);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

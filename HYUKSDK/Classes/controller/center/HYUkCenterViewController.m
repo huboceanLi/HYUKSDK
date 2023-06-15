@@ -22,7 +22,6 @@
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
 @property(nonatomic, strong) UIScrollView * scrollView;
-//@property(nonatomic, strong) HYUkLoginView * loginView;
 @property(nonatomic, strong) HYUkCenterHistoryView * historyView;
 @property(nonatomic, strong) HYCenterToolView * toolView;
 @property(nonatomic, strong) HYUkSettingView * settingView;
@@ -80,7 +79,7 @@
 //        make.top.equalTo(self.loginView.mas_bottom).offset(20);
         make.left.equalTo(self.scrollView.mas_left).offset(15);
         make.width.mas_offset(SCREEN_WIDTH - 30);
-        make.height.mas_offset(115);
+        make.height.mas_offset(XJFlexibleFont(115));
     }];
     
     self.historyView = [HYUkCenterHistoryView new];
@@ -91,7 +90,7 @@
         make.top.equalTo(self.toolView.mas_bottom).offset(20);
         make.left.equalTo(self.scrollView.mas_left).offset(15);
         make.width.mas_offset(SCREEN_WIDTH - 30);
-        make.height.mas_offset(152);
+        make.height.mas_offset(XJFlexibleFont(152));
     }];
     
     self.settingView = [HYUkSettingView new];
@@ -102,10 +101,10 @@
         make.top.equalTo(self.historyView.mas_bottom).offset(20);
         make.left.equalTo(self.scrollView.mas_left).offset(15);
         make.width.mas_offset(SCREEN_WIDTH - 30);
-        make.height.mas_offset(50 * 7);
+        make.height.mas_offset(XJFlexibleFont(50 * 6));
     }];
     
-    CGFloat h = (IS_iPhoneX ? 88 : 64) + 115 + 20 + 152 + 20 + 50 * 7 + 20;
+    CGFloat h = (IS_iPhoneX ? 88 : 64) + XJFlexibleFont(115) + XJFlexibleFont(20) + XJFlexibleFont(152) + XJFlexibleFont(20) + XJFlexibleFont(50 * 6) + XJFlexibleFont(20);
     if (h > SCREEN_HEIGHT - (IS_iPhoneX ? 80 : 50)) {
         [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, h)];
     }else {

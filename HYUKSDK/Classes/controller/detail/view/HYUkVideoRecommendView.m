@@ -26,21 +26,21 @@
     self.backgroundColor = UIColor.whiteColor;
     
     self.name = [UILabel new];
-    self.name.font = [UIFont boldSystemFontOfSize:16];
+    self.name.font = [UIFont boldSystemFontOfSize:XJFlexibleFont(16)];
     self.name.textColor = UIColor.textColor22;
     self.name.text = @"猜你喜欢";
     [self addSubview:self.name];
     
     [self.name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(16);
-        make.height.mas_offset(50);
+        make.height.mas_offset(XJFlexibleFont(50));
         make.top.equalTo(self.mas_top).offset(0);
     }];
 
     CGFloat leftSpace = 15;
-    CGFloat space = 8;
-    CGFloat w = 110 * 120 / 160;
-    CGFloat h = 110 + 6 + 20;
+    CGFloat space = XJFlexibleFont(8);
+    CGFloat w = XJFlexibleFont(110 * 120 / 160);
+    CGFloat h = XJFlexibleFont(110 + 6 + 20);
     
     UICollectionViewFlowLayout * flow = [[UICollectionViewFlowLayout alloc] init];
     flow.sectionInset = UIEdgeInsetsMake(0, leftSpace, 0, leftSpace);

@@ -31,7 +31,7 @@
     
     self.downBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.downBtn setTitle:@"全部下载" forState:0];
-    self.downBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    self.downBtn.titleLabel.font = [UIFont systemFontOfSize:XJFlexibleFont(16)];
     self.downBtn.tag = 1;
     [self.downBtn setTitleColor:UIColor.mainColor forState:0];
     [self addSubview:self.downBtn];
@@ -49,7 +49,7 @@
     [self.clearBtn setTitle:@"全部删除" forState:0];
     [self.clearBtn setTitleColor:UIColor.mainColor forState:0];
     self.clearBtn.tag = 2;
-    self.clearBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    self.clearBtn.titleLabel.font = [UIFont systemFontOfSize:XJFlexibleFont(16)];
     [self addSubview:self.clearBtn];
     [self.clearBtn addTarget:self action:@selector(clearButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.clearBtn.qmui_borderPosition = QMUIViewBorderPositionRight|QMUIViewBorderPositionBottom;

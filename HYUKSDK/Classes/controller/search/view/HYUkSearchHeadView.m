@@ -23,17 +23,17 @@
     self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.searchBtn setTitle:@"取消" forState:0];
     [self.searchBtn setTitleColor:UIColor.textColor99 forState:0];
-    self.searchBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    self.searchBtn.titleLabel.font = [UIFont systemFontOfSize:XJFlexibleFont(14)];
     [self addSubview:self.searchBtn];
     
     self.searchContentView = [UIView new];
     self.searchContentView.layer.backgroundColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.2].CGColor;
-    self.searchContentView.layer.cornerRadius = 16.0;
+    self.searchContentView.layer.cornerRadius = XJFlexibleFont(16);
     self.searchContentView.layer.masksToBounds = YES;
     [self addSubview:self.searchContentView];
     
     UIImageView *searchImageView = [UIImageView new];
-    searchImageView.image = [UIImage uk_bundleImage:@"uk_search_wh1"];
+    searchImageView.image = [UIImage uk_bundleImage:@"uk_search_wh"];
     [self.searchContentView addSubview:searchImageView];
     
     
@@ -42,7 +42,7 @@
     self.textField.text = @"黑豹";
     self.textField.delegate = self;
     self.textField.placeholderColor = UIColor.lightGrayColor;
-    self.textField.font = [UIFont systemFontOfSize:14];
+    self.textField.font = [UIFont systemFontOfSize:XJFlexibleFont(14)];
     self.textField.returnKeyType = UIReturnKeySearch;
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.textField.textColor = UIColor.textColor33;
@@ -50,25 +50,25 @@
     
     [self.searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.top.equalTo(self);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(XJFlexibleFont(60));
     }];
     
     [self.searchContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
         make.right.equalTo(self.searchBtn.mas_left);
         make.centerY.equalTo(self);
-        make.height.mas_equalTo(32);
+        make.height.mas_equalTo(XJFlexibleFont(32));
     }];
     
     [searchImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.searchContentView.mas_left).offset(10);
         make.centerY.equalTo(self.searchContentView);
-        make.height.width.mas_equalTo(20);
+        make.height.width.mas_equalTo(XJFlexibleFont(20));
     }];
     
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.right.equalTo(self.searchContentView);
-        make.left.equalTo(searchImageView.mas_right).offset(8);
+        make.left.equalTo(searchImageView.mas_right).offset(XJFlexibleFont(8));
     }];
     
     __weak typeof(self) weakSelf = self;

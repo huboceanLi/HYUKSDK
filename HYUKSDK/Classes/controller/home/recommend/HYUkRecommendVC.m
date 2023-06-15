@@ -95,7 +95,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     CGFloat leftSpace = 15;
-    CGFloat space = 8;
+    CGFloat space = XJFlexibleFont(8);
     NSInteger count = 3;
     CGFloat w = ceil((SCREEN_WIDTH - leftSpace * 2 - space * 2) / count) - 1;
     CGFloat h = 160 * w / 120 + 6 + 20;
@@ -107,8 +107,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-
-    return 46.f;
+    
+    return XJFlexibleFont(46.f);
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -117,7 +117,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
-    HYUkRecommendHeadView *lineView = [[HYUkRecommendHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 46.f)];
+    HYUkRecommendHeadView *lineView = [[HYUkRecommendHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, XJFlexibleFont(46.f))];
 //    lineView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
     if (section == 0) {
         lineView.name.text = @"电影";

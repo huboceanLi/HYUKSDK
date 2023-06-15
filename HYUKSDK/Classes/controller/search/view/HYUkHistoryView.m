@@ -64,16 +64,11 @@
 #pragma mark  --- UICollectionViewDataSource
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake(70, 30);
-
-//    HYDouBanCategeryTempModel *m = self.dataArray[indexPath.row];
-//    return CGSizeMake(m.cellWidth, 30);
+//    return CGSizeMake(70, 30);
+    HYUkTextTempModel *m = self.dataArray[indexPath.row];
+    return CGSizeMake(m.nameWidth, XJFlexibleFont(30));
 }
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section;
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -108,7 +103,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return CGSizeMake(SCREEN_WIDTH, 70);
+    return CGSizeMake(SCREEN_WIDTH, XJFlexibleFont(70));
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -118,7 +113,7 @@
         headView.backgroundColor = UIColor.clearColor;
 
         if (!self.historyHeadView) {
-            self.historyHeadView = [[HYUkHistoryHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 70)];
+            self.historyHeadView = [[HYUkHistoryHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, XJFlexibleFont(70))];
             [headView addSubview:self.historyHeadView];
         }
 
@@ -137,7 +132,7 @@
         NSString *item = arr[i];
         HYUkTextTempModel *m = [HYUkTextTempModel new];
         m.name = item;
-        m.nameFont = [UIFont systemFontOfSize:13];
+        m.nameFont = [UIFont systemFontOfSize:XJFlexibleFont(13)];
         [temArray addObject:m];
     }
     self.dataArray = [temArray mutableCopy];
