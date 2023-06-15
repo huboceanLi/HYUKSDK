@@ -35,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isOpenTheProxy;
 
+- (NSString *)getCacheSize;
+- (void)clearCache;
+
 @end
 
 NS_ASSUME_NONNULL_END

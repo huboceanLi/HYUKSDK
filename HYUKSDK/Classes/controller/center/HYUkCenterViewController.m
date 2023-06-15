@@ -16,6 +16,8 @@
 #import "HYUkDetailViewController.h"
 #import "HYUkSettingView.h"
 #import "HYUkDownVC.h"
+#import "HYUKPrivacyViewController.h"
+#import "HYUKMessageViewController.h"
 
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
@@ -129,7 +131,7 @@
         }else if (index == 3) {
             
         }else if (index == 4) {
-            HYUkSettingViewController *vc = [HYUkSettingViewController new];
+            HYUKMessageViewController *vc = [HYUKMessageViewController new];
             [self.navigationController pushViewController:vc animated:YES];
         }
         return;
@@ -150,8 +152,18 @@
             vc.videoId = [dic[@"tvId"]  integerValue];
             [self.navigationController pushViewController:vc animated:YES];
         }
-
+        return;
     }
+    
+    if ([view isKindOfClass:[HYUkSettingView class]]) {
+        NSInteger index = [event intValue];
+        if (index == 1 || index == 2) {
+            HYUKPrivacyViewController *vc = [HYUKPrivacyViewController new];
+            vc.index = index;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+        
 }
 
 @end

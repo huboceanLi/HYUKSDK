@@ -113,4 +113,76 @@ static HYUkVideoConfigManager *manager = nil;
     }
 }
 
+/*
+ 自定义方法：获取缓存大小
+ */
+- (NSString *)getCacheSize{
+    //获取文件管理器
+    NSFileManager *fileM = [NSFileManager defaultManager];
+    //获取缓存路径
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    
+    //得到缓存文件列表
+    NSArray *childPaths = [fileM subpathsAtPath:cachePath];
+    
+    //存储文件总长度
+    long long size = 0;
+    for(NSString *childPath in childPaths){
+        //得到文件路径
+        NSString *filePath = [cachePath stringByAppendingPathComponent:childPath];
+        
+        //获取当前是文件还是目录
+        BOOL isDir = NO;
+        [fileM fileExistsAtPath:filePath isDirectory:&isDir];
+ 
+        if(isDir){//如果是目录则跳出此次循环
+            continue;
+        }
+        
+        //将文件大小累加
+        size = size + [[fileM attributesOfItemAtPath:filePath error:nil][NSFileSize] longLongValue];
+    }
+
+    return [self convertFileSize:size];
+}
+
+- (NSString *)convertFileSize:(long long)size {
+    long kb = 1024;
+    long mb = kb * 1024;
+    long gb = mb * 1024;
+    
+    if (size >= gb) {
+        return [NSString stringWithFormat:@"%.1f GB", (float) size / gb];
+    } else if (size >= mb) {
+        float f = (float) size / mb;
+        if (f > 100) {
+            return [NSString stringWithFormat:@"%.0f MB", f];
+        }else{
+            return [NSString stringWithFormat:@"%.1f MB", f];
+        }
+    } else if (size >= kb) {
+        float f = (float) size / kb;
+        if (f > 100) {
+            return [NSString stringWithFormat:@"%.0f KB", f];
+        }else{
+            return [NSString stringWithFormat:@"%.1f KB", f];
+        }
+    } else
+        return [NSString stringWithFormat:@"%lld B", size];
+}
+
+/*
+ 自定义方法，清除APP缓存
+ */
+- (void)clearCache{
+    //获取文件管理器
+    NSFileManager *fileM = [NSFileManager defaultManager];
+    //获取缓存路径
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    //清除缓存
+    [fileM removeItemAtPath:cachePath error:nil];
+}
+
+
+
 @end

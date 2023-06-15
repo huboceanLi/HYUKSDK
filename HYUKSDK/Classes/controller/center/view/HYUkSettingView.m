@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) NSArray *imageArray;
+@property (nonatomic, strong) NSString *cacheSize;
 
 @end
 
@@ -28,6 +29,8 @@
     self.backgroundColor = UIColor.whiteColor;
     self.layer.cornerRadius = 12.0;
     self.layer.masksToBounds = YES;
+    
+    self.cacheSize = [[HYUkVideoConfigManager sharedInstance] getCacheSize];
     
     self.name = [UILabel new];
     self.name.font = [UIFont boldSystemFontOfSize:16];
@@ -102,6 +105,9 @@
         cell.arrowImageView.hidden = YES;
     }else if (indexPath.row == 3 || indexPath.row == 4) {
         cell.briefLab.hidden = NO;
+        if (indexPath.row == 3) {
+            cell.briefLab.text = self.cacheSize;
+        }
     }
 
     cell.name.text = self.dataArray[indexPath.row];
@@ -136,7 +142,23 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-
+    if (indexPath.row == 3) {
+        
+        [MBProgressHUD showActivityMessageInWindow:@""];
+        [[HYUkVideoConfigManager sharedInstance] clearCache];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.cacheSize = @"";
+            [self.tableView reloadData];
+            [MBProgressHUD hideHUD];
+        });
+        return;
+    }
+    
+    if (indexPath.row != 0) {
+        if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+            [self.delegate customView:self event:@(indexPath.row)];
+        }
+    }
 }
 
 @end

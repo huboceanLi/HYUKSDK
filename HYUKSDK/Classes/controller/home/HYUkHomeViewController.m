@@ -14,6 +14,7 @@
 #import "HYUKADHeader.h"
 #import "HYUkDetailViewController.h"
 #import "HYUKHistoryRecodeView.h"
+#import "HYUKMessageViewController.h"
 
 @interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate>
 
@@ -66,7 +67,8 @@
     
     __weak typeof(self) weakSelf = self;
     [self.messageBtn blockEvent:^(UIButton *button) {
-
+        HYUKMessageViewController *vc = [HYUKMessageViewController new];
+        [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     
 //    _titleArray = @[@"推荐",@"电影",@"电视剧",@"动漫",@"综艺",@"纪录片"];
