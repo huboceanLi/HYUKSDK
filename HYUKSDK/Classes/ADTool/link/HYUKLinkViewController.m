@@ -133,7 +133,7 @@
 - (void)chooseModel {
     
     if (self.versionModel == nil || !self.versionModel.open_ad) {
-        self.successBlock(NO);
+        self.successBlock(YES);
         return;
     }
 
@@ -147,17 +147,17 @@
             if (initSuccess) {
                 [[UKBuSplashManager shared] loadSplashAdWithVC:self close:^(BOOL close) {
                     [weakSelf p_dismiss];
-                    weakSelf.successBlock(YES);
+                    weakSelf.successBlock(NO);
                 }];
             }else {
-                weakSelf.successBlock(YES);
+                weakSelf.successBlock(NO);
             }
         }];
 
         
         return;
     }
-    self.successBlock(NO);
+    self.successBlock(YES);
 }
 
 - (void)p_dismiss {

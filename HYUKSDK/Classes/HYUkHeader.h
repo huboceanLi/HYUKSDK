@@ -51,4 +51,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }\
 (isPhoneX);})
 
+#define SDKVersion @"1.0.0"
+
 #endif /* HYUkHeader_h */

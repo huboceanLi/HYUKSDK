@@ -6,11 +6,9 @@
 //
 
 #import "HYUkCenterViewController.h"
-#import "HYUkLoginView.h"
 #import "HYUkCenterHistoryView.h"
 #import "HYCenterToolView.h"
 #import "HYUkCollectionViewController.h"
-#import "HYUkSettingViewController.h"
 #import "HYUkCenterHistoryListViewController.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
 #import "HYUkDetailViewController.h"
@@ -18,6 +16,7 @@
 #import "HYUkDownVC.h"
 #import "HYUKPrivacyViewController.h"
 #import "HYUKMessageViewController.h"
+#import "HYUKContactViewController.h"
 
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
@@ -58,18 +57,6 @@
         make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
     }];
 
-    
-//    self.loginView = [HYUkLoginView new];
-//    self.loginView.delegate = self;
-//    [self.scrollView addSubview:self.loginView];
-//
-//    [self.loginView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.scrollView.mas_top).offset(IS_iPhoneX ? 88 : 64);
-//        make.left.equalTo(self.scrollView.mas_left).offset(15);
-//        make.width.mas_offset(SCREEN_WIDTH - 30);
-//        make.height.mas_offset(100);
-//    }];
-    
     self.toolView = [HYCenterToolView new];
     self.toolView.delegate = self;
     [self.scrollView addSubview:self.toolView];
@@ -160,7 +147,14 @@
             HYUKPrivacyViewController *vc = [HYUKPrivacyViewController new];
             vc.index = index;
             [self.navigationController pushViewController:vc animated:YES];
+            return;
         }
+        if (index == 4) {
+            HYUKContactViewController *vc = [HYUKContactViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+
+        
     }
         
 }

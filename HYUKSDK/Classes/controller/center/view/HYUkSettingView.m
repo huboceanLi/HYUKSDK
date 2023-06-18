@@ -153,7 +153,7 @@
         });
         return;
     }
-    
+
     if (indexPath.row != 0) {
         if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
             [self.delegate customView:self event:@(indexPath.row)];

@@ -11,8 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUKLinkViewController : UIViewController
 
-//- (void)showViewControllerRootVC:(void (^)(BOOL rootVC))rootVC;
-
+//
 @property (copy, nonatomic) void (^successBlock)(BOOL rootVC);
 
 @end
