@@ -100,6 +100,7 @@
     [HYUkRequestWorking getVersionCompletionHandle:^(HYVideoVersionModel * _Nonnull model, BOOL success) {
         if (success) {
             weakSelf.versionModel = model;
+            [HYUKConfigManager shareInstance].versionModel = model;
             [weakSelf chooseModel];
         }else {
             //去业务
@@ -110,21 +111,28 @@
 }
 
 - (void)chooseModel {
-    if ([self.versionModel.version integerValue] == 9999 || !self.versionModel.open_ad) {
-//        self.rootVC(NO);
+    
+    if (self.versionModel == nil || !self.versionModel.open_ad) {
         self.successBlock(NO);
         return;
     }
 
-    //初始化广告，调用开屏
-    [[UKBuSplashManager shared] registerAppId];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_build = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    
+    if ([app_build integerValue] <=  [self.versionModel.version integerValue]) {
+        //初始化广告，调用开屏
+        [[UKBuSplashManager shared] registerAppId];
 
-    __weak typeof(self) weakSelf = self;
-    [[UKBuSplashManager shared] loadSplashAdWithVC:self close:^(BOOL close) {
-        [weakSelf p_dismiss];
-        weakSelf.successBlock(NO);
-    }];
-
+        __weak typeof(self) weakSelf = self;
+        [[UKBuSplashManager shared] loadSplashAdWithVC:self close:^(BOOL close) {
+            [weakSelf p_dismiss];
+            weakSelf.successBlock(NO);
+        }];
+        
+        return;
+    }
+    self.successBlock(NO);
 }
 
 - (void)p_dismiss {

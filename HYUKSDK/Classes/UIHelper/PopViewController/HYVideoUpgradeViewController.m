@@ -23,6 +23,14 @@
     self.modal = YES;
     self.animationStyle = QMUIModalPresentationAnimationStyleFade;
 
+    __weak typeof(self) weakSelf = self;
+    [self.upgradeView.closeButton blockEvent:^(UIButton *button) {
+        [weakSelf hideWithAnimated:YES completion:nil];
+    }];
+    
+    [self.upgradeView.upgradeButton blockEvent:^(UIButton *button) {
+            
+    }];
 }
 
 - (void)initSubViews {

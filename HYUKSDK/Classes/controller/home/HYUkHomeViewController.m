@@ -15,8 +15,9 @@
 #import "HYUkDetailViewController.h"
 #import "HYUKHistoryRecodeView.h"
 #import "HYUKMessageViewController.h"
+#import "HYVideoUpgradeViewController.h"
 
-@interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate>
+@interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate,PopViewControllerDelegate>
 
 @property(nonatomic, strong) JXCategoryTitleView * headerView;
 @property(nonatomic, strong) JXCategoryListContainerView * containerView;
@@ -25,6 +26,7 @@
 @property (nonatomic, strong) BadgeButton *messageBtn;
 @property (nonatomic, strong) NSArray *categeryModels;
 @property (nonatomic, strong) HYUKHistoryRecodeView *recodeView;
+@property (nonatomic, strong) HYVideoUpgradeViewController *upgradeViewController;
 
 @end
 
@@ -121,9 +123,27 @@
     
     self.recodeView.hidden = YES;
     
+    [self chooseVersion];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[UKNativeExpressFullscreenManager shared] loadExpressAdWithVC:self];
     });
+}
+
+- (void)chooseVersion {
+    if ([HYUKConfigManager shareInstance].versionModel == nil) {
+        return;
+    }
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_build = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    
+    if ([app_build integerValue] <  [[HYUKConfigManager shareInstance].versionModel.version integerValue]) {
+        if ([HYUKConfigManager shareInstance].versionModel.force == 0) {
+            return;
+        }
+        [self.upgradeViewController showWithAnimated:YES completion:nil];
+    }
 }
 
 - (void)getHistory {
@@ -223,4 +243,15 @@
     return _messageBtn;
 }
 
+- (HYVideoUpgradeViewController *)upgradeViewController {
+    if (!_upgradeViewController) {
+        _upgradeViewController = [[HYVideoUpgradeViewController alloc] init];
+    }
+    return _upgradeViewController;
+}
+
+- (void)popViewController:(PopViewController *)popVC event:(id)event
+{
+    
+}
 @end

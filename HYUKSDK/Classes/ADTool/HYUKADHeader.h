@@ -10,5 +10,6 @@
 
 #import "UKNativeExpressFullscreenManager.h"
 #import "HYUKInitTool.h"
+#import "HYUKConfigManager.h"
 
 #endif /* HYUKADDHeader_h */

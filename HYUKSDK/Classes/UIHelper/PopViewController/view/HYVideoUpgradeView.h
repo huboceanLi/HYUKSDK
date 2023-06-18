@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CGFloat) contentViewHeight;
 
+@property (nonatomic, strong) UIButton *closeButton;
+@property (nonatomic, strong) UIButton *upgradeButton;
+
 @end
 
 NS_ASSUME_NONNULL_END
