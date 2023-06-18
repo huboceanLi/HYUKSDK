@@ -15,7 +15,7 @@ static UKBuSplashManager * configManager = nil;
 @interface UKBuSplashManager()<BUSplashAdDelegate>
 
 @property (nonatomic, strong) BUSplashAd *splashAdView;
-//@property (nonatomic, strong) UIImageView *bgImageView;
+@property (copy, nonatomic) void (^initSuccess)(BOOL initSuccess);
 @property (copy, nonatomic) void (^close)(BOOL close);
 @property (nonatomic, strong) UIViewController *rootVC;
 
@@ -34,8 +34,20 @@ static UKBuSplashManager * configManager = nil;
     return configManager;
 }
 
-- (void)registerAppId {
-    [BUAdSDKManager setAppID:[HYUKConfigManager shareInstance].ADIDModel.buAppId];
+- (void)registerAppIdSuccess:(void (^)(BOOL initSuccess))initSuccess
+{
+    self.initSuccess = initSuccess;
+    
+    __weak typeof(self) weakSelf = self;
+    BUAdSDKConfiguration *configuration = [BUAdSDKConfiguration configuration];
+    configuration.appID = [HYUKConfigManager shareInstance].ADIDModel.buAppId;//除appid外，其他参数配置按照项目实际需求配置即可。
+    [BUAdSDKManager startWithAsyncCompletionHandler:^(BOOL success, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.initSuccess(success);
+        });
+    }];
+    
+//    [BUAdSDKManager setAppID:[HYUKConfigManager shareInstance].ADIDModel.buAppId];
 }
 
 - (void)loadSplashAdWithVC:(UIViewController *)vc close:(void (^)(BOOL close))close

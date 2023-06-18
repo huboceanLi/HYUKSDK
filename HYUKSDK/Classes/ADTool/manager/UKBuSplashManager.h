@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *recordName;
 @property (nonatomic, strong) UIImage *linkImage;
 
-- (void)registerAppId;
+- (void)registerAppIdSuccess:(void (^)(BOOL initSuccess))initSuccess;
 
 - (void)loadSplashAdWithVC:(UIViewController *)vc close:(void (^)(BOOL close))close;
 

@@ -14,9 +14,4 @@ import Foundation
     public func initDB() {
         HYVideoDataBaseTool.default.initDB(userID: "jkdfhksdfgvsb")
     }
-    
-    
-    public func insertMovieList(list: [String]) {
-//        return HYMovieListLogic.share.insertMovieList(list: [])
-    }
 }
