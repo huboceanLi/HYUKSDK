@@ -16,11 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)shareInstance;
 
 @property (nonatomic, strong) UIImage *linkImage;
+@property (nonatomic, strong) UIImage *iconImage;
 @property (nonatomic, assign) CGRect linkRect;
-@property (nonatomic, strong) HYUkADIDModel *ADIDModel;
+//@property (nonatomic, strong) HYUkADIDModel *ADIDModel;
 @property (nonatomic) HYVideoVersionModel *versionModel;
 
-- (void)getADData;
+//- (void)getADData;
 
 @end
 

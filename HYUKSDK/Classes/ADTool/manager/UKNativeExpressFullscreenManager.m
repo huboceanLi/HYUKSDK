@@ -37,7 +37,7 @@ static UKNativeExpressFullscreenManager * configManager = nil;
         return;
     }
     self.vc = vc;
-    self.fullscreenAd = [[BUNativeExpressFullscreenVideoAd alloc] initWithSlotID:[HYUKConfigManager shareInstance].ADIDModel.nativeExpressId];
+    self.fullscreenAd = [[BUNativeExpressFullscreenVideoAd alloc] initWithSlotID:[HYUKConfigManager shareInstance].versionModel.navexpress_id];
     self.fullscreenAd.delegate = self;
     [self.fullscreenAd loadAdData];
 }

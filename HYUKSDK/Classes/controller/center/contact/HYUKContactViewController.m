@@ -37,7 +37,7 @@
     }];
     
     UIImageView *bgImg = [[UIImageView alloc] initWithFrame:CGRectZero];
-    bgImg.image = [UIImage imageNamed:@"uk_search_sss"];
+    bgImg.image = [HYUKConfigManager shareInstance].iconImage;
     bgImg.layer.cornerRadius = XJFlexibleFont(10);
     bgImg.layer.masksToBounds = YES;
     [self.contentView addSubview:bgImg];

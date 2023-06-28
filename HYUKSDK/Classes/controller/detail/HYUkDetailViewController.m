@@ -224,7 +224,7 @@ static NSInteger allTime = 61;
     self.expressAdViews = [NSMutableArray array];
 
     BUAdSlot *slot1 = [[BUAdSlot alloc] init];
-    slot1.ID = [HYUKConfigManager shareInstance].ADIDModel.expressId;
+    slot1.ID = [HYUKConfigManager shareInstance].versionModel.express_id;
     slot1.AdType = BUAdSlotAdTypeFeed;
     BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Banner600_150];
     slot1.imgSize = imgSize;

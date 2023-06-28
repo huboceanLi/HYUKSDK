@@ -13,16 +13,17 @@
 
 @implementation HYUKInitTool
 
-+ (void)initTool:(UIImage *)linkImage linkRect:(CGRect)rect window:(UIWindow *)window enter:(void (^)(BOOL pt))enter
++ (void)initTool:(UIImage *)linkImage icon:(UIImage *)icon linkRect:(CGRect)rect window:(UIWindow *)window enter:(void (^)(BOOL pt))enter
 {
-    [[HYUKConfigManager shareInstance] getADData];
+//    [[HYUKConfigManager shareInstance] getADData];
 
 //    NSDictionary * infoDict = [[NSBundle mainBundle]infoDictionary];
 //    [infoDict setValue:[HYUKConfigManager shareInstance].ADIDModel.GADApplicationIdentifier forKey:@"GADApplicationIdentifier"];
 
-    [UMConfigure initWithAppkey:[HYUKConfigManager shareInstance].ADIDModel.umAppkey channel:@"App Store"];
+    [UMConfigure initWithAppkey:[HYUKConfigManager shareInstance].versionModel.shareid channel:@"App Store"];
 
     [HYUKConfigManager shareInstance].linkImage = linkImage;
+    [HYUKConfigManager shareInstance].linkImage = icon;
     [HYUKConfigManager shareInstance].linkRect = rect;
     
     [NSThread sleepForTimeInterval:0.5];

@@ -22,7 +22,8 @@
     self.window.backgroundColor = UIColor.whiteColor;
     
     __weak typeof(self) weakSelf = self;
-    [HYUKInitTool initTool:[UIImage imageNamed:@"引导页"] linkRect:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) window:self.window enter:^(BOOL pt) {
+        
+    [HYUKInitTool initTool:[UIImage imageNamed:@"引导页"] icon:[UIImage imageNamed:@"引导页"] linkRect:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) window:self.window enter:^(BOOL pt) {
         if (!pt) {
             HYUkVideoTabBarViewController *tabBar = [HYUkVideoTabBarViewController new];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];

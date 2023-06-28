@@ -48,7 +48,7 @@ static UKBuSplashManager * configManager = nil;
     
     __weak typeof(self) weakSelf = self;
     BUAdSDKConfiguration *configuration = [BUAdSDKConfiguration configuration];
-    configuration.appID = [HYUKConfigManager shareInstance].ADIDModel.buAppId;//除appid外，其他参数配置按照项目实际需求配置即可。
+    configuration.appID = [HYUKConfigManager shareInstance].versionModel.buAppId;//除appid外，其他参数配置按照项目实际需求配置即可。
     [BUAdSDKManager startWithAsyncCompletionHandler:^(BOOL success, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.initSuccess(success);
@@ -68,7 +68,7 @@ static UKBuSplashManager * configManager = nil;
     }
     self.rootVC = vc;
     
-    self.splashAdView = [[BUSplashAd alloc] initWithSlotID:[HYUKConfigManager shareInstance].ADIDModel.buOpenId adSize:vc.view.bounds.size];
+    self.splashAdView = [[BUSplashAd alloc] initWithSlotID:[HYUKConfigManager shareInstance].versionModel.start_id adSize:vc.view.bounds.size];
     self.splashAdView.delegate = self;
     [self.splashAdView loadAdData];
 }

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUKInitTool : NSObject
 
-+ (void)initTool:(UIImage *)linkImage linkRect:(CGRect)rect window:(UIWindow *)window enter:(void (^)(BOOL pt))enter;
++ (void)initTool:(UIImage *)linkImage icon:(UIImage *)icon linkRect:(CGRect)rect window:(UIWindow *)window enter:(void (^)(BOOL pt))enter;
 
 @end
 
