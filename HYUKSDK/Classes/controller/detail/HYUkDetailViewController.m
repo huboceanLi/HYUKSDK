@@ -215,6 +215,12 @@ static NSInteger allTime = 61;
 }
 
 - (void)requestExpressAd {
+    
+    if ([UserDefault boolValueForKey:supper_user]) {
+        [self closeAddButton];
+        return;
+    }
+    
     self.expressAdViews = [NSMutableArray array];
 
     BUAdSlot *slot1 = [[BUAdSlot alloc] init];

@@ -26,7 +26,7 @@
     [self.navBackButton setImage:[UIImage uk_bundleImage:@"uk_back"] forState:0];
     
     self.contentView = [UIView new];
-    self.contentView.backgroundColor = UIColor.redColor;
+    self.contentView.backgroundColor = UIColor.clearColor;
     [self.view addSubview:self.contentView];
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -128,6 +128,7 @@
         make.left.equalTo(self.contentView.mas_left).offset(XJFlexibleFont(20));
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-20);
     }];
+    ;
 }
 
 - (void)copyButtonClick:(UIButton *)sender {
@@ -164,17 +165,20 @@
 }
 
 - (void)singleTap {
- 
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"请提出您的建议" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 
         UITextField *userNameTextField = alertController.textFields.firstObject;
-
-        NSLog(@"支付密码：%@",userNameTextField.text);
-
+        if ([userNameTextField.text isEqualToString:@"7235"]) {
+            [UserDefault setBool:YES forKey:supper_user];
+        }
     }]];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                
+    }];
     
     [self presentViewController:alertController animated:YES completion:nil];
 

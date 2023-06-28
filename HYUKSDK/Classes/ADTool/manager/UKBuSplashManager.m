@@ -9,6 +9,8 @@
 #import <BUAdSDK/BUAdSDK.h>
 #import <BUAdSDK/BUSplashView.h>
 #import "HYUKConfigManager.h"
+#import <HYBaseTool/HYBaseTool.h>
+#import "APIString.h"
 
 static UKBuSplashManager * configManager = nil;
 
@@ -38,6 +40,12 @@ static UKBuSplashManager * configManager = nil;
 {
     self.initSuccess = initSuccess;
     
+    
+    if ([UserDefault boolValueForKey:supper_user]) {
+        self.initSuccess(YES);
+        return;
+    }
+    
     __weak typeof(self) weakSelf = self;
     BUAdSDKConfiguration *configuration = [BUAdSDKConfiguration configuration];
     configuration.appID = [HYUKConfigManager shareInstance].ADIDModel.buAppId;//除appid外，其他参数配置按照项目实际需求配置即可。
@@ -53,6 +61,11 @@ static UKBuSplashManager * configManager = nil;
 - (void)loadSplashAdWithVC:(UIViewController *)vc close:(void (^)(BOOL close))close
 {
     self.close = close;
+    
+    if ([UserDefault boolValueForKey:supper_user]) {
+        self.close(YES);
+        return;
+    }
     self.rootVC = vc;
     
     self.splashAdView = [[BUSplashAd alloc] initWithSlotID:[HYUKConfigManager shareInstance].ADIDModel.buOpenId adSize:vc.view.bounds.size];

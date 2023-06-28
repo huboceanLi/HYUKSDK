@@ -7,6 +7,8 @@
 
 #import "UKNativeExpressFullscreenManager.h"
 #import "HYUKConfigManager.h"
+#import <HYBaseTool/HYBaseTool.h>
+#import "APIString.h"
 
 static UKNativeExpressFullscreenManager * configManager = nil;
 
@@ -31,6 +33,9 @@ static UKNativeExpressFullscreenManager * configManager = nil;
 
 - (void)loadExpressAdWithVC:(UIViewController *)vc
 {
+    if ([UserDefault boolValueForKey:supper_user]) {
+        return;
+    }
     self.vc = vc;
     self.fullscreenAd = [[BUNativeExpressFullscreenVideoAd alloc] initWithSlotID:[HYUKConfigManager shareInstance].ADIDModel.nativeExpressId];
     self.fullscreenAd.delegate = self;
