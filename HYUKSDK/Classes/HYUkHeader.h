@@ -43,6 +43,7 @@
 #import "HYUkDownManager.h"
 #import "HYUKADHeader.h"
 #import "AdaptScreen.h"
+#import "HYUKResponseNoticeModel.h"
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\

@@ -33,6 +33,8 @@ extern NSString * const video_guess_Like;
 
 extern NSString * const video_get_version;
 
+extern NSString * const video_get_notice;
+
 #pragma mark-- config
 extern NSString * const video_allow_flow_play;
 extern NSString * const net_change_wan;

@@ -7,6 +7,7 @@
 
 #import "HYUkRequestWorking.h"
 #import <YYModel/YYModel.h>
+#import "APIString.h"
 
 @implementation HYUkRequestWorking
 
@@ -20,6 +21,20 @@
         if (!error) {
             
             HYVideoVersionBaseModel *model = [HYVideoVersionBaseModel yy_modelWithDictionary:responseObject];
+            completed(model.data, YES);
+        }else {
+            completed(nil, NO);
+        }
+    }];
+}
+
++ (id)getNoticeWithListSuccess:(void(^)(NSArray <HYUKResponseNoticeItemModel *>*models, BOOL success))completed
+{
+    
+    return [self GET:video_get_notice parameters:@{} complationHandle:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+        if (!error) {
+            
+            HYUKResponseNoticeModel *model = [HYUKResponseNoticeModel yy_modelWithDictionary:responseObject];
             completed(model.data, YES);
         }else {
             completed(nil, NO);
