@@ -8,6 +8,7 @@
 #import "HYUKMessageViewController.h"
 #import "HYUkRequestWorking.h"
 #import "HYUKNoticeTableViewCell.h"
+#import "HYUKMessageDetailVC.h"
 
 @interface HYUKMessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -107,6 +108,9 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    HYUKMessageDetailVC *vc = [HYUKMessageDetailVC new];
+    vc.noticeItemModel = self.dataArray[indexPath.section];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
