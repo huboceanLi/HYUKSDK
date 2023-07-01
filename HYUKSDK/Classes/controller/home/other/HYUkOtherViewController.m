@@ -65,6 +65,12 @@
     }];
     
     [self getData];
+    
+    __weak typeof(self) weakSelf = self;
+    self.collectionView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
+        weakSelf.page++;
+        [weakSelf getData];
+    }];
 }
 
 - (void)getData {
@@ -72,13 +78,22 @@
 
     CGFloat oy = (SCREEN_HEIGHT - self.headHeight - (IS_iPhoneX ? 168 : 114) - (SCREEN_WIDTH / 5.0)) / 2.0 + (IS_iPhoneX ? 88 : 64) + self.headHeight;
     
-    [[HYUkShowLoadingManager sharedInstance] showLoading:oy];
+    if (self.page == 0) {
+        [[HYUkShowLoadingManager sharedInstance] showLoading:oy];
+    }
         
     [[HYVideoSingle sharedInstance] getVideoListWithPage:self.page type_id_1:self.categeryModel.ID type_id:self.categeryListView.tempCategaryModel.type_id vod_area:self.categeryListView.tempCategaryModel.vod_area vod_lang:self.categeryListView.tempCategaryModel.vod_lang vod_year:self.categeryListView.tempCategaryModel.vod_year order:self.categeryListView.tempCategaryModel.order success:^(NSString *message, id responseObject) {
+        NSArray *a = responseObject;
         [weakSelf.dataArray addObjectsFromArray:responseObject];
         [weakSelf.collectionView reloadData];
         [weakSelf.collectionView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
+        [weakSelf.collectionView.mj_footer endRefreshing];
+        
+        if (a.count == 0) {
+            [self.collectionView.mj_footer endRefreshingWithNoMoreData];;
+        }
+        
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
         if (errorType == CTAPIManagerErrorTypeNoNetWork) {
             [weakSelf.collectionView updateEmptyViewWithImageName:@"uk_net_err" title:errorMessage];
@@ -86,6 +101,7 @@
             [weakSelf.collectionView updateEmptyViewWithImageName:@"uk_load_err" title:@"加载失败!"];
         }
         [weakSelf.collectionView reloadData];
+        [weakSelf.collectionView.mj_footer endRefreshing];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     }];
 }

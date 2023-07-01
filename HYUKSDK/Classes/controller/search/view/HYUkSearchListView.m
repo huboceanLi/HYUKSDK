@@ -37,6 +37,14 @@
     if (@available (iOS 11.0, *)) {
         [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
+
+    __weak typeof(self) weakSelf = self;
+    self.tableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
+        if ([weakSelf.delegate respondsToSelector:@selector(customView:event:)]) {
+            [weakSelf.delegate customView:weakSelf event:@{@"type":@"more",@"ID":@(0)}];
+        }
+    }];
+    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.right.equalTo(self);
     }];
@@ -129,13 +137,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     HYResponseSearchModel *model = self.dataArray[indexPath.section];
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@(model.ID)];
+        [self.delegate customView:self event:@{@"type":@"other",@"ID":@(model.ID)}];
     }
 }
 
 - (void)loadContent {
+    NSArray *a = self.data;
     [self.dataArray addObjectsFromArray:self.data];
     [self.tableView reloadData];
+    
+    if (a.count == 0) {
+        [self.tableView.mj_footer endRefreshingWithNoMoreData];;
+    }
 }
 
 @end

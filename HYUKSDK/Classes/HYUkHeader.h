@@ -14,7 +14,7 @@
 #import <YYModel/YYModel.h>
 #import <YYWebImage/YYWebImage.h>
 #import <YYCategories/YYCategories.h>
-
+#import <MJRefresh/MJRefresh.h>
 #import "MBProgressHUD+JDragon.h"
 #import <JXCategoryView/JXCategoryView.h>
 #import <HYUKSDK/HYUkHeader.h>

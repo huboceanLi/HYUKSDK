@@ -123,14 +123,21 @@
     
     if ([view isKindOfClass:[HYUkSearchListView class]]) {
         [self.view endEditing:YES];
-        BOOL isOpenTheProxy = [[HYUkVideoConfigManager sharedInstance] isOpenTheProxy];
-        if (isOpenTheProxy) {
-            [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
-            return;
+        
+        NSDictionary *dic = (NSDictionary *)event;
+        if ([dic[@"type"] isEqualToString:@"more"]) {
+            self.page++;
+            [self searchApi];
+        }else {
+            BOOL isOpenTheProxy = [[HYUkVideoConfigManager sharedInstance] isOpenTheProxy];
+            if (isOpenTheProxy) {
+                [MYToast showWithText:@"请关闭设备代理,否则会播放失败!"];
+                return;
+            }
+            HYUkDetailViewController *vc = [HYUkDetailViewController new];
+            vc.videoId = [event intValue];
+            [self.navigationController pushViewController:vc animated:YES];
         }
-        HYUkDetailViewController *vc = [HYUkDetailViewController new];
-        vc.videoId = [event intValue];
-        [self.navigationController pushViewController:vc animated:YES];
 
 //        NSMutableArray *vcs = [self.navigationController.viewControllers mutableCopy];
 //        
@@ -146,7 +153,9 @@
 
 - (void)searchApi {
     __weak typeof(self) weakSelf = self;
-    [[HYUkShowLoadingManager sharedInstance] showLoading:-1];
+    if (self.page == 0) {
+        [[HYUkShowLoadingManager sharedInstance] showLoading:-1];
+    }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[HYVideoSingle sharedInstance] getSearchListWithKeywords:self.keyWords page:self.page success:^(NSString *message, id responseObject) {
             weakSelf.historyView.hidden = YES;
@@ -158,7 +167,9 @@
             weakSelf.searchListView.data = responseObject;
             [weakSelf.searchListView loadContent];
             [[HYUkShowLoadingManager sharedInstance] removeLoading];
+            [weakSelf.searchListView.tableView.mj_footer endRefreshing];
         } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
+            [weakSelf.searchListView.tableView.mj_footer endRefreshing];
             if (errorType == CTAPIManagerErrorTypeNoNetWork) {
                 [weakSelf.searchListView.tableView updateEmptyViewWithImageName:@"uk_net_err" title:errorMessage];
             }else {

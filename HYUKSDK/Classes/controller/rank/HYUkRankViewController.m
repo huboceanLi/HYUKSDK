@@ -62,18 +62,33 @@
         make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    __weak typeof(self) weakSelf = self;
+    self.tableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
+        weakSelf.page++;
+        [weakSelf getData];
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
 
 - (void)getData {
     __weak typeof(self) weakSelf = self;
-    [[HYUkShowLoadingManager sharedInstance] showLoading:-1];
+    if (self.page == 0) {
+        [[HYUkShowLoadingManager sharedInstance] showLoading:-1];
+    }
     [[HYVideoSingle sharedInstance] getRnakListWithPage:self.page success:^(NSString *message, id responseObject) {
+        NSArray *a = responseObject;
         [weakSelf.dataArray addObjectsFromArray:responseObject];
         [weakSelf.tableView reloadData];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
+        [weakSelf.tableView.mj_footer endRefreshing];
+
+        if (a.count == 0) {
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];;
+        }
+        
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
         if (errorType == CTAPIManagerErrorTypeNoNetWork) {
             [weakSelf.tableView updateEmptyViewWithImageName:@"uk_net_err" title:errorMessage];
@@ -81,6 +96,7 @@
             [weakSelf.tableView updateEmptyViewWithImageName:@"uk_load_err" title:@"加载失败!"];
         }
         [weakSelf.tableView reloadData];
+        [weakSelf.tableView.mj_footer endRefreshing];
         [[HYUkShowLoadingManager sharedInstance] removeLoading];
     }];
 }
