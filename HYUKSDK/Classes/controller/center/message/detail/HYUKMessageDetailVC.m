@@ -6,6 +6,7 @@
 //
 
 #import "HYUKMessageDetailVC.h"
+#import "HYUKSDK/HYUKSDK-Swift.h"
 
 static NSString *patternString = @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)";
 
@@ -87,6 +88,10 @@ static NSString *patternString = @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\-.]+(?::(\\
         make.right.equalTo(self.view.mas_right).offset(-XJFlexibleFont(20));
         make.top.equalTo(self.timeLab.mas_bottom).offset(XJFlexibleFont(20));
         make.height.mas_equalTo(ceilf(h) + 20);
+    }];
+    
+    [[HYUKNoticeListLogic share] markIsReadWithID:self.noticeItemModel.ID complete:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:notice_isRead object:nil];
     }];
 }
 

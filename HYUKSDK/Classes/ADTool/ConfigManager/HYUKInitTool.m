@@ -8,7 +8,6 @@
 #import "HYUKInitTool.h"
 #import "HYUKConfigManager.h"
 #import "HYUKLinkViewController.h"
-#import <UMCommon/UMCommon.h>
 
 
 @implementation HYUKInitTool
@@ -19,8 +18,6 @@
 
 //    NSDictionary * infoDict = [[NSBundle mainBundle]infoDictionary];
 //    [infoDict setValue:[HYUKConfigManager shareInstance].ADIDModel.GADApplicationIdentifier forKey:@"GADApplicationIdentifier"];
-
-    [UMConfigure initWithAppkey:[HYUKConfigManager shareInstance].versionModel.shareid channel:@"App Store"];
 
     [HYUKConfigManager shareInstance].linkImage = linkImage;
     [HYUKConfigManager shareInstance].linkImage = icon;

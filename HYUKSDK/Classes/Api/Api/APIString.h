@@ -39,6 +39,7 @@ extern NSString * const video_get_notice;
 extern NSString * const video_allow_flow_play;
 extern NSString * const net_change_wan;
 extern NSString * const supper_user;
+extern NSString * const notice_isRead;
 
 
 @end

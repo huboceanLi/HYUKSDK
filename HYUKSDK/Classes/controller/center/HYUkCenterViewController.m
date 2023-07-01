@@ -115,7 +115,27 @@
             HYUkDownVC *vc = [HYUkDownVC new];
             [self.navigationController pushViewController:vc animated:YES];
         }else if (index == 3) {
+            NSMutableArray *activityItems = [NSMutableArray array];
+            [activityItems addObject:[NSURL URLWithString:[HYUKConfigManager shareInstance].versionModel.url]];
+            UIActivityViewController *activityViewController =
+            [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+            activityViewController.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll];
             
+            activityViewController.popoverPresentationController.sourceView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
+            activityViewController.popoverPresentationController.sourceRect = CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT-80, 1.0, 1.0);
+            
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:activityViewController animated:YES completion:nil];
+            
+            [activityViewController setCompletionWithItemsHandler:^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError){
+                // 显示选中的分享类型
+                NSLog(@"act type %@",activityType);
+                
+                if (completed) {
+                    NSLog(@"ok");
+                }else {
+                    NSLog(@"no ok");
+                }
+            }];
         }else if (index == 4) {
             HYUKMessageViewController *vc = [HYUKMessageViewController new];
             [self.navigationController pushViewController:vc animated:YES];

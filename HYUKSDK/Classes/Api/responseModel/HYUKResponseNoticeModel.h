@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *remark;
 @property (nonatomic, strong) NSString *created_time_text;
+@property (nonatomic, assign) NSInteger created_time;
 
 @end
 

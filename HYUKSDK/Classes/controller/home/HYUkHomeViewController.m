@@ -16,6 +16,8 @@
 #import "HYUKHistoryRecodeView.h"
 #import "HYUKMessageViewController.h"
 #import "HYVideoUpgradeViewController.h"
+#import "HYUkRequestWorking.h"
+#import "HYUKBadgeView.h"
 
 @interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate,PopViewControllerDelegate>
 
@@ -23,7 +25,7 @@
 @property(nonatomic, strong) JXCategoryListContainerView * containerView;
 @property(nonatomic, strong) NSArray * titleArray;
 @property (nonatomic, strong) HYUkHomeSearchView *searchView;
-@property (nonatomic, strong) BadgeButton *messageBtn;
+@property (nonatomic, strong) HYUKBadgeView *badgeView;
 @property (nonatomic, strong) NSArray *categeryModels;
 @property (nonatomic, strong) HYUKHistoryRecodeView *recodeView;
 @property (nonatomic, strong) HYVideoUpgradeViewController *upgradeViewController;
@@ -57,18 +59,12 @@
         make.height.mas_equalTo(40);
     }];
     
-    [self.navBar addSubview:self.messageBtn];
-    [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.navBar addSubview:self.badgeView];
+    [self.badgeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.navBar.mas_right).offset(-10);
         make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
         make.height.mas_equalTo(40);
         make.width.mas_equalTo(50);
-    }];
-    
-    __weak typeof(self) weakSelf = self;
-    [self.messageBtn blockEvent:^(UIButton *button) {
-        HYUKMessageViewController *vc = [HYUKMessageViewController new];
-        [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     
     _headerView = [[JXCategoryTitleView alloc] initWithFrame:CGRectZero];
@@ -123,11 +119,30 @@
     
     self.recodeView.hidden = YES;
     
+    [self getNoticeList];
     [self chooseVersion];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageIsReadNotic) name:notice_isRead object:nil];
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[UKNativeExpressFullscreenManager shared] loadExpressAdWithVC:self];
     });
+}
+
+- (void)messageIsReadNotic {
+    NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount];
+    [self.badgeView getCount:count];
+}
+
+- (void)getNoticeList {
+    __weak typeof(self) weakSelf = self;
+    [HYUkRequestWorking getNoticeWithListSuccess:^(NSArray<HYUKResponseNoticeItemModel *> * _Nonnull models, BOOL success) {
+        if (success) {
+            [[HYUKNoticeListLogic share] insertNoticeListWithList:models];
+            NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount] + models.count;
+            [weakSelf.badgeView getCount:count];
+        }
+    }];
 }
 
 - (void)chooseVersion {
@@ -228,19 +243,22 @@
         HYUkDetailViewController *vc = [HYUkDetailViewController new];
         vc.videoId = m.tvId;
         [self.navigationController pushViewController:vc animated:YES];
-
+        return;
+    }
+    
+    if ([view isKindOfClass:[HYUKBadgeView class]]) {
+        HYUKMessageViewController *vc = [HYUKMessageViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
     }
 }
 
-- (BadgeButton *)messageBtn {
-    if (!_messageBtn) {
-        _messageBtn = [BadgeButton buttonWithType:UIButtonTypeCustom];
-        [_messageBtn setImage:[UIImage uk_bundleImage:@"uk_message"] forState:0];
-        [_messageBtn setBadgeInset:UIEdgeInsetsMake(16, 30, 0, 0)];
-        [_messageBtn setBadgeStr:@"100"];
-        _messageBtn.adjustsImageWhenHighlighted = NO;
+- (HYUKBadgeView *)badgeView {
+    if (!_badgeView) {
+        _badgeView = [HYUKBadgeView new];
+        _badgeView.delegate = self;
     }
-    return _messageBtn;
+    return _badgeView;
 }
 
 - (HYVideoUpgradeViewController *)upgradeViewController {

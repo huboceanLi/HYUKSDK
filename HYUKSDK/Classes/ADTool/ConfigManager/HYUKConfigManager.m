@@ -21,12 +21,5 @@ static HYUKConfigManager * configManager = nil;
     return configManager;
 }
 
-//- (void)getADData
-//{
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"configad" ofType:@"json"];
-//    NSString *d = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-//
-//    self.ADIDModel = [HYUkADIDModel yy_modelWithJSON:d];
-//}
 
 @end
