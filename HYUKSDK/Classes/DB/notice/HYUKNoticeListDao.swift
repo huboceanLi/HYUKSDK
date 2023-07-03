@@ -58,6 +58,20 @@ struct HYUKNoticeListDao {
         return []
     }
     
+    func queryNoticeMaxTime() -> Int {
+        guard let database = HYVideoDataBaseTool.default.base else {
+            return 0
+        }
+//        let condion: Condition = HYUKNoticeListModel.Properties.created_time > time
+
+        let result: [HYUKNoticeListModel]? = try? database.getObjects(fromTable: HY_MOIVE_NORICE_TABLE_NAME, orderBy: [HYUKNoticeListModel.Properties.created_time.asOrder(by: .descending)], limit: 1)
+
+        if let r = result {
+            return r.first?.created_time ?? 0
+        }
+        return 0
+    }
+    
     func markIsRead(ID: Int, complete:() -> Void) {
         guard let database = HYVideoDataBaseTool.default.base else {
             return

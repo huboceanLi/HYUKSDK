@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id)getVersionCompletionHandle:(void(^)(HYVideoVersionModel *model, BOOL success))completed;
 
-+ (id)getNoticeWithListSuccess:(void(^)(NSArray <HYUKResponseNoticeItemModel *>*models, BOOL success))completed;
++ (id)getNoticeWithListMaXTime:(NSInteger)time success:(void(^)(NSArray <HYUKResponseNoticeItemModel *>*models, BOOL success))completed;
 
 @end
 

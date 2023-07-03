@@ -77,7 +77,7 @@ static NSString *patternString = @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\-.]+(?::(\\
     self.contentLab.numberOfLines = 110;
     [self.scrollView addSubview:self.contentLab];
     
-    NSAttributedString *att = [self decodeWithPlainStr:self.noticeItemModel.remark];
+    NSAttributedString *att = [self decodeWithPlainStr:self.noticeItemModel.text];
     
     self.contentLab.attributedText = att;
     
@@ -131,7 +131,9 @@ static NSString *patternString = @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\-.]+(?::(\\
                                             tapAction:^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect){
                     NSString *url = [text.string substringWithRange:range];
 
-//                    [containerView routerWithEventName:@"test" userInfo:@{@"url":url, @"id":itemKey}];
+                    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+                    }
                 }];
                 [attStr addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:XJFlexibleFont(15)]} range:range];
             }

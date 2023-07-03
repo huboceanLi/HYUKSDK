@@ -28,10 +28,12 @@
     }];
 }
 
-+ (id)getNoticeWithListSuccess:(void(^)(NSArray <HYUKResponseNoticeItemModel *>*models, BOOL success))completed
++ (id)getNoticeWithListMaXTime:(NSInteger)time success:(void(^)(NSArray <HYUKResponseNoticeItemModel *>*models, BOOL success))completed
 {
     
-    return [self GET:video_get_notice parameters:@{} complationHandle:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+    NSDictionary *dic = @{@"created_time":@(time)};
+
+    return [self GET:video_get_notice parameters:dic complationHandle:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
         if (!error) {
             
             HYUKResponseNoticeModel *model = [HYUKResponseNoticeModel yy_modelWithDictionary:responseObject];

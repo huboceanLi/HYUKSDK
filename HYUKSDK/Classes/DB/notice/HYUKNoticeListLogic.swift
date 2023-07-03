@@ -52,4 +52,8 @@ import YYModel
     public func markAllIsRead(complete:() -> Void) {
         HYUKNoticeListDao.default.markAllIsRead(complete: complete)
     }
+    
+    public func queryNoticeMaxTime() -> Int {
+        return HYUKNoticeListDao.default.queryNoticeMaxTime()
+    }
 }

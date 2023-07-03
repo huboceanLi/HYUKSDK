@@ -16,6 +16,7 @@ import YYModel
     public var top_switch: Int = 0
     public var title: String = ""
     public var remark: String = ""
+    public var text: String = ""
     public var created_time_text: String = ""
     public var created_time: Int = 0
     public var isRead: Int = 0
@@ -29,6 +30,7 @@ import YYModel
         case top_switch
         case title
         case remark
+        case text
         case created_time_text
         case created_time
         case isRead
@@ -40,6 +42,7 @@ import YYModel
                 top_switch: ColumnConstraintBinding(defaultTo: 0),
                 title: ColumnConstraintBinding(defaultTo: ""),
                 remark: ColumnConstraintBinding(defaultTo: ""),
+                text: ColumnConstraintBinding(defaultTo: ""),
                 created_time_text: ColumnConstraintBinding(defaultTo: ""),
                 created_time: ColumnConstraintBinding(defaultTo: 0),
                 isRead: ColumnConstraintBinding(defaultTo: 0),

@@ -42,7 +42,7 @@
     self.badgeLab.font = [UIFont systemFontOfSize:11];
     self.badgeLab.textColor = UIColor.whiteColor;
     self.badgeLab.backgroundColor = UIColor.redColor;
-    self.badgeLab.text = @"89";
+    self.badgeLab.text = @"0";
     [self addSubview:self.badgeLab];
     [self.badgeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.top.equalTo(self);

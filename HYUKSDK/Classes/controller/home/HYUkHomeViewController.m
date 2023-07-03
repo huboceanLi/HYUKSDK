@@ -136,11 +136,14 @@
 
 - (void)getNoticeList {
     __weak typeof(self) weakSelf = self;
-    [HYUkRequestWorking getNoticeWithListSuccess:^(NSArray<HYUKResponseNoticeItemModel *> * _Nonnull models, BOOL success) {
+    
+    NSInteger maxTime = [[HYUKNoticeListLogic share] queryNoticeMaxTime];
+    
+    [HYUkRequestWorking getNoticeWithListMaXTime:maxTime success:^(NSArray<HYUKResponseNoticeItemModel *> * _Nonnull models, BOOL success) {
         if (success) {
-            [[HYUKNoticeListLogic share] insertNoticeListWithList:models];
             NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount] + models.count;
             [weakSelf.badgeView getCount:count];
+            [[HYUKNoticeListLogic share] insertNoticeListWithList:models];
         }
     }];
 }
