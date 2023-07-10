@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HYUKSDK'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'A short description of HYUKSDK.'
 
 # This description is used to generate tags and improve search results.
@@ -51,7 +51,7 @@ A short description of LHYADTool Test.
   s.dependency "CTNetworking"
   s.dependency "MBProgressHUD+JDragon"
   s.dependency "JXCategoryView"
-  s.dependency "WCDB.swift"
+  s.dependency "WCDB.swift", '1.1.0'
   s.dependency "YYModel"
   s.dependency "YYText"
   s.dependency "YYCategories"
