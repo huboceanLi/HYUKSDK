@@ -8,6 +8,7 @@
 
 #import "HYAppDelegate.h"
 #import <HYUKSDK/HYUkHeader.h>
+#import "HYViewController.h"
 
 @interface HYAppDelegate()
 <HYUkVideoInitDelegate>
@@ -26,6 +27,11 @@
     [HYUKInitTool initTool:[UIImage imageNamed:@"引导页"] icon:[UIImage imageNamed:@"引导页"] linkRect:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) window:self.window enter:^(BOOL pt) {
         if (!pt) {
             HYUkVideoTabBarViewController *tabBar = [HYUkVideoTabBarViewController new];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
+            weakSelf.window.rootViewController = nav;
+            [weakSelf.window makeKeyAndVisible];
+        }else {
+            HYViewController *tabBar = [HYViewController new];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
             weakSelf.window.rootViewController = nav;
             [weakSelf.window makeKeyAndVisible];

@@ -31,10 +31,7 @@
     window.backgroundColor = UIColor.whiteColor;
     [window makeKeyAndVisible];
     rootVC.successBlock = ^(BOOL rootVC) {
-        if (!rootVC) {
-            NSLog(@"进入主页");
-            enter(rootVC);
-        }
+        enter(rootVC);
     };
 
 }

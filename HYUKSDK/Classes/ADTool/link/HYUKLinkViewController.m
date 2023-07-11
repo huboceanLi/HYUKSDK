@@ -139,7 +139,7 @@
     }
 
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    NSString *app_build = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
     
     [UMConfigure initWithAppkey:[HYUKConfigManager shareInstance].versionModel.shareid channel:@"App Store"];
     [Bugly startWithAppId:[HYUKConfigManager shareInstance].versionModel.logId];
