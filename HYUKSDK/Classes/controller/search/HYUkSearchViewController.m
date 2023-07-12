@@ -96,19 +96,24 @@
 {
     if ([view isKindOfClass:[HYUkSearchHeadView class]]) {
         NSDictionary *dic = event;
-        if ([dic[@"isBack"] integerValue] == 1) {
-            [self.view endEditing:YES];
-            [self.navigationController popViewControllerAnimated:YES];
-        }else if ([dic[@"isBack"] integerValue] == 2) {
-            self.historyView.hidden = NO;
-            self.searchListView.hidden = YES;
-            [self.historyView loadContent];
+        
+        if ([self.searchHeadView.searchBtn.titleLabel.text isEqualToString:@"取消"]) {
+            if (!self.historyView.hidden) {
+                [self.view endEditing:YES];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else {
+                self.historyView.hidden = NO;
+                self.searchListView.hidden = YES;
+                [self.historyView loadContent];
+            }
         }else {
-            if (![self.keyWords isEqualToString:dic[@"key"]]) {
-                self.keyWords = dic[@"key"];
-                self.page = 0;
-                [self searchApi];
-                NSLog(@"开始搜索了");
+            NSString *k = dic[@"key"];
+            if (k.length != 0) {
+                if (![self.keyWords isEqualToString:dic[@"key"]]) {
+                    self.keyWords = dic[@"key"];
+                    self.page = 0;
+                    [self searchApi];
+                }
             }
         }
         return;
@@ -118,7 +123,11 @@
         [self.view endEditing:YES];
         self.historyView.hidden = YES;
         self.searchListView.hidden = NO;
-
+        HYUkTextTempModel *m = (HYUkTextTempModel *)event;
+        self.page = 0;
+        self.keyWords = m.name;
+        self.searchHeadView.textField.text = self.keyWords;
+        [self searchApi];
     }
     
     if ([view isKindOfClass:[HYUkSearchListView class]]) {
@@ -135,7 +144,7 @@
                 return;
             }
             HYUkDetailViewController *vc = [HYUkDetailViewController new];
-            vc.videoId = [event intValue];
+            vc.videoId = [dic[@"ID"] intValue];
             [self.navigationController pushViewController:vc animated:YES];
         }
 

@@ -290,9 +290,9 @@ static NSInteger allTime = 61;
         [self closeAddButton];
         return;
     }
-    if (self.recordIndex > 0 && self.recordIndex > 40) {
+    if (self.recordIndex > 0 && self.recordIndex > 45) {
         self.timeButton.userInteractionEnabled = NO;
-        [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ 后可跳过",21 - allTime + self.recordIndex,@"s"] forState:0];
+        [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ 后可跳过",16 - allTime + self.recordIndex,@"s"] forState:0];
         return;
     }
     self.timeButton.userInteractionEnabled = YES;

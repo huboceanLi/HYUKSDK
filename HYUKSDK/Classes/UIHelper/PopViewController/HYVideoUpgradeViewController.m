@@ -29,7 +29,10 @@
     }];
     
     [self.upgradeView.upgradeButton blockEvent:^(UIButton *button) {
-            
+        [weakSelf hideWithAnimated:YES completion:nil];
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[HYUKConfigManager shareInstance].versionModel.url]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[HYUKConfigManager shareInstance].versionModel.url]];
+        }
     }];
 }
 

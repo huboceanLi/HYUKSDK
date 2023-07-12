@@ -9,7 +9,6 @@
 
 @interface HYUkSearchHeadView()<QMUITextFieldDelegate>
 
-@property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIView *searchContentView;
 
 @end
@@ -39,7 +38,7 @@
     
     self.textField = [QMUITextField new];
     self.textField.placeholder = @"请输入关键词";
-    self.textField.text = @"黑豹";
+//    self.textField.text = @"黑豹";
     self.textField.delegate = self;
     self.textField.placeholderColor = UIColor.lightGrayColor;
     self.textField.font = [UIFont systemFontOfSize:XJFlexibleFont(14)];
@@ -78,7 +77,9 @@
         if (toString.length > 0) {
             [weakSelf.textField resignFirstResponder];
         }
-        [weakSelf startSearch:toString];
+        if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+            [self.delegate customView:self event:@{@"key":@""}];
+        }
     }];
 }
 
@@ -86,7 +87,7 @@
     [self.searchBtn setTitle:@"取消" forState:0];
     [self.searchBtn setTitleColor:UIColor.textColor99 forState:0];
     if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@{@"isBack":@(2),@"key":@""}];
+        [self.delegate customView:self event:@{@"key":@""}];
     }
     return YES;
 }
@@ -97,8 +98,12 @@
 
     if (toString.length > 0) {
         [textField resignFirstResponder];
+        
+        if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+            [self.delegate customView:self event:@{@"key":toString}];
+        }
     }
-    [self startSearch:toString];
+//    [self startSearch:toString];
 
     return YES;
 }
@@ -112,25 +117,29 @@
     if (toString.length > 0) {
         [self.searchBtn setTitle:@"搜索" forState:0];
         [self.searchBtn setTitleColor:UIColor.mainColor forState:0];
+//        if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+//            [self.delegate customView:self event:@{@"isBack":@(0),@"key":toString}];
+//        }
     }else {
         [self.searchBtn setTitle:@"取消" forState:0];
         [self.searchBtn setTitleColor:UIColor.textColor99 forState:0];
+//        if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+//            [self.delegate customView:self event:@{@"isBack":@(1),@"key":@""}];
+//        }
     }
     
-    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@{@"isBack":@(2),@"key":@""}];
-    }
+
     return YES;
 }
 
-- (void)startSearch:(NSString *)key {
-    BOOL isBack = NO;
-    if (key.length == 0) {
-        isBack = YES;
-    }
-    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
-        [self.delegate customView:self event:@{@"isBack":@(isBack),@"key":key}];
-    }
-}
+//- (void)startSearch:(NSString *)key {
+//    BOOL isBack = NO;
+//    if (key.length == 0) {
+//        isBack = YES;
+//    }
+//    if ([self.delegate respondsToSelector:@selector(customView:event:)]) {
+//        [self.delegate customView:self event:@{@"isBack":@(isBack),@"key":key}];
+//    }
+//}
 
 @end

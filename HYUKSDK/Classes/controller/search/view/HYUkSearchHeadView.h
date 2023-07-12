@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HYUkSearchHeadView : HYBaseView
 
 @property (nonatomic, strong) QMUITextField *textField;
+@property (nonatomic, strong) UIButton *searchBtn;
 
 @end
 
