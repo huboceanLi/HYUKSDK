@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id)getNoticeWithListMaXTime:(NSInteger)time success:(void(^)(NSArray <HYUKResponseNoticeItemModel *>*models, BOOL success))completed;
 
++ (id)isSaleInStoreWithSuccess:(void (^)(BOOL success))success;
+
 @end
 
 NS_ASSUME_NONNULL_END

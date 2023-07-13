@@ -8,6 +8,7 @@
 #import "HYUkRequestWorking.h"
 #import <YYModel/YYModel.h>
 #import "APIString.h"
+#import "HYUKConfigManager.h"
 
 @implementation HYUkRequestWorking
 
@@ -42,6 +43,27 @@
             completed(nil, NO);
         }
     }];
+}
+
+#pragma mark -- 判断是否下架
++ (id)isSaleInStoreWithSuccess:(void (^)(BOOL success))success {
+    
+    return [self POST:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",[HYUKConfigManager shareInstance].versionModel.apple_id] parameters:nil complationHandle:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+        
+        if (!error) {
+            NSDictionary *dic = responseObject;
+            if ([dic.allKeys containsObject:@"resultCount"]) {
+                if ([responseObject[@"resultCount"] integerValue] == 1){//说明商店里还在
+                    success(YES);
+                }else{//说明被下架了
+                    success(NO);
+                }
+            }
+        }else {
+            success(NO);
+        }
+    }];
+
 }
 
 @end

@@ -20,7 +20,7 @@
 //    [infoDict setValue:[HYUKConfigManager shareInstance].ADIDModel.GADApplicationIdentifier forKey:@"GADApplicationIdentifier"];
 
     [HYUKConfigManager shareInstance].linkImage = linkImage;
-    [HYUKConfigManager shareInstance].iconImage = icon;
+    [HYUKConfigManager shareInstance].linkImage = icon;
     [HYUKConfigManager shareInstance].linkRect = rect;
     
     [NSThread sleepForTimeInterval:0.5];

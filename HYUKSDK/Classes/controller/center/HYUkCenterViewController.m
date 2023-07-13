@@ -17,6 +17,8 @@
 #import "HYUKPrivacyViewController.h"
 #import "HYUKMessageViewController.h"
 #import "HYUKContactViewController.h"
+#import <StoreKit/StoreKit.h>
+#import "HYUkRequestWorking.h"
 
 @interface HYUkCenterViewController ()<HYBaseViewDelegate>
 
@@ -97,6 +99,8 @@
     }else {
         [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - (IS_iPhoneX ? 79 : 49))];
     }
+    
+    [self saleInStoreWithSuccess];
 }
 
 - (void)getData {
@@ -176,7 +180,23 @@
 
         
     }
-        
+      
+    
+
+}
+
+- (void)saleInStoreWithSuccess {
+    [HYUkRequestWorking isSaleInStoreWithSuccess:^(BOOL success) {
+        if (success) {
+            if (@available(iOS 10.3, *)) {
+                if([SKStoreReviewController respondsToSelector:@selector(requestReview)]) {// iOS 10.3 以上支持
+                 //防止键盘遮挡
+                    [[UIApplication sharedApplication].keyWindow endEditing:YES];
+                    [SKStoreReviewController requestReview];
+                }
+            }
+        }
+    }];
 }
 
 @end
