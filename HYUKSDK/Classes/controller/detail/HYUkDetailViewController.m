@@ -65,7 +65,7 @@ static NSInteger allTime = 61;
     [super viewWillAppear:animated];
     
     
-    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:YES];
+//    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -79,16 +79,16 @@ static NSInteger allTime = 61;
         [self.delegate changeVideoProgressVideoId:self.videoId];
     }
     
-    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:NO];
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-        [invocation setTarget:[UIDevice currentDevice]];
-        int val = UIInterfaceOrientationPortrait;
-        [invocation setArgument:&val atIndex:2];
-        [invocation invoke];
-    }
+//    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:NO];
+//    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+//        SEL selector = NSSelectorFromString(@"setOrientation:");
+//        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+//        [invocation setSelector:selector];
+//        [invocation setTarget:[UIDevice currentDevice]];
+//        int val = UIInterfaceOrientationPortrait;
+//        [invocation setArgument:&val atIndex:2];
+//        [invocation invoke];
+//    }
 }
 
 - (void)clickedBackButton {

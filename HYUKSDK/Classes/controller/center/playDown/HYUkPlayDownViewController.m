@@ -28,7 +28,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:YES];
+//    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -36,16 +36,16 @@
     
     [self.playView saveHistoryRecord];
 
-    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:NO];
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-        [invocation setTarget:[UIDevice currentDevice]];
-        int val = UIInterfaceOrientationPortrait;
-        [invocation setArgument:&val atIndex:2];
-        [invocation invoke];
-    }
+//    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:NO];
+//    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+//        SEL selector = NSSelectorFromString(@"setOrientation:");
+//        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+//        [invocation setSelector:selector];
+//        [invocation setTarget:[UIDevice currentDevice]];
+//        int val = UIInterfaceOrientationPortrait;
+//        [invocation setArgument:&val atIndex:2];
+//        [invocation invoke];
+//    }
 }
 
 - (void)viewDidLoad {

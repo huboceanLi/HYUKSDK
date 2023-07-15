@@ -19,12 +19,12 @@ static HYUkVideoConfigManager *manager = nil;
     return manager;
 }
 
-- (void)setChangeOrientation:(BOOL)isOrientation
-{
-    if ([self.delegate respondsToSelector:@selector(changeOrientation:)]) {
-        [self.delegate changeOrientation:isOrientation];
-    }
-}
+//- (void)setChangeOrientation:(BOOL)isOrientation
+//{
+//    if ([self.delegate respondsToSelector:@selector(changeOrientation:)]) {
+//        [self.delegate changeOrientation:isOrientation];
+//    }
+//}
 
 - (NSString *)changeTimeWithDuration:(NSInteger)duration {
     

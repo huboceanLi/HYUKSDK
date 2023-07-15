@@ -9,12 +9,29 @@
 #import "HYAppDelegate.h"
 #import <HYUKSDK/HYUkHeader.h>
 #import "HYViewController.h"
+#import <SJRotationManager.h>
 
 @interface HYAppDelegate()
-<HYUkVideoInitDelegate>
 
 @end
 @implementation HYAppDelegate
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    UIInterfaceOrientationMask mask = [SJRotationManager supportedInterfaceOrientationsForWindow:window];
+    NSLog(@"orientations: %ld, %@", mask, NSStringFromClass(window.class));
+    return mask;
+}
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+//
+/////
+///// 控制器旋转支持的方向
+/////
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -48,35 +65,8 @@
 //    self.window.rootViewController = nav;
 //    [self.window makeKeyAndVisible];
 
-    [HYUkVideoConfigManager sharedInstance].delegate = self;
 
     return YES;
-}
-
-- (void)changeOrientation:(BOOL)isOrientation
-{
-    if (isOrientation) {
-        self.allowRotate = 1;
-    }else {
-        self.allowRotate = 0;
-    }
-}
-
-//此方法会在设备横竖屏变化的时候调用
-- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
-     if (self.allowRotate == 1) {
-        return UIInterfaceOrientationMaskAll;
-    }else{
-        return (UIInterfaceOrientationMaskPortrait);
-    }
-}
-// 返回是否支持设备自动旋转
-- (BOOL)shouldAutorotate
-{
-    if (self.allowRotate == 1) {
-        return YES;
-    }
-    return NO;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
