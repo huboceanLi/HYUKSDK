@@ -235,7 +235,6 @@ static NSInteger allTime = 61;
         }
     self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
     self.nativeExpressAdManager.delegate = self;
-    [self.nativeExpressAdManager loadAdDataWithCount:1];
     
     [self.playView pause];
     self.playView.hidden = YES;
@@ -262,6 +261,8 @@ static NSInteger allTime = 61;
     self.timeButton.hidden = YES;
     [self.view bringSubviewToFront:self.backButton];
     
+    [self.nativeExpressAdManager loadAdDataWithCount:1];
+
     self.timer = [NSTimer timerWithTimeInterval:(1.0f) target:self selector:@selector(timeRecordCurrent) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
     [self.timer setFireDate:[NSDate distantFuture]];
