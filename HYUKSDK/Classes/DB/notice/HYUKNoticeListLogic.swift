@@ -39,6 +39,7 @@ import YYModel
         for item in q {
             let jsonStr = item.yy_modelToJSONString()
             if let m = HYUKResponseNoticeItemModel.yy_model(withJSON: jsonStr ?? "") {
+                m.id = item.ID ?? 0
                 l.append(m)
             }
         }

@@ -24,7 +24,7 @@
 
 static CGFloat briefViewHeoght = 60.0;
 
-static NSInteger allTime = 61;
+static NSInteger allTime = 31;
 
 @interface HYUkDetailViewController ()<HYBaseViewDelegate,BUNativeExpressAdViewDelegate>
 
@@ -247,13 +247,13 @@ static NSInteger allTime = 61;
     
     self.timeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.timeButton.layer.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.8].CGColor;
-    self.timeButton.frame = CGRectMake(SCREEN_WIDTH - 95, 15 + (IS_iPhoneX ? 44 : 20), 86, 30);
+    self.timeButton.frame = CGRectMake(SCREEN_WIDTH - XJFlexibleFont(95), 15 + (IS_iPhoneX ? 44 : 20), XJFlexibleFont(86), XJFlexibleFont(30));
     self.timeButton.layer.borderWidth = 1.0;
     self.timeButton.layer.borderColor = UIColor.whiteColor.CGColor;
-    self.timeButton.layer.cornerRadius = 15.0;
+    self.timeButton.layer.cornerRadius = XJFlexibleFont(15.0);
     self.timeButton.layer.masksToBounds = YES;
     [self.timeButton setTitle:@"点击跳过" forState:0];
-    self.timeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    self.timeButton.titleLabel.font = [UIFont systemFontOfSize:XJFlexibleFont(12)];
     [self.timeButton setTitleColor:UIColor.whiteColor forState:0];
     [self.view addSubview:self.timeButton];
     [self.timeButton addTarget:self action:@selector(closeAddButton) forControlEvents:UIControlEventTouchUpInside];
@@ -291,13 +291,24 @@ static NSInteger allTime = 61;
         [self closeAddButton];
         return;
     }
-    if (self.recordIndex > 0 && self.recordIndex > 45) {
+
+//    if (self.recordIndex > 0 && self.recordIndex > 50) {
+//        self.timeButton.userInteractionEnabled = NO;
+//        [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ 后可跳过",6 - allTime + self.recordIndex,@"s"] forState:0];
+//        return;
+//    }
+    
+    if (self.recordIndex >= 25) {
         self.timeButton.userInteractionEnabled = NO;
-        [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ 后可跳过",16 - allTime + self.recordIndex,@"s"] forState:0];
+        [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@",self.recordIndex,@"s"] forState:0];
+        self.timeButton.frame = CGRectMake(SCREEN_WIDTH - XJFlexibleFont(40), 15 + (IS_iPhoneX ? 44 : 20), XJFlexibleFont(30), XJFlexibleFont(30));
         return;
     }
     self.timeButton.userInteractionEnabled = YES;
-    [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ 点击跳过",self.recordIndex,@"s"] forState:0];
+    [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ | 跳过",self.recordIndex,@"s"] forState:0];
+    self.timeButton.frame = CGRectMake(SCREEN_WIDTH - XJFlexibleFont(85), 15 + (IS_iPhoneX ? 44 : 20), XJFlexibleFont(76), XJFlexibleFont(30));
+    
+
 }
 
 

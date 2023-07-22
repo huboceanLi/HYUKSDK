@@ -42,6 +42,10 @@ import Foundation
         HYUkDownListDao.default.updateDownStatus(primaryId: primaryId)
     }
 
+    public func clearData() {
+        HYUkDownListDao.default.clearData()
+    }
+    
     public func deleteAll(status: Int) {
         HYUkDownListDao.default.deleteAll(status: status)
     }

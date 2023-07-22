@@ -164,6 +164,7 @@
     }
     [[HYUkDownManager sharedInstance] removeCacheForURLs:@[model.playUrl]];
     [self.dataArray removeObject:model];
+    [[HYUkDownListLogic share] removeAppointDownWithPrimaryId:model.primary_Id];
     [self.tableView endUpdates];
 }
 
@@ -191,7 +192,7 @@
 {
     for (int i = 0; i < self.dataArray.count; i++) {
         HYUkDownListModel *model = self.dataArray[i];
-        if ([model.primary_Id isEqualToString:primary_Id]) {
+        if ([model.primary_Id isEqualToString:primary_Id] && model.status == 0) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             HYUkDownProgressCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             [cell downProgress:primary_Id progress:progress status:status];
@@ -217,6 +218,7 @@
             [arr addObject:item.playUrl];
         }
         [[HYUkDownManager sharedInstance] removeCacheForURLs:arr];
+        [[HYUkDownListLogic share] clearData];
         [self.dataArray removeAllObjects];
         [self.tableView reloadData];
         return;
