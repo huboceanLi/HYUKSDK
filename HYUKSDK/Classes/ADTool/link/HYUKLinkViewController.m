@@ -16,7 +16,6 @@
 #import "UKBuSplashManager.h"
 #import "HYUkHeader.h"
 #import <UMCommon/UMCommon.h>
-#import <Bugly/Bugly.h>
 
 @interface HYUKLinkViewController ()
 
@@ -142,7 +141,7 @@
     NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
     
     [UMConfigure initWithAppkey:[HYUKConfigManager shareInstance].versionModel.shareid channel:@"App Store"];
-    [Bugly startWithAppId:[HYUKConfigManager shareInstance].versionModel.logId];
+//    [Bugly startWithAppId:[HYUKConfigManager shareInstance].versionModel.logId];
     
     if ([app_build integerValue] <=  [self.versionModel.version integerValue]) {
         //初始化广告，调用开屏
