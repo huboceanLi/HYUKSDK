@@ -22,7 +22,6 @@
 #import <HYBaseTool/HYBaseTool.h>
 
 #import "UIColor+UkPublicUse.h"
-#import "HYUkVideoTabBarViewController.h"
 #import "UIImage+uk_bundleImage.h"
 #import "BadgeButton.h"
 #import "UICollectionView+EmptyView.h"
@@ -40,7 +39,6 @@
 #import "MYToast.h"
 #import "APIString.h"
 #import "MYDialogViewController.h"
-#import "HYUkDownManager.h"
 //#import "HYUKADHeader.h"
 #import "AdaptScreen.h"
 #import "HYUKResponseNoticeModel.h"

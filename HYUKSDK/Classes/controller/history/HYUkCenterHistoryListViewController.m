@@ -67,6 +67,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, (IS_iPhoneX ? 44 : 10), 0)];
     [ _tableView registerClass:[HYUkCenterHistoryListCell class] forCellReuseIdentifier:@"Cell"];
+    [self.tableView updateEmptyViewWithImageName:@"uk_net_err" title:@"暂无数据"];
 
 //    [self.tableView registerNib:[UINib nibWithNibName:@"ChangeInfoCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
@@ -85,7 +86,7 @@
 }
 
 - (void)getData {
-    NSArray *arr = [[HYUkHistoryRecordLogic share] queryHistoryRecordListWithCreateTime:self.create_Time count:20];
+    NSArray *arr = [[HYUkHistoryRecordLogic share] queryHistoryRecordListWithCreateTime:self.create_Time count:NSIntegerMax];
     [self.dataArray addObjectsFromArray:arr];
     [self.tableView reloadData];
 }

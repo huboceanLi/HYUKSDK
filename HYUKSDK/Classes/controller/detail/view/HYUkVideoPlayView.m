@@ -64,7 +64,7 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 }
 
 - (void)netChangeWanNotic {
-    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkDownManager sharedInstance].isWan) {
+    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkVideoConfigManager sharedInstance].isWan) {
         [self.player pause];
         MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下播放视频会消耗流量,确定要播放吗?"];
         dialogVC.customView.height = 110;
@@ -194,7 +194,7 @@ static NSString *const DEMO_URL_HLS = @"https://ukzyvod3.ukubf5.com/20230415/9Hc
 
 - (void)_play:(NSURL *)URL {
 
-    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkDownManager sharedInstance].isWan) {
+    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkVideoConfigManager sharedInstance].isWan) {
         MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下播放视频会消耗流量,确定要播放吗?"];
         dialogVC.customView.height = 110;
         __weak typeof(self) weakSelf = self;

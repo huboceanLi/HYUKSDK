@@ -6,8 +6,16 @@
 //
 
 #import "HYUkVideoConfigManager.h"
+#import "LHYReachability.h"
 
 static HYUkVideoConfigManager *manager = nil;
+
+@interface HYUkVideoConfigManager()
+
+@property (nonatomic) LHYReachability *hostReachability;
+//@property (nonatomic, strong) NSMutableArray *waitPrimaryIds;
+
+@end
 
 @implementation HYUkVideoConfigManager
 
@@ -15,8 +23,34 @@ static HYUkVideoConfigManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[self alloc] init];
+        manager.hostReachability = [LHYReachability reachabilityWithHostName:@"https://www.baidu.com"];
+        [manager.hostReachability startNotifier];
     });
     return manager;
+}
+
+- (void)startNetworkMonitoring
+{
+    NetworkStatus netStatus = [self.hostReachability currentReachabilityStatus];
+    switch (netStatus){
+        case NotReachable: {
+            NSLog(@"ViewController : 没有网络！");
+            self.isWan = NO;
+            break;
+        }
+        case ReachableViaWWAN: {
+            
+            NSLog(@"ViewController : 4G/3G");
+            self.isWan = YES;
+            [[NSNotificationCenter defaultCenter] postNotificationName:net_change_wan object:nil];
+            break;
+        }
+        case ReachableViaWiFi: {
+            self.isWan = NO;
+            NSLog(@"ViewController : WiFi");
+            break;
+        }
+    }
 }
 
 //- (void)setChangeOrientation:(BOOL)isOrientation

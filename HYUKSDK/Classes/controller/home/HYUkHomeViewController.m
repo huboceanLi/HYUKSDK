@@ -7,16 +7,14 @@
 
 #import "HYUkHomeViewController.h"
 #import "HYUkOtherViewController.h"
-#import "HYUkRecommendVC.h"
 #import "HYUkSearchViewController.h"
 #import "HYUkHomeSearchView.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
-//#import "HYUKADHeader.h"
 #import "HYUkDetailViewController.h"
 #import "HYUKHistoryRecodeView.h"
-//#import "HYUKMessageViewController.h"
 #import "HYVideoUpgradeViewController.h"
 #import "HYUkCenterHistoryListViewController.h"
+#import "HYUKRecommendViewController.h"
 
 @interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate,PopViewControllerDelegate>
 
@@ -55,7 +53,7 @@
     }];
     
     [[HYVideoDBLogic share] initDB];
-    [[HYUkDownManager sharedInstance] startNetworkMonitoring];
+    [[HYUkVideoConfigManager sharedInstance] startNetworkMonitoring];
     
     [self.view addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -208,7 +206,7 @@
 #pragma mark-- <JXCategoryListContainerViewDelegate>
 - (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView initListForIndex:(NSInteger)index {
     if (index == 0) {
-        HYUkRecommendVC * listVC = [[HYUkRecommendVC alloc] init];
+        HYUKRecommendViewController * listVC = [[HYUKRecommendViewController alloc] init];
         return listVC;
     }
     HYUkOtherViewController * listVC = [[HYUkOtherViewController alloc] init];

@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *name;
 
+- (void)showTitle:(NSInteger)index dic:(NSDictionary *)dic;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -38,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getCacheSize;
 - (void)clearCache;
 
+- (void)startNetworkMonitoring;
+
+@property (nonatomic, assign) BOOL isWan;
+
 @end
 
 NS_ASSUME_NONNULL_END
