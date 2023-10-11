@@ -20,7 +20,8 @@
     [super initSubviews];
     
     self.backgroundColor = UIColor.clearColor;
-
+    self.userInteractionEnabled = YES;
+    
     self.searchContentView = [UIView new];
     self.searchContentView.layer.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:0.5].CGColor;
     self.searchContentView.layer.cornerRadius = 16.0;

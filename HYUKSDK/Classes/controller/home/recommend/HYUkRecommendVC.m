@@ -30,7 +30,7 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 15, 0)];
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, bottomSafeAreaHeight_HEIGHT, 0)];
     [ _tableView registerClass:[HYUkHomeRecommendCell class] forCellReuseIdentifier:@"Cell"];
     [_tableView updateEmptyViewWithImageName:@"uk_nodata" title:@"暂无数据"];
 

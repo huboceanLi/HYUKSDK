@@ -15,7 +15,7 @@
 #import <YYWebImage/YYWebImage.h>
 #import <YYCategories/YYCategories.h>
 #import <MJRefresh/MJRefresh.h>
-#import "MBProgressHUD+JDragon.h"
+//#import "MBProgressHUD+JDragon.h"
 #import <JXCategoryView/JXCategoryView.h>
 #import <HYUKSDK/HYUkHeader.h>
 #import <CTNetworking/CTNetworking.h>
@@ -41,9 +41,13 @@
 #import "APIString.h"
 #import "MYDialogViewController.h"
 #import "HYUkDownManager.h"
-#import "HYUKADHeader.h"
+//#import "HYUKADHeader.h"
 #import "AdaptScreen.h"
 #import "HYUKResponseNoticeModel.h"
+
+#import "HYUkVideoBaseViewController.h"
+#import "HYUkHomeViewController.h"
+
 
 #define IS_iPhoneX \
 ({BOOL isPhoneX = NO;\
@@ -51,6 +55,12 @@ if (@available(iOS 11.0, *)) {\
 isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
 }\
 (isPhoneX);})
+
+
+
+#define NAV_HEIGHT [UIApplication sharedApplication].statusBarFrame.size.height + 44.0
+
+#define bottomSafeAreaHeight_HEIGHT [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom
 
 #define SDKVersion @"1.0.0"
 

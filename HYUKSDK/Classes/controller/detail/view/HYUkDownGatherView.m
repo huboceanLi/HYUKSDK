@@ -77,7 +77,7 @@
         make.top.equalTo(self.name.mas_bottom).offset(0);
     }];
     
-    self.dowList = [[[HYUkDownListLogic share] queryDownAllList] mutableCopy];
+//    self.dowList = [[[HYUkDownListLogic share] queryDownAllList] mutableCopy];
 
 }
 
@@ -121,19 +121,17 @@
     cell.name.text = model.name;
     cell.name.textColor = [UIColor textColor22];
     
-    if (self.dowList.count > 0) {
-        for (HYUkDownListModel *item in self.dowList) {
-            if ([model.name isEqualToString:item.playName] || [model.url isEqualToString:item.playUrl]) {
-//                cell.name.textColor = [UIColor mainColor];
-                cell.downImageView.hidden = NO;
-                cell.userInteractionEnabled = NO;
-                break;
-            }else {
-//                cell.name.textColor = [UIColor textColor22];
-                cell.userInteractionEnabled = YES;
-            }
-        }
-    }
+//    if (self.dowList.count > 0) {
+//        for (HYUkDownListModel *item in self.dowList) {
+//            if ([model.name isEqualToString:item.playName] || [model.url isEqualToString:item.playUrl]) {
+//                cell.downImageView.hidden = NO;
+//                cell.userInteractionEnabled = NO;
+//                break;
+//            }else {
+//                cell.userInteractionEnabled = YES;
+//            }
+//        }
+//    }
 
 
     return cell;
@@ -141,35 +139,35 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HYUkVideoDetailItemModel *model = self.detailModel.vod_play_url[indexPath.row];
+//    HYUkVideoDetailItemModel *model = self.detailModel.vod_play_url[indexPath.row];
+//
+//    NSString *str = [NSString stringWithFormat:@"%ld-%@",self.detailModel.ID,model.name];
+//    
+//    if ([[HYUkDownListLogic share] queryAppointDownWithPrimaryId:str]) {
+//        [MYToast showWithText:@"已在下载队列中!"];
+//        return;
+//    }
+//    HYUkDownListModel *downModel = [HYUkDownListModel new];
+//    downModel.primary_Id = str;
+//    downModel.video_id = self.detailModel.ID;
+//    downModel.type_id_1 = self.detailModel.type_id_1;
+//    downModel.vod_name = self.detailModel.vod_name;
+//    downModel.vod_pic = self.detailModel.vod_pic;
+//    downModel.vod_year = self.detailModel.vod_year;
+//    downModel.vod_area = self.detailModel.vod_area;
+//    downModel.playName = model.name;
+//    downModel.playUrl = model.url;
+//    downModel.content = self.detailModel.vod_content;
+//    downModel.create_Time = [[[HYUkVideoConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
+//    [[HYUkDownListLogic share] insertDownListWithModel:downModel];
+//    
+//    [self.dowList addObject:downModel];
+    
+//    [[HYUkDownManager sharedInstance] startDown:downModel];
 
-    NSString *str = [NSString stringWithFormat:@"%ld-%@",self.detailModel.ID,model.name];
-    
-    if ([[HYUkDownListLogic share] queryAppointDownWithPrimaryId:str]) {
-        [MYToast showWithText:@"已在下载队列中!"];
-        return;
-    }
-    HYUkDownListModel *downModel = [HYUkDownListModel new];
-    downModel.primary_Id = str;
-    downModel.video_id = self.detailModel.ID;
-    downModel.type_id_1 = self.detailModel.type_id_1;
-    downModel.vod_name = self.detailModel.vod_name;
-    downModel.vod_pic = self.detailModel.vod_pic;
-    downModel.vod_year = self.detailModel.vod_year;
-    downModel.vod_area = self.detailModel.vod_area;
-    downModel.playName = model.name;
-    downModel.playUrl = model.url;
-    downModel.content = self.detailModel.vod_content;
-    downModel.create_Time = [[[HYUkVideoConfigManager sharedInstance] getNowTimeTimestamp] integerValue];
-    [[HYUkDownListLogic share] insertDownListWithModel:downModel];
-    
-    [self.dowList addObject:downModel];
-    
-    [[HYUkDownManager sharedInstance] startDown:downModel];
-
-    [MYToast showWithText:@"已添加到下载队列中!"];
-    
-    [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]];
+//    [MYToast showWithText:@"已添加到下载队列中!"];
+//    
+//    [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil]];
 
     
 //    

@@ -1,8 +1,8 @@
 {
   "name": "HYUKSDK",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "summary": "A short description of HYUKSDK.",
-  "description": "TODO: Add long description of the pod here.",
+  "description": "A short description of LHYADTool Test.",
   "homepage": "https://github.com/huboceanLi/HYUKSDK",
   "license": {
     "type": "MIT",
@@ -13,13 +13,12 @@
   },
   "source": {
     "git": "https://github.com/huboceanLi/HYUKSDK.git",
-    "tag": "0.0.1"
+    "tag": "2.0.0"
   },
   "platforms": {
-    "ios": "11.0"
+    "ios": "10.0"
   },
   "requires_arc": true,
-  "swift_versions": "5.0",
   "pod_target_xcconfig": {
     "DEFINES_MODULE": "YES"
   },
@@ -49,7 +48,7 @@
 
     ],
     "WCDB.swift": [
-
+      "1.1.0"
     ],
     "YYModel": [
 
@@ -62,7 +61,12 @@
     ],
     "YYWebImage": [
 
+    ],
+    "MJRefresh": [
+
+    ],
+    "UMCommon": [
+
     ]
-  },
-  "swift_version": "5.0"
+  }
 }

@@ -41,6 +41,5 @@ NSString * const video_get_version = @"http://vod.wxspb.cn/api/index/get_version
 NSString * const video_allow_flow_play = @"video_allow_flow_play";
 NSString * const net_change_wan = @"net_change_wan";
 NSString * const supper_user = @"SUPPERUSER";
-NSString * const notice_isRead = @"NOTICEREAD";
 
 @end

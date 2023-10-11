@@ -11,13 +11,12 @@
 #import "HYUkSearchViewController.h"
 #import "HYUkHomeSearchView.h"
 #import "HYUKSDK/HYUKSDK-Swift.h"
-#import "HYUKADHeader.h"
+//#import "HYUKADHeader.h"
 #import "HYUkDetailViewController.h"
 #import "HYUKHistoryRecodeView.h"
-#import "HYUKMessageViewController.h"
+//#import "HYUKMessageViewController.h"
 #import "HYVideoUpgradeViewController.h"
-#import "HYUkRequestWorking.h"
-#import "HYUKBadgeView.h"
+#import "HYUkCenterHistoryListViewController.h"
 
 @interface HYUkHomeViewController ()<JXCategoryViewDelegate,JXCategoryListContainerViewDelegate, HYBaseViewDelegate,PopViewControllerDelegate>
 
@@ -25,10 +24,11 @@
 @property(nonatomic, strong) JXCategoryListContainerView * containerView;
 @property(nonatomic, strong) NSArray * titleArray;
 @property (nonatomic, strong) HYUkHomeSearchView *searchView;
-@property (nonatomic, strong) HYUKBadgeView *badgeView;
+@property (nonatomic, strong) UIButton *historyBtn;
 @property (nonatomic, strong) NSArray *categeryModels;
 @property (nonatomic, strong) HYUKHistoryRecodeView *recodeView;
 @property (nonatomic, strong) HYVideoUpgradeViewController *upgradeViewController;
+@property (nonatomic, strong) UIImageView *bgImageView;
 
 @end
 
@@ -38,33 +38,39 @@
     [super viewWillAppear:animated];
     self.hidesBottomBarWhenPushed = NO;
     self.tabBarController.tabBar.hidden = NO;
-    
+    self.navigationController.navigationBarHidden = YES;
     [self getHistory];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navBar.backgroundColor = UIColor.clearColor;
+//    self.navBar.backgroundColor = UIColor.clearColor;
+    self.bgImageView = [UIImageView new];
     self.bgImageView.image = [UIImage uk_bundleImage:@"uk_bg_Img"];
+    [self.view addSubview:self.bgImageView];
+    
+    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
     
     [[HYVideoDBLogic share] initDB];
     [[HYUkDownManager sharedInstance] startNetworkMonitoring];
     
-    [self.navBar addSubview:self.searchView];
+    [self.view addSubview:self.searchView];
     [self.searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.navBar.mas_left).offset(16);
-        make.right.equalTo(self.navBar.mas_right).offset(-62);
-        make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
+        make.left.equalTo(self.view.mas_left).offset(16);
+        make.right.equalTo(self.view.mas_right).offset(-62);
+//        make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
+        make.top.equalTo(self.view.mas_top).offset(NAV_HEIGHT - 40);
         make.height.mas_equalTo(40);
     }];
-    
-    [self.navBar addSubview:self.badgeView];
-    [self.badgeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.navBar.mas_right).offset(-10);
-        make.bottom.equalTo(self.navBar.mas_bottom).offset(0);
-        make.height.mas_equalTo(40);
-        make.width.mas_equalTo(50);
+//    
+    [self.view addSubview:self.historyBtn];
+    [self.historyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.mas_right).offset(-10);
+        make.top.equalTo(self.view.mas_top).offset(NAV_HEIGHT - 40);
+        make.height.width.mas_equalTo(40);
     }];
     
     _headerView = [[JXCategoryTitleView alloc] initWithFrame:CGRectZero];
@@ -92,7 +98,7 @@
     _headerView.listContainer = _containerView;
 
     [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.navBar.mas_bottom);
+        make.top.equalTo(self.view.mas_top).offset(NAV_HEIGHT);
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(IS_IPAD ? 60 : 40);
     }];
@@ -100,7 +106,7 @@
     [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.headerView.mas_bottom);
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-(IS_iPhoneX ? 80 : 50));
+        make.bottom.equalTo(self.view.mas_bottom).offset(0);
     }];
     
     BOOL isOpenTheProxy = [[HYUkVideoConfigManager sharedInstance] isOpenTheProxy];
@@ -122,46 +128,45 @@
     [self getNoticeList];
     [self chooseVersion];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageIsReadNotic) name:notice_isRead object:nil];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[UKNativeExpressFullscreenManager shared] loadExpressAdWithVC:self];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [[UKNativeExpressFullscreenManager shared] loadExpressAdWithVC:self];
+//    });
 }
 
-- (void)messageIsReadNotic {
-    NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount];
-    [self.badgeView getCount:count];
-}
+//- (void)messageIsReadNotic {
+//    NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount];
+//    [self.badgeView getCount:count];
+//}
 
 - (void)getNoticeList {
     __weak typeof(self) weakSelf = self;
     
-    NSInteger maxTime = [[HYUKNoticeListLogic share] queryNoticeMaxTime];
+//    NSInteger maxTime = [[HYUKNoticeListLogic share] queryNoticeMaxTime];
     
-    [HYUkRequestWorking getNoticeWithListMaXTime:maxTime success:^(NSArray<HYUKResponseNoticeItemModel *> * _Nonnull models, BOOL success) {
-        if (success) {
-            NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount] + models.count;
-            [weakSelf.badgeView getCount:count];
-            [[HYUKNoticeListLogic share] insertNoticeListWithList:models];
-        }
-    }];
+//    [HYUkRequestWorking getNoticeWithListMaXTime:maxTime success:^(NSArray<HYUKResponseNoticeItemModel *> * _Nonnull models, BOOL success) {
+//        if (success) {
+//            NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount] + models.count;
+//            [weakSelf.badgeView getCount:count];
+//            [[HYUKNoticeListLogic share] insertNoticeListWithList:models];
+//        }
+//    }];
 }
 
 - (void)chooseVersion {
-    if ([HYUKConfigManager shareInstance].versionModel == nil) {
-        return;
-    }
-    
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    NSString *app_build = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    
-    if ([app_build integerValue] <  [[HYUKConfigManager shareInstance].versionModel.version integerValue]) {
-        if ([HYUKConfigManager shareInstance].versionModel.force == 0) {
-            return;
-        }
-        [self.upgradeViewController showWithAnimated:YES completion:nil];
-    }
+//    if ([HYUKConfigManager shareInstance].versionModel == nil) {
+//        return;
+//    }
+//    
+//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSString *app_build = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//    
+//    if ([app_build integerValue] <  [[HYUKConfigManager shareInstance].versionModel.version integerValue]) {
+//        if ([HYUKConfigManager shareInstance].versionModel.force == 0) {
+//            return;
+//        }
+//        [self.upgradeViewController showWithAnimated:YES completion:nil];
+//    }
 }
 
 - (void)getHistory {
@@ -249,20 +254,26 @@
         return;
     }
     
-    if ([view isKindOfClass:[HYUKBadgeView class]]) {
-        HYUKMessageViewController *vc = [HYUKMessageViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
-        return;
-    }
+//    if ([view isKindOfClass:[HYUKBadgeView class]]) {
+//        HYUKMessageViewController *vc = [HYUKMessageViewController new];
+//        [self.navigationController pushViewController:vc animated:YES];
+//        return;
+//    }
 }
 
-- (HYUKBadgeView *)badgeView {
-    if (!_badgeView) {
-        _badgeView = [HYUKBadgeView new];
-        _badgeView.delegate = self;
-    }
-    return _badgeView;
+- (void)hisetoryButtonClick {
+    [self.navigationController pushViewController:[HYUkCenterHistoryListViewController new] animated:YES];
 }
+
+- (UIButton *)historyBtn {
+    if (!_historyBtn) {
+        _historyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_historyBtn setImage:[UIImage uk_bundleImage:@"uk_message"] forState:0];
+        [_historyBtn addTarget:self action:@selector(hisetoryButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _historyBtn;
+}
+
 
 - (HYVideoUpgradeViewController *)upgradeViewController {
     if (!_upgradeViewController) {

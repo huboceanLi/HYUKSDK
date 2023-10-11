@@ -72,24 +72,25 @@
 - (CGFloat) contentViewHeight
 {
 //    NSString *str = @"比如我本来安装完CocoaPods 1.0.0版,但发现它实现跟先前还是差别满大的,决定降回0.39这个比较稳定版本;就可以用命令先删除本地的CocoaPods版本,再指定安装特定版本。";
-    NSString *str = [HYUKConfigManager shareInstance].versionModel.content;
-
-    self.tipLabel.text = str;
-    CGFloat h = [str heightForFont:[UIFont systemFontOfSize:XJFlexibleFont(14)] width:SCREEN_WIDTH - 180];
-    self.tipLabel.frame = CGRectMake(20, XJFlexibleFont(20), SCREEN_WIDTH - 180, h);
-    self.upgradeButton.frame = CGRectMake((SCREEN_WIDTH - 120 - 140)/2, CGRectGetMaxY(self.tipLabel.frame) + XJFlexibleFont(40), 120, XJFlexibleFont(44));
-    self.bgView.frame = CGRectMake(0, CGRectGetMaxY(self.bgImageView.frame) - XJFlexibleFont(6), SCREEN_WIDTH - 140, h + XJFlexibleFont(20 + 40 + 20 + 44 + 6));
-    
-    self.closeButton.frame = CGRectMake((SCREEN_WIDTH - 140 - 40)/2, CGRectGetMaxY(self.bgView.frame) + XJFlexibleFont(30), XJFlexibleFont(40), XJFlexibleFont(40));
-    
-    CGFloat allH = h + self.imageH + XJFlexibleFont(20 + 40 + 20 + 44 + 6 + 30 + 40);
-    if ([HYUKConfigManager shareInstance].versionModel.force == 2) {
-        allH = allH - XJFlexibleFont(30) - XJFlexibleFont(40);
-        self.closeButton.hidden = YES;
-    }else {
-        self.closeButton.hidden = NO;
-    }
-    return allH;
+//    NSString *str = [HYUKConfigManager shareInstance].versionModel.content;
+//
+//    self.tipLabel.text = str;
+//    CGFloat h = [str heightForFont:[UIFont systemFontOfSize:XJFlexibleFont(14)] width:SCREEN_WIDTH - 180];
+//    self.tipLabel.frame = CGRectMake(20, XJFlexibleFont(20), SCREEN_WIDTH - 180, h);
+//    self.upgradeButton.frame = CGRectMake((SCREEN_WIDTH - 120 - 140)/2, CGRectGetMaxY(self.tipLabel.frame) + XJFlexibleFont(40), 120, XJFlexibleFont(44));
+//    self.bgView.frame = CGRectMake(0, CGRectGetMaxY(self.bgImageView.frame) - XJFlexibleFont(6), SCREEN_WIDTH - 140, h + XJFlexibleFont(20 + 40 + 20 + 44 + 6));
+//    
+//    self.closeButton.frame = CGRectMake((SCREEN_WIDTH - 140 - 40)/2, CGRectGetMaxY(self.bgView.frame) + XJFlexibleFont(30), XJFlexibleFont(40), XJFlexibleFont(40));
+//    
+//    CGFloat allH = h + self.imageH + XJFlexibleFont(20 + 40 + 20 + 44 + 6 + 30 + 40);
+//    if ([HYUKConfigManager shareInstance].versionModel.force == 2) {
+//        allH = allH - XJFlexibleFont(30) - XJFlexibleFont(40);
+//        self.closeButton.hidden = YES;
+//    }else {
+//        self.closeButton.hidden = NO;
+//    }
+//    return allH;
+    return 0.0;
 }
 
 @end

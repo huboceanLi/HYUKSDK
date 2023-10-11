@@ -39,21 +39,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = UIColor.whiteColor;
     
-    __weak typeof(self) weakSelf = self;
         
-    [HYUKInitTool initTool:[UIImage imageNamed:@"引导页"] icon:[UIImage imageNamed:@"引导页"] linkRect:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) window:self.window enter:^(BOOL pt) {
-        if (!pt) {
-            HYUkVideoTabBarViewController *tabBar = [HYUkVideoTabBarViewController new];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
-            weakSelf.window.rootViewController = nav;
-            [weakSelf.window makeKeyAndVisible];
-        }else {
-            HYViewController *tabBar = [HYViewController new];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
-            weakSelf.window.rootViewController = nav;
-            [weakSelf.window makeKeyAndVisible];
-        }
-    }];
+    HYUkHomeViewController *tabBar = [HYUkHomeViewController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabBar];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
     
     // Override point for customization after application launch.
 

@@ -7,10 +7,11 @@
 
 #import <HYBaseTool/HYBaseTool.h>
 #import "HYUkVideoBaseViewController.h"
+#import "HYUkHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HYUkHomeViewController : HYUkVideoBaseViewController
+@interface HYUkHomeViewController : UIViewController
 
 //@property (nonatomic, strong) HYUKVideoVersionModel *versionModel;
 

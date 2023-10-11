@@ -18,7 +18,7 @@ static HYUkDownManager *manager = nil;
 @interface HYUkDownManager()
 
 @property (nonatomic) LHYReachability *hostReachability;
-@property (nonatomic, strong) NSMutableArray *waitPrimaryIds;
+//@property (nonatomic, strong) NSMutableArray *waitPrimaryIds;
 
 @end
 
@@ -28,9 +28,9 @@ static HYUkDownManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[self alloc] init];
-        manager.downIngDic = [NSMutableDictionary dictionary];
-        manager.downWaitDic = [NSMutableDictionary dictionary];
-        manager.waitPrimaryIds = [NSMutableArray array];
+//        manager.downIngDic = [NSMutableDictionary dictionary];
+//        manager.downWaitDic = [NSMutableDictionary dictionary];
+//        manager.waitPrimaryIds = [NSMutableArray array];
         
         [SJMediaCacheServer shared].maxConcurrentExportCount = exportCount;
         
@@ -68,121 +68,121 @@ static HYUkDownManager *manager = nil;
     }
 }
 
-- (void)downStart:(HYUkDownListModel *)model {
-    if ([self.downIngDic.allKeys containsObject:model.primary_Id]) {
-        
-        [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
-        [self.downIngDic removeObjectForKey:model.primary_Id];
-        NSArray *arr = self.downIngDic.allKeys;
-        for (int i = 0; arr.count; i++) {
-            if (arr.count > i) {
-                [self downIng:self.downIngDic[arr[i]]];
-            }
-        }
-        if ([self.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
-            [self.delegate downProgress:model.primary_Id progress:0 status:down_pause];
-        }
-        return;
-    }
-    
-    if (self.downIngDic.allKeys.count >= exportCount) { //任务满了
-        [self.downWaitDic setObject:model forKey:model.primary_Id];
-        [self.waitPrimaryIds addObject:model.primary_Id];
-        if ([self.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
-            [self.delegate downProgress:model.primary_Id progress:0 status:down_wait];
-        }
-        return;
-    }
+//- (void)downStart:(HYUkDownListModel *)model {
+//    if ([self.downIngDic.allKeys containsObject:model.primary_Id]) {
+//        
+//        [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
+//        [self.downIngDic removeObjectForKey:model.primary_Id];
+//        NSArray *arr = self.downIngDic.allKeys;
+//        for (int i = 0; arr.count; i++) {
+//            if (arr.count > i) {
+//                [self downIng:self.downIngDic[arr[i]]];
+//            }
+//        }
+//        if ([self.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
+//            [self.delegate downProgress:model.primary_Id progress:0 status:down_pause];
+//        }
+//        return;
+//    }
+//    
+//    if (self.downIngDic.allKeys.count >= exportCount) { //任务满了
+//        [self.downWaitDic setObject:model forKey:model.primary_Id];
+//        [self.waitPrimaryIds addObject:model.primary_Id];
+//        if ([self.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
+//            [self.delegate downProgress:model.primary_Id progress:0 status:down_wait];
+//        }
+//        return;
+//    }
+//
+//    [self.downIngDic setObject:model forKey:model.primary_Id];
+//    if ([self.downWaitDic.allKeys containsObject:model.primary_Id]) {
+//        [self.downWaitDic removeObjectForKey:model.primary_Id];
+//        [self.waitPrimaryIds removeObject:model.primary_Id];
+//    }
+//    if ([self.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
+//        [self.delegate downProgress:model.primary_Id progress:model.progress status:downing];
+//    }
+//    [self downIng:model];
+//}
 
-    [self.downIngDic setObject:model forKey:model.primary_Id];
-    if ([self.downWaitDic.allKeys containsObject:model.primary_Id]) {
-        [self.downWaitDic removeObjectForKey:model.primary_Id];
-        [self.waitPrimaryIds removeObject:model.primary_Id];
-    }
-    if ([self.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
-        [self.delegate downProgress:model.primary_Id progress:model.progress status:downing];
-    }
-    [self downIng:model];
-}
+//- (void)startDown:(HYUkDownListModel *)model {
+//    
+//    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkDownManager sharedInstance].isWan) {
+//        MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下载视频会消耗流量,确定要下载吗?"];
+//        dialogVC.customView.height = 110;
+//        [dialogVC addSubmitButtonWithText:@"下载" block:^(__kindof QMUIDialogViewController * _Nonnull aDialogViewController) {
+//            [aDialogViewController hide];
+//            [UserDefault setBool:true forKey:video_allow_flow_play];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:video_allow_flow_play object:nil];
+//            [[HYUkDownManager sharedInstance] downStart:model];
+//        }];
+//        [dialogVC addCancelButtonWithText:@"取消" block:nil];
+//        [dialogVC show];
+//        return;
+//    }
+//    [[HYUkDownManager sharedInstance] downStart:model];
+//}
 
-- (void)startDown:(HYUkDownListModel *)model {
-    
-    if (![UserDefault boolValueForKey:video_allow_flow_play] && [HYUkDownManager sharedInstance].isWan) {
-        MYDialogViewController * dialogVC = [[MYDialogViewController alloc] initWithTitle:@"温馨提示" tipsString:@"非wifi下载视频会消耗流量,确定要下载吗?"];
-        dialogVC.customView.height = 110;
-        [dialogVC addSubmitButtonWithText:@"下载" block:^(__kindof QMUIDialogViewController * _Nonnull aDialogViewController) {
-            [aDialogViewController hide];
-            [UserDefault setBool:true forKey:video_allow_flow_play];
-            [[NSNotificationCenter defaultCenter] postNotificationName:video_allow_flow_play object:nil];
-            [[HYUkDownManager sharedInstance] downStart:model];
-        }];
-        [dialogVC addCancelButtonWithText:@"取消" block:nil];
-        [dialogVC show];
-        return;
-    }
-    [[HYUkDownManager sharedInstance] downStart:model];
-}
+//- (void)downIng:(HYUkDownListModel *)model {
+//
+//    __weak typeof(self) weakSelf = self;
+//    [[SJMediaCacheServer shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] progress:^(float progress) {
+//        NSInteger p = progress * 100;
+//        NSLog(@"下载进度:%ld",p);
+//
+//        if (p % 3 == 0) {
+//            [[HYUkDownListLogic share] updateDownProgressWithPrimaryId:model.primary_Id progress:p];
+//        }
+//
+//        if ([weakSelf.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
+//            [weakSelf.delegate downProgress:model.primary_Id progress:p status:downing];
+//        }
+//    } completed:^(NSError * _Nullable error) {
+//        if (!error) {
+//
+//            [[HYUkDownListLogic share] updateDownStatusWithPrimaryId:model.primary_Id];
+//            [weakSelf.downIngDic removeObjectForKey:model.primary_Id];
+//            [weakSelf startNext];
+//            if ([weakSelf.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
+//                [weakSelf.delegate downProgress:model.primary_Id progress:0 status:down_success];
+//            }
+//            NSLog(@"下载完成");
+//        }else {
+//            NSLog(@"下载出错了:%@",error);
+//        }
+//    }];
+//}
 
-- (void)downIng:(HYUkDownListModel *)model {
+//- (void)startNext {
+//    if (self.waitPrimaryIds.count > 0) {
+//        NSString *ID = self.waitPrimaryIds.firstObject;
+//        HYUkDownListModel *model = self.downWaitDic[ID];
+//        [self.downIngDic setObject:model forKey:model.primary_Id];
+//        [self.downWaitDic removeObjectForKey:model.primary_Id];
+//        [self.waitPrimaryIds removeObject:model.primary_Id];
+//        
+//        [self downIng:model];
+//    }else {
+//        NSLog(@"没有下载任务了");
+//    }
+//}
 
-    __weak typeof(self) weakSelf = self;
-    [[SJMediaCacheServer shared] prefetchWithURL:[NSURL URLWithString:model.playUrl] progress:^(float progress) {
-        NSInteger p = progress * 100;
-        NSLog(@"下载进度:%ld",p);
+//- (void)endDown:(HYUkDownListModel *)model
+//{
+//    if ([self.downIngDic.allKeys containsObject:model.primary_Id]) {
+//        [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
+//        [self.downIngDic removeObjectForKey:model.primary_Id];
+//        [self startNext];
+//    }
+//}
 
-        if (p % 3 == 0) {
-            [[HYUkDownListLogic share] updateDownProgressWithPrimaryId:model.primary_Id progress:p];
-        }
-
-        if ([weakSelf.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
-            [weakSelf.delegate downProgress:model.primary_Id progress:p status:downing];
-        }
-    } completed:^(NSError * _Nullable error) {
-        if (!error) {
-
-            [[HYUkDownListLogic share] updateDownStatusWithPrimaryId:model.primary_Id];
-            [weakSelf.downIngDic removeObjectForKey:model.primary_Id];
-            [weakSelf startNext];
-            if ([weakSelf.delegate respondsToSelector:@selector(downProgress:progress:status:)]) {
-                [weakSelf.delegate downProgress:model.primary_Id progress:0 status:down_success];
-            }
-            NSLog(@"下载完成");
-        }else {
-            NSLog(@"下载出错了:%@",error);
-        }
-    }];
-}
-
-- (void)startNext {
-    if (self.waitPrimaryIds.count > 0) {
-        NSString *ID = self.waitPrimaryIds.firstObject;
-        HYUkDownListModel *model = self.downWaitDic[ID];
-        [self.downIngDic setObject:model forKey:model.primary_Id];
-        [self.downWaitDic removeObjectForKey:model.primary_Id];
-        [self.waitPrimaryIds removeObject:model.primary_Id];
-        
-        [self downIng:model];
-    }else {
-        NSLog(@"没有下载任务了");
-    }
-}
-
-- (void)endDown:(HYUkDownListModel *)model
-{
-    if ([self.downIngDic.allKeys containsObject:model.primary_Id]) {
-        [[SJMediaCacheServer shared] cancelAllPrefetchTasks];
-        [self.downIngDic removeObjectForKey:model.primary_Id];
-        [self startNext];
-    }
-}
-
-- (void)removeCacheForURLs:(NSArray *)urls
-{
-    if (urls.count > 0) {
-        for (NSString *item in urls) {
-            [[SJMediaCacheServer shared] removeCacheForURL:[NSURL URLWithString:item]];
-        }
-    }
-}
+//- (void)removeCacheForURLs:(NSArray *)urls
+//{
+//    if (urls.count > 0) {
+//        for (NSString *item in urls) {
+//            [[SJMediaCacheServer shared] removeCacheForURL:[NSURL URLWithString:item]];
+//        }
+//    }
+//}
 
 @end

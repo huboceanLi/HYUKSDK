@@ -21,15 +21,17 @@ PODS:
   - HYBaseTool (1.0.4):
     - Masonry
     - QMUIKit
-  - HYUKSDK (0.0.1):
+  - HYUKSDK (2.0.0):
     - AFNetworking
     - CTNetworking
     - HYBaseTool (= 1.0.4)
     - JXCategoryView
     - Masonry
     - "MBProgressHUD+JDragon"
+    - MJRefresh
     - QMUIKit
-    - WCDB.swift
+    - UMCommon
+    - WCDB.swift (= 1.1.0)
     - YYCategories
     - YYModel
     - YYText
@@ -39,6 +41,7 @@ PODS:
   - MBProgressHUD (0.9.2)
   - "MBProgressHUD+JDragon (0.0.5)":
     - MBProgressHUD (~> 0.9.2)
+  - MJRefresh (3.7.5)
   - QMUIKit (4.3.0):
     - QMUIKit/QMUIComponents (= 4.3.0)
     - QMUIKit/QMUICore (= 4.3.0)
@@ -352,6 +355,9 @@ PODS:
   - QMUIKit/QMUIWeakObjectContainer (4.3.0)
   - SQLiteRepairKit (1.3.0):
     - WCDBOptimizedSQLCipher (~> 1.3.0)
+  - UMCommon (7.4.2):
+    - UMDevice
+  - UMDevice (3.2.0)
   - WCDB.swift (1.1.0):
     - SQLiteRepairKit (~> 1.3.0)
     - WCDBOptimizedSQLCipher (~> 1.3.0)
@@ -382,8 +388,11 @@ SPEC REPOS:
     - Masonry
     - MBProgressHUD
     - "MBProgressHUD+JDragon"
+    - MJRefresh
     - QMUIKit
     - SQLiteRepairKit
+    - UMCommon
+    - UMDevice
     - WCDB.swift
     - WCDBOptimizedSQLCipher
     - YYCache
@@ -402,13 +411,16 @@ SPEC CHECKSUMS:
   CTMediator: 3f3578b525b3a46a7a2f92a99922ec40363f4269
   CTNetworking: 53a7fd1d39bce85c15af471890037b4608b7124b
   HYBaseTool: 8f3f1f91a1ac925e8e0760925a225781d4d338f3
-  HYUKSDK: dbfec079b669124e025aac56dc7576772844a394
+  HYUKSDK: 4c8c8af0e39061cbd3cab4b547cfae558ebc721f
   JXCategoryView: 7b1ee69ede4843c581688afe84d0f047723262f2
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   "MBProgressHUD+JDragon": 15bf7583612f0bb9f0bcea634ba5eb247b17d014
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   QMUIKit: 67888be9aa0ee0b12b8a219fcea2eec900afd841
   SQLiteRepairKit: a66145aadae91886c800f75e16f5cc6476af1a93
+  UMCommon: 35b28c82a3a3be892f895628261edce11b6a9e3e
+  UMDevice: b08f6cc32f26798dbac58bd0e91fea1f008bd2b7
   WCDB.swift: 39e28fe29b5a3bf2927d9fb9218978f19bd49ff0
   WCDBOptimizedSQLCipher: fc5d49fe6761e54aad29e88da01b6fc1283e5759
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
@@ -418,6 +430,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 0796612965a231da39a1da1609e6384929dafa2c
+PODFILE CHECKSUM: f261fbe5b25c4cc346bb441c6eb5431ccd837a81
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

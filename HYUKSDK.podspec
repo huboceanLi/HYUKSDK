@@ -60,7 +60,7 @@ A short description of LHYADTool Test.
   
 #  s.dependency "Bugly"
 
-  s.dependency "Ads-CN"
+#  s.dependency "Ads-CN"
   s.dependency "UMCommon"
 
 end
