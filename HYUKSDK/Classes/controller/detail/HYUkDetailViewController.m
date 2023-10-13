@@ -8,7 +8,6 @@
 #import "HYUkDetailViewController.h"
 #import "HYUkVideoPlayView.h"
 #import "HYUkVideoDetailBriefView.h"
-//#import "HYUkVideoDetailToolView.h"
 #import "HYUkVideoDetailSelectWorkView.h"
 #import "HYUkVideoRecommendView.h"
 #import "HYUkVideoBriefDetailView.h"
@@ -17,10 +16,6 @@
 #import "HYResponseRecommendModel.h"
 #import "HYUkAllGatherListView.h"
 #import "HYUkDownGatherView.h"
-
-//#import <BUAdSDK/BUAdSDK.h>
-//#import <BUAdSDK/BUNativeExpressAdManager.h>
-//#import "HYUKConfigManager.h"
 
 static CGFloat briefViewHeoght = 60.0;
 
@@ -32,7 +27,6 @@ static NSInteger allTime = 31;
 @property(nonatomic, strong) UIScrollView * scrollView;
 @property(nonatomic, strong) HYUkVideoPlayView * playView;
 @property(nonatomic, strong) HYUkVideoDetailBriefView * briefView;
-//@property(nonatomic, strong) HYUkVideoDetailToolView * toolView;
 @property(nonatomic, strong) HYUkVideoDetailSelectWorkView * selectWorkView;
 @property(nonatomic, strong) HYUkVideoRecommendView * recommendView;
 @property(nonatomic, strong) HYUkVideoBriefDetailView * briefDetailView;
@@ -40,14 +34,10 @@ static NSInteger allTime = 31;
 @property(nonatomic, strong) HYUkDetailErrorView * errorView;
 @property(nonatomic, strong) HYUkAllGatherListView * gatherListView;
 @property(nonatomic, strong) HYUkDownGatherView * downGatherView;
-
-//@property (nonatomic, strong) BUNativeExpressAdManager *nativeExpressAdManager;
-//@property (strong, nonatomic) NSMutableArray<__kindof BUNativeExpressAdView *> *expressAdViews;
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) UIButton *timeButton;
-@property (nonatomic, assign) NSInteger recordIndex;
-//@property (nonatomic, strong) BUNativeExpressAdView *expressAdView;
-@property (nonatomic, strong) UIView *tempView;
+//@property (nonatomic, strong) NSTimer *timer;
+//@property (nonatomic, strong) UIButton *timeButton;
+//@property (nonatomic, assign) NSInteger recordIndex;
+//@property (nonatomic, strong) UIView *tempView;
 
 @property (nonatomic, strong) UIButton *backButton;
 
@@ -65,13 +55,12 @@ static NSInteger allTime = 31;
     [super viewWillAppear:animated];
     
     
-//    [[HYUkVideoConfigManager sharedInstance] setChangeOrientation:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    [self closeAddButton];
+//    [self closeAddButton];
     
     [self.playView saveHistoryRecord];
     
@@ -209,99 +198,6 @@ static NSInteger allTime = 31;
                                                   name:UIApplicationDidEnterBackgroundNotification
                                                 object:nil];
     [self getData];
-    
-    
-    [self requestExpressAd];
-}
-
-- (void)requestExpressAd {
-    
-    if ([UserDefault boolValueForKey:supper_user]) {
-        [self closeAddButton];
-        return;
-    }
-    
-//    self.expressAdViews = [NSMutableArray array];
-//
-//    BUAdSlot *slot1 = [[BUAdSlot alloc] init];
-//    slot1.ID = [HYUKConfigManager shareInstance].versionModel.express_id;
-//    slot1.AdType = BUAdSlotAdTypeFeed;
-//    BUSize *imgSize = [BUSize sizeBy:BUProposalSize_Banner600_150];
-//    slot1.imgSize = imgSize;
-//    slot1.position = BUAdSlotPositionFeed;
-//    // self.nativeExpressAdManager可以重用
-//     if (!self.nativeExpressAdManager) {
-//        self.nativeExpressAdManager = [[BUNativeExpressAdManager alloc] initWithSlot:slot1 adSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 0)];
-//        }
-//    self.nativeExpressAdManager.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0);
-//    self.nativeExpressAdManager.delegate = self;
-    
-    [self.playView pause];
-    self.playView.hidden = YES;
-    
-    self.tempView = [UIView new];
-    self.tempView.backgroundColor = UIColor.blackColor;
-    self.tempView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.playViewHeight);
-    [self.view addSubview:self.tempView];
-    
-    
-    self.timeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.timeButton.layer.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.8].CGColor;
-    self.timeButton.frame = CGRectMake(SCREEN_WIDTH - XJFlexibleFont(95), 15 + (IS_iPhoneX ? 44 : 20), XJFlexibleFont(86), XJFlexibleFont(30));
-    self.timeButton.layer.borderWidth = 1.0;
-    self.timeButton.layer.borderColor = UIColor.whiteColor.CGColor;
-    self.timeButton.layer.cornerRadius = XJFlexibleFont(15.0);
-    self.timeButton.layer.masksToBounds = YES;
-    [self.timeButton setTitle:@"点击跳过" forState:0];
-    self.timeButton.titleLabel.font = [UIFont systemFontOfSize:XJFlexibleFont(12)];
-    [self.timeButton setTitleColor:UIColor.whiteColor forState:0];
-    [self.view addSubview:self.timeButton];
-    [self.timeButton addTarget:self action:@selector(closeAddButton) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.timeButton.hidden = YES;
-    [self.view bringSubviewToFront:self.backButton];
-    
-//    [self.nativeExpressAdManager loadAdDataWithCount:1];
-
-    self.timer = [NSTimer timerWithTimeInterval:(1.0f) target:self selector:@selector(timeRecordCurrent) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
-    [self.timer setFireDate:[NSDate distantFuture]];
-}
-
-- (void)closeAddButton {
-
-    [self.timer setFireDate:[NSDate distantFuture]];
-    [self.timer invalidate];
-//    [self.expressAdView removeFromSuperview];
-//    self.expressAdView = nil;
-    self.timer = nil;
-    [self.timeButton removeFromSuperview];
-    self.timeButton = nil;
-    [self.playView startPlay];
-    self.playView.hidden = NO;
-    self.tempView.hidden = YES;
-}
-
-- (void)timeRecordCurrent {
-    
-    self.recordIndex--;
-    if (self.recordIndex <= 0) {
-        [self.timer setFireDate:[NSDate distantFuture]];
-        self.timeButton.userInteractionEnabled = YES;
-        [self closeAddButton];
-        return;
-    }
-
-    if (self.recordIndex >= 25) {
-        self.timeButton.userInteractionEnabled = NO;
-        [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@",self.recordIndex,@"s"] forState:0];
-        self.timeButton.frame = CGRectMake(SCREEN_WIDTH - XJFlexibleFont(40), 15 + (IS_iPhoneX ? 44 : 20), XJFlexibleFont(30), XJFlexibleFont(30));
-        return;
-    }
-    self.timeButton.userInteractionEnabled = YES;
-    [self.timeButton setTitle:[NSString stringWithFormat:@"%ld%@ | 跳过",self.recordIndex,@"s"] forState:0];
-    self.timeButton.frame = CGRectMake(SCREEN_WIDTH - XJFlexibleFont(85), 15 + (IS_iPhoneX ? 44 : 20), XJFlexibleFont(76), XJFlexibleFont(30));
-    
 
 }
 
@@ -329,9 +225,6 @@ static NSInteger allTime = 31;
         weakSelf.playView.data = responseObject;
         [weakSelf.playView loadContent];
 
-//        weakSelf.toolView.data = responseObject;
-//        [weakSelf.toolView loadContent];
-        
         [weakSelf getGuessLikeList];
         
         weakSelf.gatherListView.data = responseObject;
@@ -340,6 +233,7 @@ static NSInteger allTime = 31;
         weakSelf.downGatherView.data = responseObject;
         [weakSelf.downGatherView loadContent];
         
+        [weakSelf.playView startPlay];
     } fail:^(CTAPIManagerErrorType errorType, NSString *errorMessage) {
         self.errorView.hidden = NO;
         if (errorType == CTAPIManagerErrorTypeNoNetWork) {
