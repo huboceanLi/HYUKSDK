@@ -23,7 +23,6 @@
 
 #import "UIColor+UkPublicUse.h"
 #import "UIImage+uk_bundleImage.h"
-#import "BadgeButton.h"
 #import "UICollectionView+EmptyView.h"
 #import "UITableView+EmptyView.h"
 #import "HYUkShowLoadingManager.h"

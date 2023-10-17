@@ -59,8 +59,13 @@
 //        make.height.mas_equalTo(28);
     }];
     [self loadContent];
+    
 }
 
+- (void)clearButtonClick {
+    [[HYVideoSearchLogic share] clearData];
+    [self loadContent];
+}
 #pragma mark  --- UICollectionViewDataSource
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -115,6 +120,8 @@
         if (!self.historyHeadView) {
             self.historyHeadView = [[HYUkHistoryHeadView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, XJFlexibleFont(70))];
             [headView addSubview:self.historyHeadView];
+            [self.historyHeadView.clearBtn addTarget:self action:@selector(clearButtonClick) forControlEvents:UIControlEventTouchUpInside];
+
         }
 
 

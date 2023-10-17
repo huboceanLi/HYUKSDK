@@ -29,6 +29,7 @@
     [clearBtn setImagePosition:QMUIButtonImagePositionLeft];
     clearBtn.spacingBetweenImageAndTitle = 5;
     [self addSubview:clearBtn];
+    self.clearBtn = clearBtn;
     [clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-16);
         make.centerY.equalTo(self);

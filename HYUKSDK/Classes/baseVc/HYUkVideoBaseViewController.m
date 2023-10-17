@@ -102,7 +102,7 @@
 
 - (UIImageView *)bgImageView {
     if (!_bgImageView) {
-        _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH)];
         _bgImageView.image = [UIImage uk_bundleImage:@"uk_bg_Img"];
         _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.view addSubview:self.bgImageView];

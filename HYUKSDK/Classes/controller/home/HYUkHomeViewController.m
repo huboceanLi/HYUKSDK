@@ -12,7 +12,6 @@
 #import "HYUKSDK/HYUKSDK-Swift.h"
 #import "HYUkDetailViewController.h"
 #import "HYUKHistoryRecodeView.h"
-#import "HYVideoUpgradeViewController.h"
 #import "HYUkCenterHistoryListViewController.h"
 #import "HYUKRecommendViewController.h"
 
@@ -25,7 +24,6 @@
 @property (nonatomic, strong) UIButton *historyBtn;
 @property (nonatomic, strong) NSArray *categeryModels;
 @property (nonatomic, strong) HYUKHistoryRecodeView *recodeView;
-@property (nonatomic, strong) HYVideoUpgradeViewController *upgradeViewController;
 @property (nonatomic, strong) UIImageView *bgImageView;
 
 @end
@@ -123,8 +121,8 @@
     
     self.recodeView.hidden = YES;
     
-    [self getNoticeList];
-    [self chooseVersion];
+//    [self getNoticeList];
+//    [self chooseVersion];
     
 
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -270,14 +268,6 @@
         [_historyBtn addTarget:self action:@selector(hisetoryButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _historyBtn;
-}
-
-
-- (HYVideoUpgradeViewController *)upgradeViewController {
-    if (!_upgradeViewController) {
-        _upgradeViewController = [[HYVideoUpgradeViewController alloc] init];
-    }
-    return _upgradeViewController;
 }
 
 - (void)popViewController:(PopViewController *)popVC event:(id)event

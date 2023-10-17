@@ -97,13 +97,11 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "${PODS_ROOT}/../../HYUKSDK/Resources/shiyongxieyi.txt"
   install_resource "${PODS_ROOT}/../../HYUKSDK/Resources/HYVideoSDK.bundle"
   install_resource "${PODS_ROOT}/../../HYUKSDK/Resources/SJBaseVideoPlayerResources.bundle"
   install_resource "${PODS_ROOT}/../../HYUKSDK/Resources/SJVideoPlayer.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "${PODS_ROOT}/../../HYUKSDK/Resources/shiyongxieyi.txt"
   install_resource "${PODS_ROOT}/../../HYUKSDK/Resources/HYVideoSDK.bundle"
   install_resource "${PODS_ROOT}/../../HYUKSDK/Resources/SJBaseVideoPlayerResources.bundle"
   install_resource "${PODS_ROOT}/../../HYUKSDK/Resources/SJVideoPlayer.bundle"

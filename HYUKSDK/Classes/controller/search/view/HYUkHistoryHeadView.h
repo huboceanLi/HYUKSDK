@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HYUkHistoryHeadView : HYBaseView
 
+@property (nonatomic, strong) QMUIButton *clearBtn;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
