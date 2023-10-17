@@ -110,7 +110,7 @@
         make.left.equalTo(self.mas_left).offset(16);
         make.top.equalTo(self.tipLab.mas_bottom).offset(20);
         make.width.mas_equalTo(@(SCREEN_WIDTH - 32));
-        make.bottom.equalTo(self.scrollView.mas_bottom).offset(-(IS_iPhoneX ? 44 : 20));
+        make.bottom.equalTo(self.scrollView.mas_bottom).offset(-44);
     }];
 }
 
