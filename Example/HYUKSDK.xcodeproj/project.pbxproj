@@ -36,6 +36,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9A2FCEC82AE5218700C539FD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		11B750B512F0EAD70EA0CCA7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4CD5E5405755E6A2DEFF9823 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -209,6 +222,7 @@
 				6003F588195388D20070C39A /* Resources */,
 				3164C2A71DDF7DE5B62BDBBB /* [CP] Embed Pods Frameworks */,
 				2EE50EAD101F596681379857 /* [CP] Copy Pods Resources */,
+				9A2FCEC82AE5218700C539FD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -555,11 +569,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V6VQ8W355L;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/KSCommonSDK",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/RHAdSDK",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/BDCommonSDK",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/GDTCommonSDK",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/CSJCommonSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HYUKSDK/HYUKSDK-Prefix.pch";
 				INFOPLIST_FILE = "HYUKSDK/HYUKSDK-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = aaa;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/GDTCommonSDK",
+				);
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.videotest.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -574,11 +600,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V6VQ8W355L;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/KSCommonSDK",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/RHAdSDK",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/BDCommonSDK",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/GDTCommonSDK",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/CSJCommonSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HYUKSDK/HYUKSDK-Prefix.pch";
 				INFOPLIST_FILE = "HYUKSDK/HYUKSDK-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = aaa;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HYUKSDK/AdSDKLibs/GDTCommonSDK",
+				);
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.videotest.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -1088,6 +1088,8 @@
 		9A015B1EB3ADC89A29627E716C456AE5 /* QMUIEasings.h in Headers */ = {isa = PBXBuildFile; fileRef = E2D021B351CE9BB88E2B54939BF22E3F /* QMUIEasings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A117113ECD88D7799CCD0E99642491A /* NSData+YYAdd.h in Headers */ = {isa = PBXBuildFile; fileRef = 10A489D0EA7E8A30988448F9AFC5CD8C /* NSData+YYAdd.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A2F35B71DFD0DEEEB9922B9261E4B7E /* SJAVPictureInPictureController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07280E77276DC76EDB9FA87244C24027 /* SJAVPictureInPictureController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2FCE7D2AE520BC00C539FD /* YXTypeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2FCE7B2AE520BB00C539FD /* YXTypeManager.m */; };
+		9A2FCE7E2AE520BC00C539FD /* YXTypeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A2FCE7C2AE520BC00C539FD /* YXTypeManager.h */; };
 		9A4473510E8A60564A0FEAC20F1BBBB5 /* SJSmallViewFloatingControllerDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEE01CE3D6CEBC060B894E22967CDF3 /* SJSmallViewFloatingControllerDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A6B24C6BE3499283ECCABBF952F952E /* UIViewController+RuntimeReplace.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D2C054FD1138678B1191C4B2BAB54A2 /* UIViewController+RuntimeReplace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A9B1499C1489C3C244586B3C32F6467 /* SJDeviceVolumeAndBrightnessTargetViewContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C896F34615F0C19F7CCE6F7C6AF96917 /* SJDeviceVolumeAndBrightnessTargetViewContext.m */; };
@@ -3236,6 +3238,8 @@
 		99C58683ABD05E1DD189EA70294D1BD5 /* DDNumber.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DDNumber.m; sourceTree = "<group>"; };
 		99F67E8046F7A4BD9605D7ABB94FB208 /* TableInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TableInterface.swift; path = swift/source/core/interface/TableInterface.swift; sourceTree = "<group>"; };
 		9A2D8F467AB9FB61D964A000DE614842 /* CTCacheCenter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTCacheCenter.h; path = CTNetworking/CTNetworking/Components/CacheComponents/CTCacheCenter.h; sourceTree = "<group>"; };
+		9A2FCE7B2AE520BB00C539FD /* YXTypeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTypeManager.m; sourceTree = "<group>"; };
+		9A2FCE7C2AE520BC00C539FD /* YXTypeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTypeManager.h; sourceTree = "<group>"; };
 		9A60B41C9594769E86349E3A03E97C22 /* JXCategoryView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JXCategoryView.release.xcconfig; sourceTree = "<group>"; };
 		9A66053AD07B1B9DEF33690B086EDAEE /* WCDBOptimizedSQLCipher.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = WCDBOptimizedSQLCipher.modulemap; sourceTree = "<group>"; };
 		9A790937C11239AC1507FFB2F89DDFF9 /* HTTPRedirectResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HTTPRedirectResponse.h; sourceTree = "<group>"; };
@@ -6101,6 +6105,8 @@
 		9024126BF46B0DDC89465E41C8CB1A93 /* baseCategory */ = {
 			isa = PBXGroup;
 			children = (
+				9A2FCE7C2AE520BC00C539FD /* YXTypeManager.h */,
+				9A2FCE7B2AE520BB00C539FD /* YXTypeManager.m */,
 				23937CADA4CB52876328F6BA87D5A06E /* AdaptScreen.h */,
 				FE30C5ED1ECEC0018F1EC4929B1A94B6 /* HYLocalPathManager.h */,
 				38AB766479A1558D47AED58A3E22F7D3 /* HYLocalPathManager.m */,
@@ -8200,6 +8206,7 @@
 				6D867FFD748910B37E2BADDF39350840 /* UIScrollView+SJBaseVideoPlayerExtended.h in Headers */,
 				B5F42825D0818F6F376C86F5C67EE5A4 /* UITableView+EmptyView.h in Headers */,
 				22FCB330B3FBB4A98128292E4D1F267B /* UIView+SJAnimationAdded.h in Headers */,
+				9A2FCE7E2AE520BC00C539FD /* YXTypeManager.h in Headers */,
 				409620EC211B4B69CD31AE346F580866 /* UIView+SJBaseVideoPlayerExtended.h in Headers */,
 				C7A1A70D04D4948FBDE3BA187593EC17 /* UIViewController+SJBaseVideoPlayerExtended.h in Headers */,
 				B0642AFBC86A46E96425076E927653B0 /* WebSocket.h in Headers */,
@@ -9819,6 +9826,7 @@
 				2F813CFFC6020976E9849652C82806F1 /* MCSQueue.m in Sources */,
 				967BB5DC39909A8D3AE4F455A4FE9C29 /* MCSReadwrite.m in Sources */,
 				E9B79E3205F31ACAA63C2805C8E7B696 /* MCSResponse.m in Sources */,
+				9A2FCE7D2AE520BC00C539FD /* YXTypeManager.m in Sources */,
 				36EB73216C33D48224CEEE226E796973 /* MCSRootDirectory.m in Sources */,
 				0FEE18F4438F5BEF93F7DA663319D43F /* MCSURL.m in Sources */,
 				8136FF7161D6C135B2B4D061DC17F32D /* MCSUtils.m in Sources */,
