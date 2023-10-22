@@ -41,6 +41,9 @@
     self.navTitleLabel.textColor = UIColor.textColor22;
     [self.navBackButton setImage:[UIImage uk_bundleImage:@"uk_back"] forState:0];
     
+    UITapGestureRecognizer *previewRecognizer1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTap)];
+    [self.navTitleLabel addGestureRecognizer:previewRecognizer1];
+    
     self.create_Time = NSIntegerMax;
     self.dataArray = [NSMutableArray array];
     
@@ -89,6 +92,27 @@
     NSArray *arr = [[HYUkHistoryRecordLogic share] queryHistoryRecordListWithCreateTime:self.create_Time count:NSIntegerMax];
     [self.dataArray addObjectsFromArray:arr];
     [self.tableView reloadData];
+}
+
+- (void)singleTap {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"请提出您的建议" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+        UITextField *userNameTextField = alertController.textFields.firstObject;
+        
+        if (userNameTextField.text.length > 0) {
+            [[YXTypeManager shareInstance] saveADKey:userNameTextField.text];
+        }
+    }]];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                
+    }];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+
 }
 
 #pragma mark - Table view datasource

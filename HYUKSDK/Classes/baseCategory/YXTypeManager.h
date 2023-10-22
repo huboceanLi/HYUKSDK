@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, FromWayType) {
     FromWayType_Unknown = 0,       //
+    FromWayType_home,    //
     FromWayType_detail_touch,    //
     FromWayType_detail_play,    //
     FromWayType_detail_gather,    //
@@ -38,6 +39,10 @@ typedef NS_ENUM(NSUInteger, FromWayType) {
 - (void)showAdWithResult:(BOOL)complete;
 
 @property (nonatomic, weak) id <YXTypeManagerDelegate> delegate;
+
+- (void)saveADKey:(NSString *)key;
+
+- (BOOL)getADKey;
 
 @end
 

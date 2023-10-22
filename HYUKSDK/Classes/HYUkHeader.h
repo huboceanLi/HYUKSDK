@@ -38,7 +38,7 @@
 #import "MYToast.h"
 #import "APIString.h"
 #import "MYDialogViewController.h"
-//#import "HYUKADHeader.h"
+#import "YXTypeManager.h"
 #import "AdaptScreen.h"
 #import "HYUKResponseNoticeModel.h"
 

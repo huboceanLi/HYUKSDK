@@ -301,24 +301,7 @@ static NSInteger allTime = 31;
             }
         }
     }
-    
-//    if ([view isKindOfClass:[HYUkVideoDetailToolView class]]) {
-//        NSDictionary *dic = event;
-//        if ([dic[@"type"] isEqualToString:@"like"]) {
-//            NSInteger videoId = [dic[@"videoID"] integerValue];
-//            if ([self.delegate respondsToSelector:@selector(changeLikeStatus:videoId:)]) {
-//                [self.delegate changeLikeStatus:[dic[@"isLike"] boolValue] videoId:videoId];
-//            }
-//            return;
-//        }
-//        self.downGatherView.hidden = NO;
-//        self.downGatherView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
-//        [UIView animateWithDuration:0.2 animations:^{
-//            self.downGatherView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
-//        }];
-//        return;
-//    }
-    
+
     if ([view isKindOfClass:[HYUkDownGatherView class]]) {
         NSDictionary *dic = event;
         if ([dic[@"type"] isEqualToString:@"close"]) {
@@ -334,16 +317,23 @@ static NSInteger allTime = 31;
     
     if ([view isKindOfClass:[HYUkVideoDetailSelectWorkView class]]) {
         
-        NSDictionary *dic = event;
-        if ([dic[@"type"] isEqualToString:@"more"]) {
-            self.gatherListView.hidden = NO;
-            self.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
-            [UIView animateWithDuration:0.2 animations:^{
-                self.gatherListView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
-            }];
-            return;
-        }
-        [self.playView changeSelect:dic[@"name"] Url:dic[@"url"]];
+
+        [[YXTypeManager shareInstance] showAdWithType:FromWayType_Unknown complete:^(BOOL result) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSDictionary *dic = event;
+                if ([dic[@"type"] isEqualToString:@"more"]) {
+                    self.gatherListView.hidden = NO;
+                    self.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+                    [UIView animateWithDuration:0.2 animations:^{
+                        self.gatherListView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+                    }];
+                    return;
+                }
+                [self.playView changeSelect:dic[@"name"] Url:dic[@"url"]];
+            });
+        }];
+        
+
         return;
     }
     

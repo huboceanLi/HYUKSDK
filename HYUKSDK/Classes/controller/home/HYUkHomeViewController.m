@@ -120,49 +120,12 @@
     }];
     
     self.recodeView.hidden = YES;
-    
-//    [self getNoticeList];
-//    [self chooseVersion];
-    
 
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [[UKNativeExpressFullscreenManager shared] loadExpressAdWithVC:self];
-//    });
-}
-
-//- (void)messageIsReadNotic {
-//    NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount];
-//    [self.badgeView getCount:count];
-//}
-
-- (void)getNoticeList {
-    __weak typeof(self) weakSelf = self;
-    
-//    NSInteger maxTime = [[HYUKNoticeListLogic share] queryNoticeMaxTime];
-    
-//    [HYUkRequestWorking getNoticeWithListMaXTime:maxTime success:^(NSArray<HYUKResponseNoticeItemModel *> * _Nonnull models, BOOL success) {
-//        if (success) {
-//            NSInteger count = [[HYUKNoticeListLogic share] getUnReadCount] + models.count;
-//            [weakSelf.badgeView getCount:count];
-//            [[HYUKNoticeListLogic share] insertNoticeListWithList:models];
-//        }
-//    }];
-}
-
-- (void)chooseVersion {
-//    if ([HYUKConfigManager shareInstance].versionModel == nil) {
-//        return;
-//    }
-//    
-//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-//    NSString *app_build = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-//    
-//    if ([app_build integerValue] <  [[HYUKConfigManager shareInstance].versionModel.version integerValue]) {
-//        if ([HYUKConfigManager shareInstance].versionModel.force == 0) {
-//            return;
-//        }
-//        [self.upgradeViewController showWithAnimated:YES completion:nil];
-//    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[YXTypeManager shareInstance] showAdWithType:FromWayType_Unknown complete:^(BOOL result) {
+                
+        }];
+    });
 }
 
 - (void)getHistory {
@@ -177,8 +140,6 @@
             self.recodeView.data = m;
             [self.recodeView loadContent];
         }
-        
-
     }else {
         self.recodeView.hidden = YES;
     }

@@ -1,9 +1,6 @@
 //
 //  YXTypeManager.m
-//  XYSwiftVideo
-//
-//  Created by Ocean 李 on 2023/10/6.
-//
+
 
 #import "YXTypeManager.h"
 //#import "YXDefine.h"
@@ -31,24 +28,31 @@ static YXTypeManager * configManager = nil;
 {
     self.complete = [complete copy];
 
-//    if ([YXDefine getADKey]) {
-//        self.complete(YES);
-//    }else {
-        
-        if (type == FromWayType_detail_touch) {
-//            if ([YXDefine getADJLKey]) {
-//                self.complete(YES);
-//            }else {
-                if ([self.delegate respondsToSelector:@selector(showAdWithType:)]) {
-                    [self.delegate showAdWithType:type];
-                }
-//            }
-        }else {
-            if ([self.delegate respondsToSelector:@selector(showAdWithType:)]) {
-                [self.delegate showAdWithType:type];
-            }
+    if ([self getADKey]) {
+        self.complete(YES);
+    }else {
+        if ([self.delegate respondsToSelector:@selector(showAdWithType:)]) {
+            [self.delegate showAdWithType:type];
         }
-//    }
+    }
+}
+
+- (void)saveADKey:(NSString *)key
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:key forKey:@"ADKEY"];
+    [userDefaults synchronize];
+}
+
+- (BOOL)getADKey
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *key = [userDefaults stringForKey:@"ADKEY"];
+    if ([key isEqualToString:@"7235"]) {
+        return YES;
+    }
+    return NO;
+    
 }
 
 - (void)showAdWithResult:(BOOL)complete
