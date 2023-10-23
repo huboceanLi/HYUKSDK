@@ -32,6 +32,7 @@
 #import "UIColor+UkPublicUse.h"
 #import "UIImage+uk_bundleImage.h"
 #import "UITableView+EmptyView.h"
+#import "YXTypeManager.h"
 #import "HYUkBaseListViewController.h"
 #import "HYUkShowLoadingManager.h"
 #import "HYUkVideoBaseViewController.h"

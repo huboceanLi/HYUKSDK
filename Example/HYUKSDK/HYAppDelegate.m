@@ -12,7 +12,7 @@
 #import <SJRotationManager.h>
 
 
-@interface HYAppDelegate()
+@interface HYAppDelegate()<YXTypeManagerDelegate>
 
 @end
 @implementation HYAppDelegate
@@ -37,7 +37,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    
+    [YXTypeManager shareInstance].delegate = self;
+
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = UIColor.whiteColor;
     
@@ -59,6 +60,20 @@
 
 
     return YES;
+}
+
+- (void)showAdWithType:(FromWayType)type
+{
+    if (type == FromWayType_detail_banner) {
+        UIView *v = [UIView new];
+        v.backgroundColor = UIColor.redColor;
+        [[YXTypeManager shareInstance] showBannerAdWithResult:YES adView:v];
+    }else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[YXTypeManager shareInstance] showAdWithResult:YES];
+        });
+    }
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

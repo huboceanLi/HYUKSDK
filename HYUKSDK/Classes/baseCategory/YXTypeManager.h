@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, FromWayType) {
     FromWayType_detail_play,    //
     FromWayType_detail_gather,    //
     FromWayType_search,      //
+    FromWayType_detail_banner,      //
 };
 
 @class YXTypeManager;
@@ -43,6 +44,10 @@ typedef NS_ENUM(NSUInteger, FromWayType) {
 - (void)saveADKey:(NSString *)key;
 
 - (BOOL)getADKey;
+
+- (void)showBannerAdComplete:(void (^)(BOOL, UIView *))complete;
+
+- (void)showBannerAdWithResult:(BOOL)complete adView:(UIView *)adView;
 
 @end
 

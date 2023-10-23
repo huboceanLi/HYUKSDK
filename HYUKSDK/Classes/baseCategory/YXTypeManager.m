@@ -11,6 +11,8 @@ static YXTypeManager * configManager = nil;
 
 @property (copy, nonatomic) void (^complete)(BOOL);
 
+@property (copy, nonatomic) void (^adComplete)(BOOL,UIView*);
+
 @end
 
 @implementation YXTypeManager
@@ -58,6 +60,24 @@ static YXTypeManager * configManager = nil;
 - (void)showAdWithResult:(BOOL)complete
 {
     self.complete(complete);
+}
+
+- (void)showBannerAdComplete:(void (^)(BOOL, UIView *))complete
+{
+    self.adComplete = [complete copy];
+    
+    if ([self getADKey]) {
+        self.adComplete(YES, nil);
+    }else {
+        if ([self.delegate respondsToSelector:@selector(showAdWithType:)]) {
+            [self.delegate showAdWithType:FromWayType_detail_banner];
+        }
+    }
+}
+
+- (void)showBannerAdWithResult:(BOOL)complete adView:(UIView *)adView
+{
+    self.adComplete(complete, adView);
 }
 
 @end
