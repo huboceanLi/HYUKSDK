@@ -225,8 +225,9 @@ static NSInteger allTime = 31;
                     if (adView) {
                         weakSelf.adView.hidden = NO;
                         [weakSelf.adView mas_updateConstraints:^(MASConstraintMaker *make) {
-                            make.height.mas_offset(60.0);
+                            make.height.mas_offset(120.0);
                         }];
+                        [weakSelf.adView addSubview:adView];
                     }else {
                         weakSelf.adView.hidden = YES;
                         [weakSelf.adView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -325,19 +326,20 @@ static NSInteger allTime = 31;
     
     if ([view isKindOfClass:[HYUkVideoDetailSelectWorkView class]]) {
         
+        __weak typeof(self) weakSelf = self;
 
         [[YXTypeManager shareInstance] showAdWithType:FromWayType_Unknown complete:^(BOOL result) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSDictionary *dic = event;
                 if ([dic[@"type"] isEqualToString:@"more"]) {
-                    self.gatherListView.hidden = NO;
-                    self.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+                    weakSelf.gatherListView.hidden = NO;
+                    weakSelf.gatherListView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - weakSelf.playViewHeight);
                     [UIView animateWithDuration:0.2 animations:^{
-                        self.gatherListView.frame = CGRectMake(0, self.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - self.playViewHeight);
+                        weakSelf.gatherListView.frame = CGRectMake(0, weakSelf.playViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - weakSelf.playViewHeight);
                     }];
                     return;
                 }
-                [self.playView changeSelect:dic[@"name"] Url:dic[@"url"]];
+                [weakSelf.playView changeSelect:dic[@"name"] Url:dic[@"url"]];
             });
         }];
         
