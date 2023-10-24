@@ -10,9 +10,11 @@
 #import <HYUKSDK/HYUkHeader.h>
 #import "HYViewController.h"
 #import <SJRotationManager.h>
+#import <HYUKSDK/HYUkHeader.h>
 
 
 @interface HYAppDelegate()<YXTypeManagerDelegate>
+
 
 @end
 @implementation HYAppDelegate
@@ -65,15 +67,13 @@
 - (void)showAdWithType:(FromWayType)type
 {
     if (type == FromWayType_detail_banner) {
+
         UIView *v = [UIView new];
-        v.backgroundColor = UIColor.redColor;
         [[YXTypeManager shareInstance] showBannerAdWithResult:YES adView:v];
     }else {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[YXTypeManager shareInstance] showAdWithResult:YES];
-        });
+        [[YXTypeManager shareInstance] showAdWithResult:YES];
     }
-
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -102,5 +102,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 @end

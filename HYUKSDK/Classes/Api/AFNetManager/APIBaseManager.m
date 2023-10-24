@@ -9,7 +9,6 @@
 #import "APIBaseManager.h"
 #import "BaseModel.h"
 //#import "AppDelegate+Change.h"
-
 @interface APIBaseManager ()<CTAPIManagerValidator,CTAPIManager>
 
 @property (class, nonatomic, copy) NSString * apiName;

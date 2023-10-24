@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HYUKSDK'
-  s.version          = '2.0.0'
+  s.version          = '2.1.0'
   s.summary          = 'A short description of HYUKSDK.'
 
 # This description is used to generate tags and improve search results.
@@ -28,9 +28,9 @@ A short description of LHYADTool Test.
   s.source           = { :git => 'https://github.com/huboceanLi/HYUKSDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
   s.requires_arc = true
-  #s.swift_version = '5.0'
+  s.swift_version = '5.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.static_framework = true
   s.source_files = 'HYUKSDK/Classes/**/*'
