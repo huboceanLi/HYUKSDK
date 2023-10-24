@@ -42,7 +42,7 @@
 #import "YXTypeManager.h"
 #import "AdaptScreen.h"
 #import "HYUKResponseNoticeModel.h"
-
+#import "UIImage+uk_bundleImage.h"
 #import "HYUkVideoBaseViewController.h"
 #import "HYUkHomeViewController.h"
 
